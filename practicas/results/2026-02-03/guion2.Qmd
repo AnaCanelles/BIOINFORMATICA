@@ -28,7 +28,7 @@ opciones](https://git-scm.com/install/mac), pero la más sencilla parece
 ser instalar las *command line tools*, también desde un terminal,
 mediante la orden `xcode-select --install`.
 
-(para guardar las cosas: history \> archivo.txt )
+(para guardar las cosas de terminal: history \> archivo.txt )
 
 # Objetivos
 
@@ -75,10 +75,10 @@ Puedes ver la configuración actual con `git config --list`.
 
 # Creación del repositorio
 
-Desde la carpeta principal, en el terminal ejecutamos
-`git init`(inicializar git). Se habrá creado una carpeta oculta, `.git`.
-A partir de ese momento, Git observará las modificaciones de todos los
-archivos en esa carpeta y **en todas sus subcarpetas**.
+Desde la carpeta principal, en el terminal ejecutamos `git init`
+(inicializar git). Se habrá creado una carpeta oculta, `.git`. A partir
+de ese momento, Git observará las modificaciones de todos los archivos
+en esa carpeta y **en todas sus subcarpetas**.
 
 Es importante no crear repositorios en subcarpetas de un repositorio
 previo.
