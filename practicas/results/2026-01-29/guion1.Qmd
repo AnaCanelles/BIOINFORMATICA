@@ -44,7 +44,7 @@ usar el sudo antes
 # Comandos básicos
 
 | Comando | Función |
-|----|:---|
+|------------------------------------|:-----------------------------------|
 | pwd | Conocer la dirección absoluta del directorio actual. ¿Dónde estoy? |
 | cd .. | Cambiar al directorio superior (volver al directorio anterior) |
 | cd a | Entrar en el directorio "a" |
@@ -179,7 +179,7 @@ if [ ! -e aln1.txt ]; then
    # y poder distribuir los argumentos y opciones en más de una línea.
    needle -asequence HumanChr17.fa \
           -bsequence HumanSMARCD2.fa \
-          -gapopen 15.0 \ (10?)
+          -gapopen 15.0 \
           -gapextend 0.5 \
           -auto \
           -outfile aln1.txt
@@ -229,6 +229,25 @@ humano con water)
 5.  Alinea también el tránscrito de SMARCD2 de chimpancé a su cromosoma.
 6.  Alinea también los dos fragmentos cromosómicos.
 :::
+
+Alineamiento chimpancé:
+
+```{bash}
+if [ ! -e aln2.txt ]; then
+   if [ ! -e ChimpSMARCD2 ]; then
+      wget -O ChimpSMARCD2.fa  https://www.ebi.ac.uk/ena/browser/api/fasta/PNJ01291.1;
+   fi
+   if [ ! -e ChimpChr17.fa ]; then
+      wget -O ChimpChr17.fa https://rest.ensembl.org/sequence/region/chimpanzee/17:63309800..63321000:1
+   fi
+   needle -asequence ChimpChr17.fa \
+          -bsequence ChimpSMARCD2.fa \
+          -gapopen 15.0 \
+          -gapextend 0.5 \
+          -auto \
+          -outfile aln2.txt
+fi
+```
 
 Para alinear tránscritos o incluso proteínas a un genoma de referencia,
 es mejor usar el programa `exonerate` [@Slater2005], que puede aplicar

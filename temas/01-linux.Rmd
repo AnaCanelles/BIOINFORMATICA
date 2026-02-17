@@ -369,6 +369,19 @@ el formato [SAM](https://samtools.github.io/hts-specs/SAMv1.pdf),
 disponen de versiones comprimidas propias, como el formato
 [BAM](https://samtools.github.io/hts-specs/).
 
+En los archivos SAM se guardan las lecturas de ???. Nos dicen dónde
+están las homologías, en qué cromosoma, la calidad, etc. También guardan
+información sobre las secuencias que no han podido alinearse con la
+secuencia de referencia. Cada lectura está referenciada con unas marcas
+binarias (tabla de la presentación) que dan información sobre la
+lectura. El número que marca cada lectura se descompone en potencias de
+2 para saber qué marcas tiene ( 99 = 64 + 32 + 2 + 1 = 2\^6 + 2\^5 +
+2\^1 + 2\^0, que en binario es 000110011, y eso es lo que señala las
+marcas de esa lectura).
+
+Los archivos SAM se pueden modificar, etc. con samtools. Todos los
+archivos fastq acaban convertidos en SAM.
+
 ### Otros archivos binarios
 
 Los archivos de texto plano tienen dos inconvenientes principales: no
