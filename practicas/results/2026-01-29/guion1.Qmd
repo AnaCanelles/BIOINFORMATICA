@@ -6,7 +6,7 @@ execute:
   output: true
   error: true
 engine: knitr
-bibliography: ../../references.bib
+bibliography: ../../doc/references.bib
 language:
    title-block-published: "Última actualización:"
    section-title-references: "Bibliografía"
@@ -33,8 +33,6 @@ los cinco programas así (con privilegios administrativos):
 apt install emboss exonerate wget muscle
 ```
 
-usar el sudo antes
-
 # Objetivos
 
 1.  Practicar los comandos básicos de Bash.
@@ -54,37 +52,9 @@ usar el sudo antes
 | rm a | Eliminar el *archivo* "a" |
 | rm -r a | Eliminar el *directorio* "a" y su contenido |
 | touch a | Crear el archivo vacío "a" o actualizar su fecha de consulta si ya existía |
-| ls |  |
-| ls -lh | no sé muy bien qué hace pero te dice todo lo que tienes con administradores y cosas raras |
+| ls -lh | Consultar información de la carpeta |
 | ls -1 | Mostrar el contenido de la carpeta |
 | cd \~ | Volver a casa |
-
-directorio = carpeta
-
-Que las subcarpetas de resultados tengan de nombre la fecha en que se
-empieza un análisis, por que nunca sabes cómo vas a acabar.
-
-Normalmente las carpetas son "doc", "data" y "results". doc tiene
-referencias, facturas, bibliografía (bib) y cosas; data son los datos y
-results es el que tiene las subcarpetas.
-
-Además tener un archivo que sirva de índice y se suele llamar "README".
-Tiene la extensión .md (markdown) para convertirlo a html. Este archivo
-no está dentro de las subcarpetas, sino al nivel principal.
-
-Dentro de cada carpeta de análisis debería haber un script que cuando se
-ejecute se regeneren los resultados (README.qmd).
-
-cp y mv sirven para copiar o mover un archivo a otro sitio. Se debería
-poner todas las carpetas dentro de las que está y a donde va pero se
-puede usar el tabulador (completar los nombres de las carpetas sin tener
-que escribirlo todo). También se puede hacer con ../../ etc y cada .. es
-un nivel que se sube. Esto es un path relativo porque depende de dónde
-estas tiene un sentido u otro.
-
-::: {.callout-tip title="Consejo"}
-Amplía la tabla modificando el documento fuente.
-:::
 
 ::: {.callout-note icon="false"}
 ## Ejercicio 1
@@ -116,18 +86,6 @@ su interior usando los comandos de Bash que has aprendido:
 ```
 :::
 
-Abrir emboss:
-
-```         
-conda activate emboss
-```
-
-Cerrar: :
-
-```         
-conda deactivate
-```
-
 Si tuviesemos muchas más secuencias se usa muscle. Hay un paquete de
 algo que tiene la función browse que nos permite ver el resultado en el
 html. es alineamiento de proteínas.
@@ -153,13 +111,16 @@ estructura de intrones y exones del gen. Si las herramientas de
 programas
 [`needle`](http://emboss.open-bio.org/rel/rel6/apps/needle.html) o
 [`water`](http://emboss.open-bio.org/rel/rel6/apps/water.html) para
-realizar el alineamiento desde la linea de órdenes mediante los
+realizar el alineamiento desde la línea de órdenes mediante los
 algoritmos de Needleman-Wunsch o de Smith-Waterman, respectivamente.
 Puedes consultar la ayuda completa de estas herramientas ejecutando
 `needle -help -verbose` o `water -help -verbose`. Las órdenes siguientes
 descargan dos de las secuencias y las alinean con `needle`, a modo de
 ejemplo. El resultado del alineamiento debería guardarse en un archivo
 en formato de texto.
+
+El programa needle permite alinear secuencias de forma global, y water
+genera alineamientos locales.
 
 ```{bash}
 #| eval: false
@@ -186,55 +147,61 @@ if [ ! -e aln1.txt ]; then
 fi
 ```
 
-Manejar EMBOSS no es tan importante, hay paquetes de R que lo hacen.
-wget para descargar las secuencias de internet y needle para alinearlas.
+No he podido descargar la secuencia HumanChr17.fa con wget, así que he
+creado un archivo nano con el mismo nombre para copiarla.
 
-ejecucion condicional: las condiciones se pueden encajar. si no existe
-un archivo que se llame de una manera entonces ejecuta todo lo que pone.
+Esta serie de órdenes sirve para la ejecución condicional, y permite
+encajar condiciones. Por ejemplo: si no existe el archivo
+HumanSMARCD2.fa, entonces se descarga con wget y ese enlace (! significa
+no, -e significa existe).
 
-desde que empieza if hasta que termina fi. la exclamación significa no.
+Una vez nos aseguramos que tenemos los dos archivos los alineamos con
+needle, que implementa un algoritmo de alineación de las dos secuencias
+con los argumentos que le hemos dado y genera un archivo .txt con el
+alineamiento y el nombre que le hemos señalado. Es un programa que
+siempre da algún resultado, aunque no sea correcto.
 
-if \[ ! -e aln1.txt\]; then algo. si no existe el archivo que se llama
-de esa manera, entonces descargar con wget, y se le dice que el output
-se envie a un sitio con ese nombre (-O) desde la web que pone.
-
-Una vez nos aseguramos que tenemos los dos archivos los alineamos. El \\
-es para ignorar el carácter siguiente (salto de linea en este caso). Ahí
-se ponen los argumentos que utiliza needle, que implementa un algoritmo
-de alineación de dos secuencias. Si conseguimos alinearlo obtenemos un
-archivo de txt. Deja bastante que desear. Los argumentos de alineamiento
-siempre dan un resultado, aunque no sea correcto.
+Para comprobar el contenido de un archivo y ver las primeras 5 líneas
+usamos:
 
 ```         
 head -5 (nombre archivo secuencia)
 ```
-
-Muestra las primeras lineas de la secuencia para comprobar que se ha
-descargado correctamente.
-
-(aln1.txt alineamiento de humano con needle; aln2.txt alineamiento de
-humano con water)
 
 ::: {.callout-note icon="false"}
 ## Desafíos
 
 0.  Lee detenidamente las órdenes y los comentarios y asegúrate de
     entenderlos.
+
 1.  Si al ejecutarlas aparece algún mensaje de error, léelo y corrige el
     error.
+
+    No he podido descargar las secuencias de los cromosomas con wget,
+    pero he creado un archivo con nano con el mismo nombre donde la he
+    copiado y así sí que ha funcionado.
+
 2.  Lee la ayuda del programa `needle` e intenta ajustar los parámetros
     para obtener un alineamiento más convincente.
+
 3.  Prueba el programa `water`, para que el alineamiento sea local.
+
+    Resultado del alineamiento local de humano en aln3.txt
+
 4.  Intenta guardar el alineamiento en formato FASTA.
-5.  Alinea también el tránscrito de SMARCD2 de chimpancé a su cromosoma.
+
+5.  Alinea también el transcrito de SMARCD2 de chimpancé a su cromosoma.
+
+    Resultado del alineamiento: aln2.txt
+
 6.  Alinea también los dos fragmentos cromosómicos.
 :::
 
-Alineamiento chimpancé:
+Alineamiento chimpancé con needle:
 
 ```{bash}
 if [ ! -e aln2.txt ]; then
-   if [ ! -e ChimpSMARCD2 ]; then
+   if [ ! -e ChimpSMARCD2.fa ]; then
       wget -O ChimpSMARCD2.fa  https://www.ebi.ac.uk/ena/browser/api/fasta/PNJ01291.1;
    fi
    if [ ! -e ChimpChr17.fa ]; then
@@ -246,6 +213,38 @@ if [ ! -e aln2.txt ]; then
           -gapextend 0.5 \
           -auto \
           -outfile aln2.txt
+fi
+```
+
+He tenido el mismo problema al descargar la secuencia de ChimpChr17 y lo
+he resuelto de la misma forma.
+
+Alineamiento humano con water:
+
+En este caso sabemos que ya tenemos las secuencias descargadas
+correctamente, así que no es necesario volver a hacerlo.
+
+```{bash}
+if [ ! -e aln3.txt ]; then
+   water  -asequence HumanChr17.fa \
+          -bsequence HumanSMARCD2.fa \
+          -gapopen 10.0 \
+          -gapextend 0.5 \
+          -auto \
+          -outfile aln3.txt
+fi
+```
+
+Alineamiento de los fragmentos cromosómicos:
+
+```{bash}
+if [ ! -e aln4.txt ]; then
+   needle -asequence HumanChr17.fa \
+          -bsequence ChimpChr17.fa \
+          -gapopen 15.0 \
+          -gapextend 0.5 \
+          -auto \
+          -outfile aln4.txt
 fi
 ```
 

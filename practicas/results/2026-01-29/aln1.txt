@@ -1,10 +1,10 @@
 ########################################
 # Program: needle
-# Rundate: Mon  2 Feb 2026 21:10:23
+# Rundate: Tue 17 Feb 2026 20:26:04
 # Commandline: needle
-#    -asequence HumanChr17.fasta
-#    -bsequence HumanSMARCD2.fasta
-#    -gapopen 10
+#    -asequence HumanChr17.fa
+#    -bsequence HumanSMARCD2.fa
+#    -gapopen 15.0
 #    -gapextend 0.5
 #    -auto
 #    -outfile aln1.txt
@@ -18,14 +18,14 @@
 # 1: 1
 # 2: AAI36323.1
 # Matrix: EDNAFULL
-# Gap_penalty: 10.0
+# Gap_penalty: 15.0
 # Extend_penalty: 0.5
 #
-# Length: 11211
-# Identity:    1014/11211 ( 9.0%)
-# Similarity:  1014/11211 ( 9.0%)
-# Gaps:        9936/11211 (88.6%)
-# Score: 1633.5
+# Length: 11324
+# Identity:     828/11324 ( 7.3%)
+# Similarity:   828/11324 ( 7.3%)
+# Gaps:       10162/11324 (89.7%)
+# Score: 878.5
 # 
 #
 #=======================================
@@ -98,837 +98,845 @@ AAI36323.1         0 --------------------------------------------------      0
                                                                        
 AAI36323.1         0 --------------------------------------------------      0
 
-1                851 CCCA------GCCTA--------CGTGT--CTGCGGCCCCAGC-AAGGAC    883
-                        |      |||.|        ||.||  |.||.|||||.|| |||  |
-AAI36323.1         1 ---ATGTCGGGCCGAGGCGCGGGCGGGTTCCCGCTGCCCCCGCTAAG--C     45
-
-1                884 CCAGAGGGTG--GTCTCCCTCCAGGCTCCAGGGCTGGGAAGAAAGATCCC    931
-                     ||.|..||.|  |.|.||.|||  ||.|||    ||||         |||
-AAI36323.1        46 CCTGGCGGCGGCGCCGCCTTCC--GCCCCA----TGGG---------CCC     80
-
-1                932 TGAGCAGTTAGGTC---AGGCGAATTCCCAGC-ACCTGTTCCAGTTCCTG    977
-                     .|.|      ||.|   .||||.|.|.||||| |||||            
-AAI36323.1        81 CGCG------GGCCCCGCGGCGCAGTACCAGCGACCTG------------    112
-
-1                978 CCTTCGCTGC-TG-CACCTGGAGAAGGGA----GAAACCAAGTGGCTCAG   1021
-                             || || ||||      |||||    ||..||.| |||||  |
-AAI36323.1       113 --------GCATGTCACC------AGGGAACCGGATGCCCA-TGGCT--G    145
-
-1               1022 GCCTTTGCTACTCACGGCCAAAGGAGGGAAAACAGGGCAGAGCCTCACCT   1071
-                     ||  ||||             |||.||||                     
-AAI36323.1       146 GC--TTGC-------------AGGTGGGA---------------------    159
-
-1               1072 TGGCAAAGATGTGCCTGCCTACTGCTTCCTGGGCCCAGGGCTGGTGGTAG   1121
-                                      ||..|||||..||  .||||  ..|||||    
-AAI36323.1       160 -----------------CCCCCTGCTGGCT--CCCCA--TTTGGTG----    184
-
-1               1122 AAAGCAGCTCGTCTCTCCTCCTCAGGATTTCCAATCACATCAGTGATGAT   1171
-                      .||||||||..|| ||..|||  ||..|.|||  |.||.|| |||||  
-AAI36323.1       185 -CAGCAGCTCCGCT-TCGACCT--GGCATGCCA--CCCACCA-TGATG--    225
-
-1               1172 CTGCAAAGAGCCAGGAGGAAA--GCCATAGCATAATCCCCACCCCTGGGC   1219
-                            ||.|||....||||  |||  .||.|...|||||      |||
-AAI36323.1       226 -------GATCCATTCCGAAAACGCC--TGCTTGTGCCCCA------GGC    260
-
-1               1220 TAATCCACCC-TGGGAACTGCTGTGGGTAAAAATCACCCAGAGC-----T   1263
-                     ..|.||.||| ||   .|||                |||||.||     .
-AAI36323.1       261 GCAGCCTCCCATG---CCTG----------------CCCAGCGCCGGGGG    291
-
-1               1264 TTACATAGGAGTCCCCTCGGGAA------AGAGGACTACACCTTGAGGT-   1306
-                     |||.|.||||         ||||      |||           |.|||| 
-AAI36323.1       292 TTAAAGAGGA---------GGAAGATGGCAGA-----------TAAGGTT    321
-
-1               1307 ----CTCGGCG---CTGGGAAC--GGAGCCATTCCTGGATGAAGTC-CTG   1346
-                         |||.|||   |.||||.|  |      ||||.|     |||| |.|
-AAI36323.1       322 CTACCTCAGCGAATCCGGGAGCTTG------TTCCAG-----AGTCTCAG    360
-
-1               1347 GGGGTCGGTGCTAAAACTGAGCATGAAATCTCTCTGGGTCTTCAGCTGGT   1396
-                     |.|        ||        |||| .|||||| |||.|.||.||| ||.
-AAI36323.1       361 GCG--------TA--------CATG-GATCTCT-TGGCTTTTGAGC-GGA    391
-
-1               1397 TGATGGAC----TCAATGGTCTCA--TGGATCTGGAGAGGGTACCTGTGT   1440
-                     .|.|||||    .||.||.||.||  .|||  ||||||   |.|..|.|.
-AAI36323.1       392 AGCTGGACCAGACCATTGCTCGCAAGCGGA--TGGAGA---TCCAGGAGG    436
-
-1               1441 C--------AGACTGTGCCCCCAAAGCTTACATGCAAGCAACTGAGCCAG   1482
-                     |        ||.||.||.|.|.|||||      |.||||..|.||.|.|.
-AAI36323.1       437 CCATCAAAAAGCCTCTGACACAAAAGC------GAAAGCTTCGGATCTAC    480
-
-1               1483 AGTTCCCATCCCGTCC--TCC------------AGGTGCTA---CATGTA   1515
-                     |.||||.|| .|||.|  |||            |||.|.||   ||    
-AAI36323.1       481 ATTTCCAAT-ACGTTCAGTCCCAGCAAGGCGGAAGGCGATAGTGCA----    525
-
-1               1516 TGGAAATGCTGGACAGAGCCAGCCCACCCCAATCCTGGGCCCCAGAGGAA   1565
-                      ||||.|||.||   ||.|              ||||||       ||||
-AAI36323.1       526 -GGAACTGCAGG---GACC--------------CCTGGG-------GGAA    550
-
-1               1566 GCTGTGGAGCCAG-AGGGCCCACCTTGACATCAAGGGAGGC-------GA   1607
-                     .|       |||| ||||        |||    |.||.|||       ||
-AAI36323.1       551 CC-------CCAGCAGGG--------GAC----AAGGTGGCTTCCTGGGA    581
-
-1               1608 TCTCCTGCTGATTGGTGGTAGAGGCCAGAAAATTGCTCATTTGGGCCTTC   1657
-                     .||||    ||   ||||.||      |||||.|||              
-AAI36323.1       582 ACTCC----GA---GTGGAAG------GAAAACTGC--------------    604
-
-1               1658 AGTGGGTCGTCC-----ACCTCCACATCGATGTCGTAACAGGCTGTCTTC   1702
-                       |||.|..|||     |     |||         .||.|||..||.|||
-AAI36323.1       605 --TGGATGATCCTAGCAA-----ACA---------GAAGAGGAAGTTTTC    638
-
-1               1703 TTC-TGGTCGTT---AGGGTCGACACTGCAGGCAGCACATGGGGAGGGAA   1748
-                     ||| |  ||.||   ||..|||.||.||  .||.|.|||.||        
-AAI36323.1       639 TTCAT--TCTTTAAGAGCCTCGTCATTG--AGCTGGACAAGG--------    676
-
-1               1749 GGCACATAGCTGACTTCAT-----CCTGCC---CACCTGGGCCAAATCTG   1790
-                            |||||      |     ||||.|   |||||||        ||
-AAI36323.1       677 -------AGCTG------TACGGGCCTGACAATCACCTGG--------TG    705
-
-1               1791 G---GGCCCATTCTC---TGCACA-CACTCAGGGAAAAAGAAACCTGATG   1833
-                     |   |||.|     |   |||.|| |||.|| |||.|.|||         
-AAI36323.1       706 GAGTGGCAC-----CGGATGCCCACCACCCA-GGAGACAGA---------    740
-
-1               1834 CTTTCTTTGGCTTTAGTTCAAGCCAAGGGTGAATCTGCTCTTAGAAGAGC   1883
-                            ||||||         ||||  ||.||.|.|| ||  |.||| |
-AAI36323.1       741 -------TGGCTT---------CCAA--GTAAAACGGC-CT--GGAGA-C    768
-
-1               1884 CT-----TCCTGT-CCCCCTCCTTGCATTTACCTAATGACATGGTTGATG   1927
-                     ||     ||..|| |.|||||||        .||.|||            
-AAI36323.1       769 CTCAACGTCAAGTGCACCCTCCT--------GCTCATG------------    798
-
-1               1928 ACAATGGGGTCTGGATGCTGCAGCAACCCTGCCAGCTTCATGGGAATCTC   1977
-                               ||||||    ||.||.||...|||| |.||          
-AAI36323.1       799 ----------CTGGAT----CATCAGCCTCCCCAG-TACA----------    823
-
-1               1978 GGAGAAACGGAGTCGGCCACAACTGAAGATCTGGAGGAAATACGAAAGGC   2027
-                         ||..|||    .||.|.|.||                  |.|||||
-AAI36323.1       824 ----AATTGGA----CCCCCGATTG------------------GCAAGGC    847
-
-1               2028 TCAGCGTTGGCTTGTGGGCACAGTGGAGTGGAC---CATTCCAGGACCAG   2074
-                     |        |||           .||||||.||   ||      |||   
-AAI36323.1       848 T--------GCT-----------GGGAGTGCACACGCA------GAC---    869
-
-1               2075 TGAGGGCAGCAGTC-TGCAGG--CTGTGGC-------CAAGGAGTAGCCC   2114
-                      ||||||.||..|| ||||||  |||||||       ||||.|..|  ||
-AAI36323.1       870 -GAGGGCCGCCATCATGCAGGCCCTGTGGCTTTACATCAAGCACAA--CC    916
-
-1               2115 AGCAGGCAAGGCAAAGCAAGGGCTGAGAAAACGGGGGCTGGCATCTGGCT   2164
-                     |||.|        .||.|.||||       |||                 
-AAI36323.1       917 AGCTG--------CAGGATGGGC-------ACG-----------------    934
-
-1               2165 AACCTGGCGGAAGT-----AACGGTTGCA---GTTGATGTACTCCCGCTC   2206
-                          .||||.|||     |||   ||||   ||     ||||.||||  
-AAI36323.1       935 -----AGCGGGAGTACATCAAC---TGCAACCGT-----TACTTCCGC--    969
-
-1               2207 GTGCCCATCCTGCAGCTGGTTGTGCTTGATGTAAAGCCACAGGGCCTGCA   2256
-                        |..|| ||.|||.||                                
-AAI36323.1       970 ---CAGAT-CTTCAGTTG--------------------------------    983
-
-1               2257 TGATGGCGGCCCTCGTCTGCGTGTGCACTCCCAGCAGCCTTGCCAATCGG   2306
-                        ||||      ||.||.|||.|   ||||.||           ||   
-AAI36323.1       984 ---TGGC------CGACTCCGTTT---CTCCGAG-----------AT---   1007
-
-1               2307 GGGTCCAATTTGTACTGGGGAGGCTGGAGTTGGATGGAGGGGAGTCAGAA   2356
-                        |||.||          ||.|||                         
-AAI36323.1      1008 ---TCCCAT----------GAAGCT-------------------------   1019
-
-1               2357 CGGGTTCTTATAGTAGAACAGTGGGAAAATAGGGCAGGGACAGGAAGGGT   2406
-                                                               ||.|||||
-AAI36323.1      1020 ------------------------------------------GGCAGGGT   1027
-
-1               2407 TTCT--AGGAACCAGCTCCCCTCCTGAGGGGTCCCTGTGGGCCCAGAAAT   2454
-                     |.||  ||.|.|||                                    
-AAI36323.1      1028 TGCTGCAGCATCCA------------------------------------   1041
-
-1               2455 GACCCCAGGGTCTCTGTCACCTGATGATCCAGCATGAGCAGGAGGGT-GC   2503
-                     |||||||..|||              |||.|.|||| .||..||.|| |.
-AAI36323.1      1042 GACCCCATTGTC--------------ATCAACCATG-TCATTAGTGTCGA   1076
-
-1               2504 ACTTGACGTTGAGGTCTCCAG---------GCCGTTTTACTTGGAAGCCA   2544
-                     .|.|.|||        .||||         ||| |.||||      |.||
-AAI36323.1      1077 CCCTAACG--------ACCAGAAGAAGACAGCC-TGTTAC------GACA   1111
-
-1               2545 TC--TGTCTCCTGGGTGGTGGGCATCCGGTGCCACTGGCAGGG-----AG   2587
-                     ||  |||      ||.|||||.|     |..||||||  |.||     |.
-AAI36323.1      1112 TCGATGT------GGAGGTGGAC-----GACCCACTG--AAGGCCCAAAT   1148
-
-1               2588 GGAAGCA------TGGC--TTATCACCAAGGGGGTGGGCGTGAACA-CAG   2628
-                     |  ||||      ||||  .||.|||||              |.|| |||
-AAI36323.1      1149 G--AGCAATTTTCTGGCCTCTACCACCA--------------ATCAGCAG   1182
-
-1               2629 G-----GCCTCC--------CAAGGGCCCTGAGGCCATT---TCCCTGCC   2662
-                     |     ||||||        ||||..||.||||.|||||   ||      
-AAI36323.1      1183 GAGATCGCCTCCCTTGATGTCAAGATCCATGAGACCATTGAGTC------   1226
-
-1               2663 AAACCTGCACATCAGCCTGCTTTTGCCCCAG-----------GCCCACTC   2701
-                              |||||.||.|||...|.|||||           ||.||.|.
-AAI36323.1      1227 ---------CATCAACCAGCTGAAGACCCAGAGAGATTTCATGCTCAGTT   1267
+1                851 CCCAGCCTACGTGTCTGCGGCCCCAGCAAGGACCCAGAGGGTGGTCTCCC    900
+                                                                       
+AAI36323.1         0 --------------------------------------------------      0
 
-1               2702 T---CACC-TCCACCAGGTGATTGTCAGGCCCGTACAGCTCCTTGTCCAG   2747
-                     |   |||| .||.||||  ||.| |||..|..|.|..|||||.|..||||
-AAI36323.1      1268 TTAGCACCGACCCCCAG--GACT-TCATCCAGGAATGGCTCCGTTCCCAG   1314
+1                901 TCCAGGCTCCAGGGCTGGGAAGAAAGATCCCTGAGCAGTTAGGTCAGGCG    950
+                                                                       
+AAI36323.1         0 --------------------------------------------------      0
 
-1               2748 CTCAATGACGAG-GCTCTTAAAGAATGAAGAAAACTTCCTCTTCTG-TTT   2795
-                     |     |.|||| .|||   ||||            ||.|| .||| |.|
-AAI36323.1      1315 C-----GCCGAGACCTC---AAGA------------TCATC-ACTGATGT   1343
+1                951 AATTCCCAGCACCTGTTCCAGTTCCTGCCTTCGCTGCTGCACCTGGAGAA   1000
+                                                                       
+AAI36323.1         0 --------------------------------------------------      0
 
-1               2796 GCTAGG-----CTGGGGATGGAAAGGGGTGTGAGATGGTGCTGCTGAGCT   2840
-                     |.|.||     |||.||| |||         |||| .|.||||||     
-AAI36323.1      1344 GATTGGAAATCCTGAGGA-GGA---------GAGA-CGAGCTGCT-----   1377
+1               1001 GGGAGAAACCAAGTGGCTCAGGCCTTTGCTACTCACGGCCAAAGGAGGGA   1050
+                                                                       
+AAI36323.1         0 --------------------------------------------------      0
 
-1               2841 CTCAAATCTCAAGCTATGCTAAATCCCAAGAAAGAGAAGCCCCATTTCAG   2890
-                                     |.|||    |||                  .|||
-AAI36323.1      1378 ----------------TTCTA----CCA------------------CCAG   1389
+1               1051 AAACAGGGCAGAGCCTCACCTTGGCAAAGATGTGCCTGCCTACTGCTTCC   1100
+                                                                       
+AAI36323.1         0 --------------------------------------------------      0
 
-1               2891 CCCTGGAGCTCCGGATACTGAAGATTCCTGGGCCCTGAAGGATGGAAGCA   2940
-                     |                         |||||||||       .|||||||
-AAI36323.1      1390 C-------------------------CCTGGGCCC-------AGGAAGCA   1407
+1               1101 TGGGCCCAGGGCTGGTGGTAGAAAGCAGCTCGTCTCTCCTCCTCAGGATT   1150
+                                                                       
+AAI36323.1         0 --------------------------------------------------      0
 
-1               2941 GGACTCTGGGCAGACTGGAGGCAGGGAAATGGTGCCCTCTTGCAGCCCAC   2990
-                                     |.|||||||.|        |.||||         
-AAI36323.1      1408 ----------------GTAGGCAGGCA--------CATCTT---------   1424
+1               1151 TCCAATCACATCAGTGATGATCTGCAAAGAGCCAGGAGGAAAGCCATAGC   1200
+                                                                       
+AAI36323.1         0 --------------------------------------------------      0
 
-1               2991 GAGGGACTTCCTCGAGACACTCGACTGCCATCTGCAGGAACACTGTAATA   3040
-                                              |||||     |||            
-AAI36323.1      1425 -------------------------TGCCA-----AGG------------   1432
+1               1201 ATAATCCCCACCCCTGGGCTAATCCACCCTGGGAACTGCTGTGGGTAAAA   1250
+                                                                       
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3041 ACCACACAAATCAACCTCCAACGGGCTTGGAGCAGCGCCCCCCTCCCTAT   3090
-                                                ||.|||||||           |.
-AAI36323.1      1433 ---------------------------TGCAGCAGCG-----------AA   1444
+1               1251 ATCACCCAGAGCTTTACATAGGAGTCCCCTCGGGAAAGAGGACTACACCT   1300
+                                                                       
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3091 GGCAGGACTTCTCTGGGAGCGCCCAAGTGTCTGGCCCAGTCTTTTTTTTT   3140
-                     |||||||    .||||.|     ||.|||                     
-AAI36323.1      1445 GGCAGGA----ACTGGAA-----CAGGTG---------------------   1464
+1               1301 TGAGGTCTCGGCGCTGGGAACGGAGCCATTCCTGGATGAAGTCCTGGGGG   1350
+                                                                       
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3141 CTGAGACACAATCTCACTCTGTCACCCAGGCTGAAGTGCAGTGGTGTGAT   3190
-                     |||.||   |.||.|   |||  |||.|.                     
-AAI36323.1      1465 CTGGGA---ATTCGC---CTG--ACCTAA---------------------   1485
+1               1351 TCGGTGCTAAAACTGAGCATGAAATCTCTCTGGGTCTTCAGCTGGTTGAT   1400
+                                                                       
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3191 CATAACTCACTGAAGCTCGACCTCCTGGGCTCAAGCCATCCTCCTGCATC   3240
+1               1401 GGACTCAATGGTCTCATGGATCTGGAGAGGGTACCTGTGTCAGACTGTGC   1450
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3241 AGCCTTATGAGTAGCTGGGACTACAGGTGCATGCCACCGCACCCAGCTAA   3290
+1               1451 CCCCAAAGCTTACATGCAAGCAACTGAGCCAGAGTTCCCATCCCGTCCTC   1500
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3291 TTTTTAAATTTTTTGTAGAGATGGGGTCTGGCTCTGCTGCTCAGGCTAGT   3340
+1               1501 CAGGTGCTACATGTATGGAAATGCTGGACAGAGCCAGCCCACCCCAATCC   1550
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3341 ATCAAACTCCTTGGTCTCAGTCTTAAACCCACACAGGCCTCCTTCCCTCC   3390
+1               1551 TGGGCCCCAGAGGAAGCTGTGGAGCCAGAGGGCCCACCTTGACATCAAGG   1600
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3391 AGAACCTCCCTCCCCAACTCACATCATCCAGCAGTTTTCCTTCCACTCGG   3440
+1               1601 GAGGCGATCTCCTGCTGATTGGTGGTAGAGGCCAGAAAATTGCTCATTTG   1650
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3441 AGTTCCCAGGAAGCCACCTTGTCCCCTGCTGGGGTTCCCCCAGGGGTCCC   3490
+1               1651 GGCCTTCAGTGGGTCGTCCACCTCCACATCGATGTCGTAACAGGCTGTCT   1700
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3491 TGCAGTTCCTGCACTATCGCCTTCCGCCTTGCTGGGACTGAACGTATTGG   3540
+1               1701 TCTTCTGGTCGTTAGGGTCGACACTGCAGGCAGCACATGGGGAGGGAAGG   1750
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3541 AAATGTAGATCCGAAGCTTTCGCTTTTGCTAAAGAGAGAAAGGCAATCAC   3590
+1               1751 CACATAGCTGACTTCATCCTGCCCACCTGGGCCAAATCTGGGGCCCATTC   1800
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3591 AACTGGAGGTGGACCAAGATGCTGGGACACAGTGCTACCGCATCTTCTCA   3640
+1               1801 TCTGCACACACTCAGGGAAAAAGAAACCTGATGCTTTCTTTGGCTTTAGT   1850
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3641 TATGAACCATTCAACAATCAGTACTGAGCACCATGAGCCAGCCAGGCACC   3690
+1               1851 TCAAGCCAAGGGTGAATCTGCTCTTAGAAGAGCCTTCCTGTCCCCCTCCT   1900
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3691 TTGTCAGGTACTGGGAATCAGAAGTAGTAAGTCCCAGTCCCAGCCTTTTT   3740
+1               1901 TGCATTTACCTAATGACATGGTTGATGACAATGGGGTCTGGATGCTGCAG   1950
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3741 TTTTTTTAGACATGGTCTCACTCTGTCACCCAGGCTGGAGTGCAGTGGCG   3790
+1               1951 CAACCCTGCCAGCTTCATGGGAATCTCGGAGAAACGGAGTCGGCCACAAC   2000
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3791 CGATCTCAGCTCACTTGCAACCTCTGACTCCCAGGTTCAAGCGATTCTCT   3840
+1               2001 TGAAGATCTGGAGGAAATACGAAAGGCTCAGCGTTGGCTTGTGGGCACAG   2050
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3841 TGCCTCAGTCTCCCATGTAGCTGGGACTACAGGTGCGCACCACCATGCCC   3890
+1               2051 TGGAGTGGACCATTCCAGGACCAGTGAGGGCAGCAGTCTGCAGGCTGTGG   2100
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3891 AGCTAATTTTTTGTGTTTTTGTAAAGATGGTATTTCAACATGTTGGCCAT   3940
+1               2101 CCAAGGAGTAGCCCAGCAGGCAAGGCAAAGCAAGGGCTGAGAAAACGGGG   2150
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3941 GCTGGTCTCAAACTCCTGACCTCAGGTGATCTGCCCACTTCGGCCTCCTA   3990
+1               2151 GCTGGCATCTGGCTAACCTGGCGGAAGTAACGGTTGCAGTTGATGTACTC   2200
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               3991 AAGTGCTGAGATTACAGGTGTGAGCCACCGCACCTGGCCGGAACTCACCA   4040
+1               2201 CCGCTCGTGCCCATCCTGCAGCTGGTTGTGCTTGATGTAAAGCCACAGGG   2250
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4041 TTTTATGGGGAAAGAGATGCATCACCAACAATGCCAGCACAGTGGGACTG   4090
+1               2251 CCTGCATGATGGCGGCCCTCGTCTGCGTGTGCACTCCCAGCAGCCTTGCC   2300
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4091 GTGCTACGGCATGATGGAGTAACACGCAGCCAGTCTCTGGCTCACATCTT   4140
+1               2301 AATCGGGGGTCCAATTTGTACTGGGGAGGCTGGAGTTGGATGGAGGGGAG   2350
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4141 ACATGAAACCCAAACACCCATCACGGCTCCAAAATATCCTAGTCCCCTGG   4190
+1               2351 TCAGAACGGGTTCTTATAGTAGAACAGTGGGAAAATAGGGCAGGGACAGG   2400
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4191 AAAGGCTTCACCACTCGGGACTGTTCTACATTATTATTAAGAAAAGCTTC   4240
+1               2401 AAGGGTTTCTAGGAACCAGCTCCCCTCCTGAGGGGTCCCTGTGGGCCCAG   2450
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4241 TCGGCTGGGTGCAGTGGCTCACGCCTGTAATCTCAGCACTTTGGGAGGCC   4290
+1               2451 AAATGACCCCAGGGTCTCTGTCACCTGATGATCCAGCATGAGCAGGAGGG   2500
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4291 GAGGCAGTCAGGAGTTCGAGACCAGCCTGGGTAACATGGCGATACTAAAA   4340
+1               2501 TGCACTTGACGTTGAGGTCTCCAGGCCGTTTTACTTGGAAGCCATCTGTC   2550
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4341 ATACAAAAATTAGCCGGGCGTGGTGACAGGCATCTGTAATCCTAGTTACT   4390
+1               2551 TCCTGGGTGGTGGGCATCCGGTGCCACTGGCAGGGAGGGAAGCATGGCTT   2600
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4391 CGGGAGGCTGAGGCAAGAAGAATTACTTGAACCTGGGATGCGAAGGTTGC   4440
+1               2601 ATCACCAAGGGGGTGGGCGTGAACACAGGGCCTCCCAAGGGCCCTGAGGC   2650
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4441 AGTGAGCCGAGATCGCAACACTGCACTCCAGCTTAGGTGAAAGAGCGAGA   4490
+1               2651 CATTTCCCTGCCAAACCTGCACATCAGCCTGCTTTTGCCCCAGGCCCACT   2700
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4491 CTCCATCTCAGAAAAAAAAAAAAAAAAAAAAAAGAAAATTTCTCTATGGA   4540
+1               2701 CTCACCTCCACCAGGTGATTGTCAGGCCCGTACAGCTCCTTGTCCAGCTC   2750
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4541 TGGGGAAGGGGAAGGAGAAAGGAACTACCTTTATCCCCTAGTCTAGTGGT   4590
+1               2751 AATGACGAGGCTCTTAAAGAATGAAGAAAACTTCCTCTTCTGTTTGCTAG   2800
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4591 TTTCAAACTTTTGACCACCACCCATAAGATTTACATTTTCAATTATGACC   4640
+1               2801 GCTGGGGATGGAAAGGGGTGTGAGATGGTGCTGCTGAGCTCTCAAATCTC   2850
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4641 CAAGGTCTGCATATCTATTTATCAGAAACAAAAATGTCATGAAAGAATCC   4690
+1               2851 AAGCTATGCTAAATCCCAAGAAAGAGAAGCCCCATTTCAGCCCTGGAGCT   2900
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4691 ATTTACTACTATGGTAAGTACTACTGTGAAGTATTTTAAGATTTTCTACT   4740
+1               2901 CCGGATACTGAAGATTCCTGGGCCCTGAAGGATGGAAGCAGGACTCTGGG   2950
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4741 GTCATATATTCATTTAAAACATACTGGCCCCAACACATTCAACTGAGTTC   4790
+1               2951 CAGACTGGAGGCAGGGAAATGGTGCCCTCTTGCAGCCCACGAGGGACTTC   3000
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4791 GTACTCTACTAGTGGGCTGCATCCTGCATGTGAAAAACCCGGCTCTAGCC   4840
+1               3001 CTCGAGACACTCGACTGCCATCTGCAGGAACACTGTAATAACCACACAAA   3050
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4841 CAACTTGCTTGGCCCCTGGAAAACAAGGGGGTGGAAGGCAAGGAAACCTG   4890
+1               3051 TCAACCTCCAACGGGCTTGGAGCAGCGCCCCCCTCCCTATGGCAGGACTT   3100
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4891 GGAAGGCTAGAGGTGGTCAGGGCCACACATACTGTCAGAGGCTTTTTGAT   4940
+1               3101 CTCTGGGAGCGCCCAAGTGTCTGGCCCAGTCTTTTTTTTTCTGAGACACA   3150
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4941 GGCCTCCTGGATCTCCATCCGCTTGCGAGCAATGGTCTGGTCCAGCTTCC   4990
+1               3151 ATCTCACTCTGTCACCCAGGCTGAAGTGCAGTGGTGTGATCATAACTCAC   3200
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               4991 GCTCAAAAGCCAAGAGATCCATGTACGCCTGAGACTCTGGAACAAGCTCC   5040
+1               3201 TGAAGCTCGACCTCCTGGGCTCAAGCCATCCTCCTGCATCAGCCTTATGA   3250
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5041 CGGATCTGAAGGAAGGTAGCAGAAGCTCATCAGCTTGCTTCAGCCAAAGC   5090
+1               3251 GTAGCTGGGACTACAGGTGCATGCCACCGCACCCAGCTAATTTTTAAATT   3300
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5091 CTGGCTCTTTCCTCCCTTCCTGCTGCAGCCCAGCTTTGAGAGAGATGGAC   5140
+1               3301 TTTTGTAGAGATGGGGTCTGGCTCTGCTGCTCAGGCTAGTATCAAACTCC   3350
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5141 ACCCACCCCAAGGTGGCCACTGGGCAGGCCTCCCAGGTGTCCTCTTAACA   5190
+1               3351 TTGGTCTCAGTCTTAAACCCACACAGGCCTCCTTCCCTCCAGAACCTCCC   3400
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5191 CTTACTCGCTGAGGTAGAACCTTATCTGCCATCTTCCTCCTCTTTAACCT   5240
+1               3401 TCCCCAACTCACATCATCCAGCAGTTTTCCTTCCACTCGGAGTTCCCAGG   3450
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5241 GGGGAGGACAGAAACCCACTTAAGAGGTCAATGGTCCAAAAAAGGACACT   5290
+1               3451 AAGCCACCTTGTCCCCTGCTGGGGTTCCCCCAGGGGTCCCTGCAGTTCCT   3500
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5291 CACTCCCATAACGCCCCTCCAGTCTCCAGGACCCTCTCCCCCAGGAGAGC   5340
+1               3501 GCACTATCGCCTTCCGCCTTGCTGGGACTGAACGTATTGGAAATGTAGAT   3550
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5341 CTGGAGTCATCCTCAGTCACCAAAGCTCTTAAGATAGAAGGAAACCCTCT   5390
+1               3551 CCGAAGCTTTCGCTTTTGCTAAAGAGAGAAAGGCAATCACAACTGGAGGT   3600
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5391 GCTACCACCAGAGCTGAGTTAGGCAGAGTGAGAGAAGCAGGATGCTCTTA   5440
+1               3601 GGACCAAGATGCTGGGACACAGTGCTACCGCATCTTCTCATATGAACCAT   3650
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5441 CCCCCGGCGCTGGGCAGGCATGGGAGGCTGCGCCTGGGGCACAAGCAGGC   5490
+1               3651 TCAACAATCAGTACTGAGCACCATGAGCCAGCCAGGCACCTTGTCAGGTA   3700
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5491 GTTTTCGGAATGGATCCATCATGGTGGGTGGCATGCCAGGTCGAAGCGGA   5540
+1               3701 CTGGGAATCAGAAGTAGTAAGTCCCAGTCCCAGCCTTTTTTTTTTTTAGA   3750
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5541 GCTGCTGCACCAAATGGGGAGCCAGCAGGGGGTCCCACCTGCAAGCCAGC   5590
+1               3751 CATGGTCTCACTCTGTCACCCAGGCTGGAGTGCAGTGGCGCGATCTCAGC   3800
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5591 CATGGGCATCCGGTTCCCTGGTGACATGCCAGGTCGCTGGGGGAAGTGAG   5640
+1               3801 TCACTTGCAACCTCTGACTCCCAGGTTCAAGCGATTCTCTTGCCTCAGTC   3850
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5641 CCAACGGGGGTGCATAGGTCAGGGGCAAGGCCCTCCGGGACCCATAGCCC   5690
+1               3851 TCCCATGTAGCTGGGACTACAGGTGCGCACCACCATGCCCAGCTAATTTT   3900
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5691 ATGCCCTCCATCCCTCTCGTCAGCCAGGTAGGGCCTGAGCAGCACACCAG   5740
+1               3901 TTGTGTTTTTGTAAAGATGGTATTTCAACATGTTGGCCATGCTGGTCTCA   3950
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5741 AGCCCTGCTGGAGCCCCAGGAACAAAGGGGAGTGGGCGCCTGAGCACAGA   5790
+1               3951 AACTCCTGACCTCAGGTGATCTGCCCACTTCGGCCTCCTAAAGTGCTGAG   4000
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5791 GTGTAAACCACACCTGCCCTGCCCCCTGCAACCGCCCTGGCAGCCATGCC   5840
+1               4001 ATTACAGGTGTGAGCCACCGCACCTGGCCGGAACTCACCATTTTATGGGG   4050
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5841 AGCGAATGAGGCCTGCCAGAACCTGGGCTGGGAGGAGGGTCCTGCCTGCA   5890
+1               4051 AAAGAGATGCATCACCAACAATGCCAGCACAGTGGGACTGGTGCTACGGC   4100
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5891 GAGGGAAGGGCCTTGGGGAGCTTTTCAGGGCCCATTGCTACCTTCCAGCC   5940
+1               4101 ATGATGGAGTAACACGCAGCCAGTCTCTGGCTCACATCTTACATGAAACC   4150
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5941 CCAGCATGCTGTGCCCTATTCCCTGGGCAAGCTGGTCCCTATTCTCTCAG   5990
+1               4151 CAAACACCCATCACGGCTCCAAAATATCCTAGTCCCCTGGAAAGGCTTCA   4200
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               5991 ACAGTCCTGCCAAGCCCTGCCCTCCTTCTCTTTCTCCCATCATGAAGAAG   6040
+1               4201 CCACTCGGGACTGTTCTACATTATTATTAAGAAAAGCTTCTCGGCTGGGT   4250
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6041 AAGCATGGCTGAGAGGCACAGGGGCAGTGTCACTGCCAGGCAGAGGAGTG   6090
+1               4251 GCAGTGGCTCACGCCTGTAATCTCAGCACTTTGGGAGGCCGAGGCAGTCA   4300
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6091 TACTATAGTATGAGTAGGCCAATGGCGCAGAGCCCCAATCCCCATCCTCT   6140
+1               4301 GGAGTTCGAGACCAGCCTGGGTAACATGGCGATACTAAAAATACAAAAAT   4350
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6141 GTGGCCGAGGGAGAAAGGGGTCTGGTAGGCAGCAGCACCCCAGGTGAGCA   6190
+1               4351 TAGCCGGGCGTGGTGACAGGCATCTGTAATCCTAGTTACTCGGGAGGCTG   4400
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6191 GGGCTGCAACAGGATGGCTTGGAACGTGTACCAGCTGGTGGGGGTGGCCT   6240
+1               4401 AGGCAAGAAGAATTACTTGAACCTGGGATGCGAAGGTTGCAGTGAGCCGA   4450
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6241 CGGGCAGGGTACAGGGACCCTGTACCCTGTAGTCTGGTATCACATAGCCC   6290
+1               4451 GATCGCAACACTGCACTCCAGCTTAGGTGAAAGAGCGAGACTCCATCTCA   4500
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6291 CCACCCACAGCCCAGAACTGGACCCTCCTCTTACCTCCCTACTGCCCAAC   6340
+1               4501 GAAAAAAAAAAAAAAAAAAAAAAGAAAATTTCTCTATGGATGGGGAAGGG   4550
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6341 TACTACCCCTATGACAGAAGACCCCAGAAGGGAAGCTATGGCTCCTGGGT   6390
+1               4551 GAAGGAGAAAGGAACTACCTTTATCCCCTAGTCTAGTGGTTTTCAAACTT   4600
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6391 GGCCTGTGGGAAAGAGAGCAGCTAGCACCTGGACTCTGCCAGTGGTCCAG   6440
+1               4601 TTGACCACCACCCATAAGATTTACATTTTCAATTATGACCCAAGGTCTGC   4650
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6441 GCACCACCTGGCAGCCAGGACTGGCTCTGGCTCCGTGTAGCCCTGGCAAT   6490
+1               4651 ATATCTATTTATCAGAAACAAAAATGTCATGAAAGAATCCATTTACTACT   4700
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6491 CCCAAGCTGGAGAAGGGGGCTAAGATTATCCTGGGAGGCAAGGATAGAGG   6540
+1               4701 ATGGTAAGTACTACTGTGAAGTATTTTAAGATTTTCTACTGTCATATATT   4750
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6541 CCCAGGCTGAGCAGCAGGAAAGTGGGAGACAGAAATAGCTTCTTTAGATG   6590
+1               4751 CATTTAAAACATACTGGCCCCAACACATTCAACTGAGTTCGTACTCTACT   4800
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6591 CCTGCAGAAGGATTTCCCACCTGAGGCCTTGCTCCCTGACATTTCTGTGG   6640
+1               4801 AGTGGGCTGCATCCTGCATGTGAAAAACCCGGCTCTAGCCCAACTTGCTT   4850
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6641 AGCCCATCTGGGAGTCACCTCCACCCCCACCCGCCTCCCCATGGCTGCTG   6690
+1               4851 GGCCCCTGGAAAACAAGGGGGTGGAAGGCAAGGAAACCTGGGAAGGCTAG   4900
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6691 CCTGCAAGGCCTGTTTGGCAGCTCTGCCTTGCACACACTGTCCCTGGCAG   6740
+1               4901 AGGTGGTCAGGGCCACACATACTGTCAGAGGCTTTTTGATGGCCTCCTGG   4950
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6741 CTTCACAGGGCTGGCCCCAGGGCCCAGATTATGCAACGAGCACAACCAGC   6790
+1               4951 ATCTCCATCCGCTTGCGAGCAATGGTCTGGTCCAGCTTCCGCTCAAAAGC   5000
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6791 CAACCAAGCCCGGCAGGGTGGAGACTTGTACCAAATCAAAGGACCCTCCC   6840
+1               5001 CAAGAGATCCATGTACGCCTGAGACTCTGGAACAAGCTCCCGGATCTGAA   5050
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6841 CCACCCCAGCATCATGGAGATGAGATTCTTCCCCAACCTCTTCATCCCGC   6890
+1               5051 GGAAGGTAGCAGAAGCTCATCAGCTTGCTTCAGCCAAAGCCTGGCTCTTT   5100
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6891 ACTAAACCCATGTTCCCAACACAGAGGGTCAGATTCTTGACCAGATGCGG   6940
+1               5101 CCTCCCTTCCTGCTGCAGCCCAGCTTTGAGAGAGATGGACACCCACCCCA   5150
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6941 AGATGGAAAGAAACATGACCCACAGACGTGAGGATGGGGAGAGGAGGAGC   6990
+1               5151 AGGTGGCCACTGGGCAGGCCTCCCAGGTGTCCTCTTAACACTTACTCGCT   5200
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               6991 AGGGTGGGACGGAAGTGTTTGGGAGAATAAAAAGTTCAAAGTGGGGGGCT   7040
+1               5201 GAGGTAGAACCTTATCTGCCATCTTCCTCCTCTTTAACCTGGGGAGGACA   5250
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               7041 CTGGGGCTTTGGGAGTCCTGCCAAAGTCTCTCTGCATCAGGAAGAGATTA   7090
+1               5251 GAAACCCACTTAAGAGGTCAATGGTCCAAAAAAGGACACTCACTCCCATA   5300
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               7091 ATCAGAGCTGTTGAAAGGCAAAAGACAGCCTCTTTCTCTGCCTTAAAGAT   7140
+1               5301 ACGCCCCTCCAGTCTCCAGGACCCTCTCCCCCAGGAGAGCCTGGAGTCAT   5350
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               7141 TGTTCTTTCTCTGGCCTGAGATTATAGAAAAAAACTAAGTGTGGCTACAG   7190
+1               5351 CCTCAGTCACCAAAGCTCTTAAGATAGAAGGAAACCCTCTGCTACCACCA   5400
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               7191 CTGTAAGCCCAGGCCCAGACATCCCAGACTAGTTTTTCCTAGTGCCTGAG   7240
+1               5401 GAGCTGAGTTAGGCAGAGTGAGAGAAGCAGGATGCTCTTACCCCCGGCGC   5450
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               7241 ACAAAGACAGGGAAGAACTGAAGCAGTGGGTCCTGCAGAGGTGAGCGAGG   7290
+1               5451 TGGGCAGGCATGGGAGGCTGCGCCTGGGGCACAAGCAGGCGTTTTCGGAA   5500
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               7291 GCCCTGTGGTCCCCAGGAAGCTCCCTGCTGCAGTGTTCACAAAACCTGCA   7340
+1               5501 TGGATCCATCATGGTGGGTGGCATGCCAGGTCGAAGCGGAGCTGCTGCAC   5550
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               7341 GCACCACCCATCCCTCCTGGGCAGGTGCTCCGGTAACAGGAAGTCCCAAG   7390
+1               5551 CAAATGGGGAGCCAGCAGGGGGTCCCACCTGCAAGCCAGCCATGGGCATC   5600
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               7391 ACAAGGCCTCATAGGCAGGGTCTGGAATAGGCTCCACCCAGACATCTGCT   7440
+1               5601 CGGTTCCCTGGTGACATGCCAGGTCGCTGGGGGAAGTGAGCCAACGGGGG   5650
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
 
-1               7441 CCAGGTTTCCTGGGCCCAGAGCCCCTGGCTCACTCAGGGCCCCAGGGGAA   7490
+1               5651 TGCATAGGTCAGGGGCAAGGCCCTCCGGGACCCATAGCCCATGCCCTCCA   5700
                                                                        
-AAI36323.1      1485 --------------------------------------------------   1485
+AAI36323.1         0 --------------------------------------------------      0
+
+1               5701 TCCCTCTCGTCAGCCAGGTAGGGCCTGAGCAGCACACCAGAGCCCTGCTG   5750
+                                    |.||.|||||                         
+AAI36323.1         1 ---------------ATGTCGGGCC-------------------------     10
+
+1               5751 GAGCCCCAGGAACAAAGGGGAGTGGGCG----CCTGAGCACAGAGTGTAA   5796
+                                     |.||.|.|||||    ||                
+AAI36323.1        11 ----------------GAGGCGCGGGCGGGTTCC----------------     28
+
+1               5797 ACCACACCTGCCCTGCCCCCTGCAACCGCCCTGGCAGC-------CATGC   5839
+                               |.||||||||...||  ||||||||.||       |.|.|
+AAI36323.1        29 ----------CGCTGCCCCCGCTAA--GCCCTGGCGGCGGCGCCGCCTTC     66
+
+1               5840 CAGCGAATGAGGCCTGC-------------CAGAACCTGGGCTGGGAGGA   5876
+                     |..|..|||.|.||.||             |||.|||            |
+AAI36323.1        67 CGCCCCATGGGCCCCGCGGGCCCCGCGGCGCAGTACC------------A    104
+
+1               5877 GGGTCCTGCCTGCA------GAGGGAAGGGCCTTGGGGAGCTTTTCAGG-   5919
+                     |.|.||||   |||      .||||||                  |.|| 
+AAI36323.1       105 GCGACCTG---GCATGTCACCAGGGAA------------------CCGGA    133
+
+1               5920 -GCCCATTGCTACCTTCCAG-------CCCCAGCATGCTGTGCCCTATTC   5961
+                      ||||||.|||..|||.|||       ||||.||..|||   |||.||| 
+AAI36323.1       134 TGCCCATGGCTGGCTTGCAGGTGGGACCCCCTGCTGGCT---CCCCATT-    179
+
+1               5962 CCTGGGCAAGCTGGTCCCTATTCTCTCAGACAGTCCTGCCAAGCCCTGCC   6011
+                       |||...|||.|.| ||..|||         |.||||.||.||      
+AAI36323.1       180 --TGGTGCAGCAGCT-CCGCTTC---------GACCTGGCATGC------    211
+
+1               6012 CTCCTTCTCTTTCTCCCATCATGA-----------AGAAGAAGCATGGCT   6050
+                                 |.||||.|||||           .|||.|.||.||..|
+AAI36323.1       212 ------------CACCCACCATGATGGATCCATTCCGAAAACGCCTGCTT    249
+
+1               6051 GAGAGGCACAGGGGCAGTGTC-----ACTGCCAGGCAGAGGAGTGTACTA   6095
+                       |.|.|.||||.||||..||     .|||||..||...||.|..||   
+AAI36323.1       250 --GTGCCCCAGGCGCAGCCTCCCATGCCTGCCCAGCGCCGGGGGTTA---    294
+
+1               6096 TAGTATGAGTAGGCCAATGGCGCAGAGCCCCAATCCCCATCCTCTGTGGC   6145
+                         |.|||.|||...|||||                             
+AAI36323.1       295 ----AAGAGGAGGAAGATGGC-----------------------------    311
+
+1               6146 CGAGGGAGAAAGGGGTCTGGTAGGCAGCAGCACCCCAGGTGAGCAGGGCT   6195
+                           |||.|.||.|||             |||.|||...|.|.|    
+AAI36323.1       312 ------AGATAAGGTTCT-------------ACCTCAGCGAATCCG----    338
+
+1               6196 GCAACAGGATGGCTTGGAACGTGTACCAGCTGGTGGGGGTGGCCTCGGGC   6245
+                                    |||.|.|||.||||           .|.|||.|||
+AAI36323.1       339 ---------------GGAGCTTGTTCCAG-----------AGTCTCAGGC    362
+
+1               6246 AGGGTACAGGGACC--------------------CTGTACCCTGTAGTCT   6275
+                        |||||.|||.|                    |||.|||    ||.| 
+AAI36323.1       363 ---GTACATGGATCTCTTGGCTTTTGAGCGGAAGCTGGACC----AGAC-    404
+
+1               6276 GGTATCACATAGCCCCCACCCACAGC----------CCAGAACTGGACCC   6315
+                            |||.||.|.||     |||          ||||.|   |.||.
+AAI36323.1       405 -------CATTGCTCGCA-----AGCGGATGGAGATCCAGGA---GGCCA    439
+
+1               6316 TCCTCTTACCTCCCTACTGCCCAACTACTACCCCTATGACAGAAGA----   6361
+                     ||                        |..|..|||.|||||.||.|    
+AAI36323.1       440 TC------------------------AAAAAGCCTCTGACACAAAAGCGA    465
+
+1               6362 --------------------------------CCCCAGAA----GGGAAG   6375
+                                                     .|||||.|    ||.|.|
+AAI36323.1       466 AAGCTTCGGATCTACATTTCCAATACGTTCAGTCCCAGCAAGGCGGAAGG    515
+
+1               6376 CTATGG--------CTCCTGGGTGGCCTGTGGGAAAGAGAGCAGCTAGCA   6417
+                     |.||.|        ||.|.|||...||||.|||||....|||||....||
+AAI36323.1       516 CGATAGTGCAGGAACTGCAGGGACCCCTGGGGGAACCCCAGCAGGGGACA    565
+
+1               6418 ---------CCTGGACTCTGCCAGTGG---------TCCAGGCACCACCT   6449
+                              |||||...||.|.|||||         |.|.||.....|||
+AAI36323.1       566 AGGTGGCTTCCTGGGAACTCCGAGTGGAAGGAAAACTGCTGGATGATCCT    615
+
+1               6450 GGCAGCCAGGACTGG-----CTCTGGCTCCGTGT-----AGCCCTGGCAA   6489
+                     .|||..|||.|..||     .|||   ||..|.|     ||||..|.||.
+AAI36323.1       616 AGCAAACAGAAGAGGAAGTTTTCT---TCATTCTTTAAGAGCCTCGTCAT    662
+
+1               6490 TCCCAAGCTGGAGAAG---------GGGGCTAAGATTATCCTGGGAGGCA   6530
+                     |   .|||||||.|||         |||.||.|.|.|..|||||..|   
+AAI36323.1       663 T---GAGCTGGACAAGGAGCTGTACGGGCCTGACAATCACCTGGTGG---    706
+
+1               6531 AGGATAGAGGCCCAGGCTGAGCAGCAGGAAAGTGGGAGACAGAAATAGCT   6580
+                          ||.|||.|.||.||..||.||...|    ||||||||  ||.|||
+AAI36323.1       707 -----AGTGGCACCGGATGCCCACCACCCA----GGAGACAG--ATGGCT    745
+
+1               6581 TC----TTTAGATGCCTGCAGAAGGATTTCCC---ACCTGAGGCCTTGCT   6623
+                     ||    |..|...|||||.|||        ||   ||.|.|.|   |||.
+AAI36323.1       746 TCCAAGTAAAACGGCCTGGAGA--------CCTCAACGTCAAG---TGCA    784
+
+1               6624 CCCTGACATTTCTGTGGAGCCCATCTGGGAGTCACCTCCACCCCCACCCG   6673
+                     ||||  |.|         ||.|||...|||             .||.|.|
+AAI36323.1       785 CCCT--CCT---------GCTCATGCTGGA-------------TCATCAG    810
+
+1               6674 CCTCCCCA--------TGGCTGCTGCCTGCAAGGCCTGTTTGGCAGCTCT   6715
+                     ||||||||        |||            |..||.|.||||||...||
+AAI36323.1       811 CCTCCCCAGTACAAATTGG------------ACCCCCGATTGGCAAGGCT    848
+
+1               6716 GC----CTTGCACACACTGTCCCTGGCAGCTTCACAGGGCTGGCCCCAGG   6761
+                     ||    ..|||||||.|.|.|...|||.||  ||....||.|||||...|
+AAI36323.1       849 GCTGGGAGTGCACACGCAGACGAGGGCCGC--CATCATGCAGGCCCTGTG    896
+
+1               6762 GCCCAGATTATGCAACGAGCACAACCAGCCAACCAAGCCCGGCAGGGTGG   6811
+                     ||      |.|.||.|.|||||||||||           |.|||||.|||
+AAI36323.1       897 GC------TTTACATCAAGCACAACCAG-----------CTGCAGGATGG    929
+
+1               6812 AGAC------TTGTACCAAATCAAAGGACCCTCCCCCACCCCAGCATCAT   6855
+                     ..||      ..||||   |||||                 |.|||.|  
+AAI36323.1       930 GCACGAGCGGGAGTAC---ATCAA-----------------CTGCAAC--    957
+
+1               6856 GGAGATGAGATTCTTCCCCAACCTCTTCA------------TCCCGCACT   6893
+                            .|.|.|||||.|.|..||||||            |||....||
+AAI36323.1       958 -------CGTTACTTCCGCCAGATCTTCAGTTGTGGCCGACTCCGTTTCT   1000
+
+1               6894 AAACCCATGTTCCCAACACAG-----AGGGT-----CAGATTCTTGACCA   6933
+                        ||.|..||||||..| ||     |||||     |||..||..||||.
+AAI36323.1      1001 ---CCGAGATTCCCATGA-AGCTGGCAGGGTTGCTGCAGCATCCAGACCC   1046
+
+1               6934 GATGCGGAGATGGAAAGAAACAT------------GACCCACAGACGTGA   6971
+                     .||       ||..|..||.|||            |||||       |.|
+AAI36323.1      1047 CAT-------TGTCATCAACCATGTCATTAGTGTCGACCC-------TAA   1082
+
+1               6972 GGATGGGGAGAGGAGGAGCAGGGTGGGACGGAAGTGTTTGGGAGAATAAA   7021
+                     .||...|.|||.||    |||..||..|||                    
+AAI36323.1      1083 CGACCAGAAGAAGA----CAGCCTGTTACG--------------------   1108
+
+1               7022 AAGTTCAAAGTGGGGGGCTCTGGGGCTTTGGGAGTCCTGCCAAAG-----   7066
+                      |..||.|.||||.||            |||..|.||..|..|||     
+AAI36323.1      1109 -ACATCGATGTGGAGG------------TGGACGACCCACTGAAGGCCCA   1145
+
+1               7067 ------------TCT---CTCTGC-----ATCAGGAAGAGATTAATCAGA   7096
+                                 |||   ||||.|     |||||.|.|||||        
+AAI36323.1      1146 AATGAGCAATTTTCTGGCCTCTACCACCAATCAGCAGGAGAT--------   1187
+
+1               7097 GCTGTTGAAAGGCAAAAGACAGCCTCTTTCTCTGCCT-----TAAAGATT   7141
+                                         .|||||        |||     |.||||| 
+AAI36323.1      1188 --------------------CGCCTC--------CCTTGATGTCAAGAT-   1208
+
+1               7142 GTTCTTTCTCTGGCCTGAGATTATAGA---AAAAAACTAAGTGTGGCTAC   7188
+                                 .|.|||||..||.||   .|..|||            |
+AAI36323.1      1209 ------------CCATGAGACCATTGAGTCCATCAAC------------C   1234
+
+1               7189 AGCTGTAAGCCCAGGCCCAGACATCCCAGACT-AGTTT------------   7225
+                     |||||.|..|||||    |||.||..||..|| |||||            
+AAI36323.1      1235 AGCTGAAGACCCAG----AGAGATTTCATGCTCAGTTTTAGCACCGACCC   1280
+
+1               7226 ---------------------------TTCCTAGTGCCTGAGAC--AAAG   7246
+                                                ||||.||.||| |||||  .|||
+AAI36323.1      1281 CCAGGACTTCATCCAGGAATGGCTCCGTTCCCAGCGCC-GAGACCTCAAG   1329
+
+1               7247 ACAGGGAAGAACTGAAGCAGTGGG---TCCTGCAGAGGTGAG-CGAG---   7289
+                     |    ..|..|||||.|...|.||   |||||..||||.||| ||||   
+AAI36323.1      1330 A----TCATCACTGATGTGATTGGAAATCCTGAGGAGGAGAGACGAGCTG   1375
+
+1               7290 ------------GGCCCTGTGGTCCCCAGGAAGCTCCCTGCTGCAGTGTT   7327
+                                 .||||||.|   ||||||||          |||||   
+AAI36323.1      1376 CTTTCTACCACCAGCCCTGGG---CCCAGGAA----------GCAGT---   1409
+
+1               7328 CACAAAACCTGCAGCACCACCCATCCCTCCTGGGCAGGTGCTCCGGTAAC   7377
+                             ..||||...||.|..|.||       .||||||      |.|
+AAI36323.1      1410 --------AGGCAGGCACATCTTTGCC-------AAGGTGC------AGC   1438
+
+1               7378 AGGAAGTCCCAAGACAAGGCCTCATAGGCAGGGTCTGGAATAGGCTCCAC   7427
+                     ||                    |..|||||||..||||||.|||      
+AAI36323.1      1439 AG--------------------CGAAGGCAGGAACTGGAACAGG------   1462
+
+1               7428 CCAGACATCTGCTCCAGGTTTCCTGGGCCCAGAGCCCCTGGCTCACTCAG   7477
+                                         |.|||||   |...|.||||.|   ||.| 
+AAI36323.1      1463 --------------------TGCTGGG---AATTCGCCTGAC---CTAA-   1485
 
-1               7491 GGCTGCTTATAGTTCAAGTCCCAGCTGAGCCTTGCCAAGCTCCATAGGGC   7540
+1               7478 GGCCCCAGGGGAAGGCTGCTTATAGTTCAAGTCCCAGCTGAGCCTTGCCA   7527
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               7541 TTATAGGCGCTAGCAACTCCTCCCACTTCAAAAAACAAAACAAAACAAAA   7590
+1               7528 AGCTCCATAGGGCTTATAGGCGCTAGCAACTCCTCCCACTTCAAAAAACA   7577
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               7591 CAAACAAAAAAAAACAACTCAGGAGTTAAAGAAAAAAAAAAAAGCAGTCC   7640
+1               7578 AAACAAAACAAAACAAACAAAAAAAAACAACTCAGGAGTTAAAGAAAAAA   7627
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               7641 AGCACTCTGAGCCTCCCTAACTCCCTGCCTGCAGCAGGACCAGGTAGGCC   7690
+1               7628 AAAAAAGCAGTCCAGCACTCTGAGCCTCCCTAACTCCCTGCCTGCAGCAG   7677
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               7691 TGGATCAATCCCCTGAACCCCAGATGAGGAATCCAGGGCTCCGGTGAGCG   7740
+1               7678 GACCAGGTAGGCCTGGATCAATCCCCTGAACCCCAGATGAGGAATCCAGG   7727
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               7741 TGCTTTGCCCTGCCCCAAATGTGGCCCTGATGCTCCTGGAACCTGGGCCT   7790
+1               7728 GCTCCGGTGAGCGTGCTTTGCCCTGCCCCAAATGTGGCCCTGATGCTCCT   7777
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               7791 GAGGGCCTCAGTTGGGGAACATACCACCCACTCTCCCATGAGTAAAAAGG   7840
+1               7778 GGAACCTGGGCCTGAGGGCCTCAGTTGGGGAACATACCACCCACTCTCCC   7827
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               7841 ATTTTGAGGCCGGGTGCAGTGGCTCACGCCTATAATCCCAGCACTTTGGG   7890
+1               7828 ATGAGTAAAAAGGATTTTGAGGCCGGGTGCAGTGGCTCACGCCTATAATC   7877
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               7891 AGGCCGAGGCGGGTGGATCACAAGGTCAGGAGTTCGAGACCATCCTGGCC   7940
+1               7878 CCAGCACTTTGGGAGGCCGAGGCGGGTGGATCACAAGGTCAGGAGTTCGA   7927
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               7941 AAGATGGTGAAACCTCGTCTCTACTAAAAATACAAAAAAATTAGCCGGGC   7990
+1               7928 GACCATCCTGGCCAAGATGGTGAAACCTCGTCTCTACTAAAAATACAAAA   7977
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               7991 GTGGTGGTGGGCGCCTGTAATCCCAGCTACTCAGGAGGCTTGAGGCAGAG   8040
+1               7978 AAATTAGCCGGGCGTGGTGGTGGGCGCCTGTAATCCCAGCTACTCAGGAG   8027
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8041 GATTGTTTGAACCTGGGAGGCGGAGGTTGCAGTGAGCTGAGATCATGTCA   8090
+1               8028 GCTTGAGGCAGAGGATTGTTTGAACCTGGGAGGCGGAGGTTGCAGTGAGC   8077
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8091 CTGCACTCCAGCCTGGGCGACAGAGTGAGACTCCGTATCAGAAAAAAAAA   8140
+1               8078 TGAGATCATGTCACTGCACTCCAGCCTGGGCGACAGAGTGAGACTCCGTA   8127
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8141 AATTTTTTTTTTGAACTTTTTGAACTCTCTGGAGTGAACCCAGCAATCTG   8190
+1               8128 TCAGAAAAAAAAAAATTTTTTTTTTGAACTTTTTGAACTCTCTGGAGTGA   8177
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8191 AGGTTTTTGTTATTTTGTTGCCCAGGCTGGAGTGCAGTGGCAGGATCATA   8240
+1               8178 ACCCAGCAATCTGAGGTTTTTGTTATTTTGTTGCCCAGGCTGGAGTGCAG   8227
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8241 GCTCAATGCAGCCTTGAACTCCTGGACTCAAGCAATCCTCCTGCCACAGC   8290
+1               8228 TGGCAGGATCATAGCTCAATGCAGCCTTGAACTCCTGGACTCAAGCAATC   8277
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8291 ATCCTGAGTAGCTGGGACCATAAGCGCACACCACCATGCTTGGCTAAATT   8340
+1               8278 CTCCTGCCACAGCATCCTGAGTAGCTGGGACCATAAGCGCACACCACCAT   8327
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8341 TTTTTTTTTTTTTTTAAGAGATGATGGTCTCACTATGTTGCTTAGGCTGG   8390
+1               8328 GCTTGGCTAAATTTTTTTTTTTTTTTTTAAGAGATGATGGTCTCACTATG   8377
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8391 TCTTGAACTCCTGGTCTCAAGTAATCCTTCTGTCTGGGCCTCCCAAAGTG   8440
+1               8378 TTGCTTAGGCTGGTCTTGAACTCCTGGTCTCAAGTAATCCTTCTGTCTGG   8427
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8441 CTAGGATTACAGGTGTGAGCCCACCATATCCTGCCCTGGAGGTTTTTTTC   8490
+1               8428 GCCTCCCAAAGTGCTAGGATTACAGGTGTGAGCCCACCATATCCTGCCCT   8477
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8491 TTTTCTTTTTCTTTTTTTAGGTTCCTCTGTTAACTGTGATCCACAGCTAG   8540
+1               8478 GGAGGTTTTTTTCTTTTCTTTTTCTTTTTTTAGGTTCCTCTGTTAACTGT   8527
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8541 AACCACCCTCTGGAGGAAGGGAGGTCATCACTTCCCTTCTTTCAACTATT   8590
+1               8528 GATCCACAGCTAGAACCACCCTCTGGAGGAAGGGAGGTCATCACTTCCCT   8577
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8591 TGCTCAGCTTGGGCCTCAAATTCTCACTTTTCAAGTGCATCTCATGAGCC   8640
+1               8578 TCTTTCAACTATTTGCTCAGCTTGGGCCTCAAATTCTCACTTTTCAAGTG   8627
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8641 CTAACAGACAGGAACCCCTTTGTTTCCCAGATCTCAAGTCCCTTCTCCTG   8690
+1               8628 CATCTCATGAGCCCTAACAGACAGGAACCCCTTTGTTTCCCAGATCTCAA   8677
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8691 GCAGTCATACAACTGGACTTGGAAAGAAGGCAAATAGGATCCTCTTCAAA   8740
+1               8678 GTCCCTTCTCCTGGCAGTCATACAACTGGACTTGGAAAGAAGGCAAATAG   8727
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8741 CTCAGCCAAAGTTAGCTGGCTGGGTTCTCCTTCCCATCTACCTCTCCTGC   8790
+1               8728 GATCCTCTTCAAACTCAGCCAAAGTTAGCTGGCTGGGTTCTCCTTCCCAT   8777
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8791 CAGGAGGAGGAAAGCTAGTGGGATGGGAAACCCAGACTCAGGGCCATCTC   8840
+1               8778 CTACCTCTCCTGCCAGGAGGAGGAAAGCTAGTGGGATGGGAAACCCAGAC   8827
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8841 CTACTTCCGCACAGCTAGCAGCCCAGGCCTAACCAGCCAGCCAGCTTGGC   8890
+1               8828 TCAGGGCCATCTCCTACTTCCGCACAGCTAGCAGCCCAGGCCTAACCAGC   8877
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8891 CTTGCCACAGGCCCAAGGCCACCCCCCACCAAAACATGTGGAATCCATCC   8940
+1               8878 CAGCCAGCTTGGCCTTGCCACAGGCCCAAGGCCACCCCCCACCAAAACAT   8927
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8941 TCTCAGGGGCTGTCCCAAGGGCACATTTCCTATGGCTTGCATGCCAAGGA   8990
+1               8928 GTGGAATCCATCCTCTCAGGGGCTGTCCCAAGGGCACATTTCCTATGGCT   8977
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               8991 AACTGGAGCGGCTTGTCTGTTCCAGGTCCTTCCAAGGCCAAAGGCCCACA   9040
+1               8978 TGCATGCCAAGGAAACTGGAGCGGCTTGTCTGTTCCAGGTCCTTCCAAGG   9027
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9041 GATGGTGCCCAGGCCAGGTCTCAGTGGGCAGGCCCAAGGGCTACAATGAA   9090
+1               9028 CCAAAGGCCCACAGATGGTGCCCAGGCCAGGTCTCAGTGGGCAGGCCCAA   9077
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9091 TGATGCAGGGAGCCCTCAGCAACACCCTGGGCCCATGAATCCCCAACGGG   9140
+1               9078 GGGCTACAATGAATGATGCAGGGAGCCCTCAGCAACACCCTGGGCCCATG   9127
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9141 GACAGCAAGGTGGGAGAGATGAGCCCCAGCTGGAATCCCTGGGACCAGGT   9190
+1               9128 AATCCCCAACGGGGACAGCAAGGTGGGAGAGATGAGCCCCAGCTGGAATC   9177
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9191 CTGTCTCTGCCCATACCCAGACTCTCTTTTCTCTTGAGAAAGGAGGAAGA   9240
+1               9178 CCTGGGACCAGGTCTGTCTCTGCCCATACCCAGACTCTCTTTTCTCTTGA   9227
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9241 ATGAGGAGTAAGAAGGAAAAAAAAATCCAGTCACTGTCCCTAGTTAAGCC   9290
+1               9228 GAAAGGAGGAAGAATGAGGAGTAAGAAGGAAAAAAAAATCCAGTCACTGT   9277
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9291 ATCTCCTTAGAAGTGAGGGCCCAGTGGGGCAGGTAGGCTGTGTATACTCC   9340
+1               9278 CCCTAGTTAAGCCATCTCCTTAGAAGTGAGGGCCCAGTGGGGCAGGTAGG   9327
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9341 ACGAGGATCCCTAAGGACCTCTGCCTGGAGACATGAGTCGAAAACAGAGG   9390
+1               9328 CTGTGTATACTCCACGAGGATCCCTAAGGACCTCTGCCTGGAGACATGAG   9377
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9391 AAGCCCACAGCAAACCCGTAGATGAGCAAGAAGCCAGTGTCAAATGCTTG   9440
+1               9378 TCGAAAACAGAGGAAGCCCACAGCAAACCCGTAGATGAGCAAGAAGCCAG   9427
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9441 GGCACATGGCTTCGGACGTGGTGGAGTTAGAACCTGAAGGCCAAATAAAA   9490
+1               9428 TGTCAAATGCTTGGGCACATGGCTTCGGACGTGGTGGAGTTAGAACCTGA   9477
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9491 ATGCAGAGAGGGTGACAAGGCAGATGGGCACAGTTTCCAAGCCCTCTGGG   9540
+1               9478 AGGCCAAATAAAAATGCAGAGAGGGTGACAAGGCAGATGGGCACAGTTTC   9527
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9541 GCAACCTGAACAGCAGACTAGAGCACTGGCAGGGTCAGGCTGAGGTCCTC   9590
+1               9528 CAAGCCCTCTGGGGCAACCTGAACAGCAGACTAGAGCACTGGCAGGGTCA   9577
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9591 ACACACTGAGCAGAAGTCGCTGCTTTGCAAGGGCTTTTGAAGCTGCAATC   9640
+1               9578 GGCTGAGGTCCTCACACACTGAGCAGAAGTCGCTGCTTTGCAAGGGCTTT   9627
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9641 TGAGCAGCTCTCAAAACCCCAAAGGGGTCAGGACAGCACTCTTTGAAGCA   9690
+1               9628 TGAAGCTGCAATCTGAGCAGCTCTCAAAACCCCAAAGGGGTCAGGACAGC   9677
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9691 ACTCTCGCAGACTCCTCCGGCCCCAGACCAGCAGGGCTCCACTCTGCACG   9740
+1               9678 ACTCTTTGAAGCAACTCTCGCAGACTCCTCCGGCCCCAGACCAGCAGGGC   9727
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9741 TCCAGACTAATCAACTCCCGGACACGATGACAGGAGGCAGAAAGCCCAGA   9790
+1               9728 TCCACTCTGCACGTCCAGACTAATCAACTCCCGGACACGATGACAGGAGG   9777
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9791 AGAGAGCCGGCCTGTGACTGGGCTGGGCCTCCCCTCAGGCCAGGCCACCA   9840
+1               9778 CAGAAAGCCCAGAAGAGAGCCGGCCTGTGACTGGGCTGGGCCTCCCCTCA   9827
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9841 CCGTCTCTGGTCTAAGCTGGAGTCCTCCCAGCGAAGGCGCCTGGCCCTGC   9890
+1               9828 GGCCAGGCCACCACCGTCTCTGGTCTAAGCTGGAGTCCTCCCAGCGAAGG   9877
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9891 CTCAGGAGTAAAGTCCGCCCGTGCACAAGCTGGAATCCCCTGGCCCTAGC   9940
+1               9878 CGCCTGGCCCTGCCTCAGGAGTAAAGTCCGCCCGTGCACAAGCTGGAATC   9927
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9941 CTCAGCGTCCCGTGCCCGTGGGAAGCCAGGCTCCTTCCTCCTTATTAGCA   9990
+1               9928 CCCTGGCCCTAGCCTCAGCGTCCCGTGCCCGTGGGAAGCCAGGCTCCTTC   9977
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1               9991 GCCGGGAGCCATCTCAGACACGCTAGAGCTCCGCCAGTTCCCAATCAGAA  10040
+1               9978 CTCCTTATTAGCAGCCGGGAGCCATCTCAGACACGCTAGAGCTCCGCCAG  10027
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10041 AAAACAGGGCAGACTTGGACTGGGACCAAGGCCGATGCAGGGTAACCCCG  10090
+1              10028 TTCCCAATCAGAAAAAACAGGGCAGACTTGGACTGGGACCAAGGCCGATG  10077
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10091 GTTTCTCAGCGAGGGCCCTTTCCCAAACTTTCTCATCACTTTCCAGCCCT  10140
+1              10078 CAGGGTAACCCCGGTTTCTCAGCGAGGGCCCTTTCCCAAACTTTCTCATC  10127
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10141 CCTACCCTAGACTTCTCAACCCACCCGCCACAATTCACTGGCTCCCCAAA  10190
+1              10128 ACTTTCCAGCCCTCCTACCCTAGACTTCTCAACCCACCCGCCACAATTCA  10177
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10191 CTCCTCCATCTCCCAGTCACTCGGAATCCCTGTGCCGCGGAAGCCCCCAG  10240
+1              10178 CTGGCTCCCCAAACTCCTCCATCTCCCAGTCACTCGGAATCCCTGTGCCG  10227
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10241 GCCTCCCAGCTGCTTCCAGCCCTCCGCTGCAGAACCTGCTTCCCCTTCCC  10290
+1              10228 CGGAAGCCCCCAGGCCTCCCAGCTGCTTCCAGCCCTCCGCTGCAGAACCT  10277
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10291 ACTTCTCCACCGCGACCCGCCGCAGCCCGAGGGTCCCGGCCCGCCCTCCA  10340
+1              10278 GCTTCCCCTTCCCACTTCTCCACCGCGACCCGCCGCAGCCCGAGGGTCCC  10327
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10341 CCGTCTCCCGGAGTTCCTCATGCATTCCCCAGGGCCCTCACTCGAGGCCC  10390
+1              10328 GGCCCGCCCTCCACCGTCTCCCGGAGTTCCTCATGCATTCCCCAGGGCCC  10377
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10391 CTTCAGCCGCCGGCCCGGGCGCCCTCGCAGCGCCTCTCGCCCCCGTCCGC  10440
+1              10378 TCACTCGAGGCCCCTTCAGCCGCCGGCCCGGGCGCCCTCGCAGCGCCTCT  10427
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10441 TCGCGTCCTCCTTGCTCACCTGGTACTGCGCCGCGGGGCCCGCGGGGCCC  10490
+1              10428 CGCCCCCGTCCGCTCGCGTCCTCCTTGCTCACCTGGTACTGCGCCGCGGG  10477
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10491 ATGGGGCGGAAGGCGGCGGCCCCGGGGCCCCCCACGCCTCCTGCCGGACC  10540
+1              10478 GCCCGCGGGGCCCATGGGGCGGAAGGCGGCGGCCCCGGGGCCCCCCACGC  10527
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10541 CGGTCCCCGGAGCGCCGGTCCGGGCAGCATGCCGGGTCCCGCGGGGGGAG  10590
+1              10528 CTCCTGCCGGACCCGGTCCCCGGAGCGCCGGTCCGGGCAGCATGCCGGGT  10577
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10591 GCGGCGCTCCCAGGGCCGCAGCCACGGCGCCGCCGCCAGGGCTTAGCGGG  10640
+1              10578 CCCGCGGGGGGAGGCGGCGCTCCCAGGGCCGCAGCCACGGCGCCGCCGCC  10627
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10641 GGCAGCGGGAACCCGCCCGCGCCTCGGCCCGACATCGCTCCGTCCCGTCC  10690
+1              10628 AGGGCTTAGCGGGGGCAGCGGGAACCCGCCCGCGCCTCGGCCCGACATCG  10677
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10691 CGCGGTGCCGCGATCCGGACTCCGGGCTCCGCGTCGAGTCCACTCCGTGC  10740
+1              10678 CTCCGTCCCGTCCCGCGGTGCCGCGATCCGGACTCCGGGCTCCGCGTCGA  10727
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10741 TCTGTGCTCCGCGATCCGGGACTTGGCGATCTTAATTCCGGGTTCCGGGA  10790
+1              10728 GTCCACTCCGTGCTCTGTGCTCCGCGATCCGGGACTTGGCGATCTTAATT  10777
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10791 TTTGTCGATCCGGGCTCCGGGATTTCCTAATCCAAGTTCGCGAGTTCCTC  10840
+1              10778 CCGGGTTCCGGGATTTGTCGATCCGGGCTCCGGGATTTCCTAATCCAAGT  10827
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10841 ACAGACCCGGTTCGGGACAGATTCCGCTCCTGCCCGGGAGATTCCGGATC  10890
+1              10828 TCGCGAGTTCCTCACAGACCCGGTTCGGGACAGATTCCGCTCCTGCCCGG  10877
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10891 CAGGATCTGCTGCGGGCCCGCCTTCCGTCCCCGGCCTCCGGAGGTTTGGC  10940
+1              10878 GAGATTCCGGATCCAGGATCTGCTGCGGGCCCGCCTTCCGTCCCCGGCCT  10927
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10941 CGCCCGAGTCGAGTTACCCAGAGGCGGCTACGAACTCCCTGCCCCGCCCA  10990
+1              10928 CCGGAGGTTTGGCCGCCCGAGTCGAGTTACCCAGAGGCGGCTACGAACTC  10977
                                                                        
 AAI36323.1      1485 --------------------------------------------------   1485
 
-1              10991 ACCCAGCCCAG  11001
-                                
-AAI36323.1      1485 -----------   1485
+1              10978 CCTGCCCCGCCCAACCCAGCCCAG  11001
+                                             
+AAI36323.1      1485 ------------------------   1485
 
 
 #---------------------------------------
