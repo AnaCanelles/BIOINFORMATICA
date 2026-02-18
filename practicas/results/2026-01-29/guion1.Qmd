@@ -86,10 +86,6 @@ su interior usando los comandos de Bash que has aprendido:
 ```
 :::
 
-Si tuviesemos muchas más secuencias se usa muscle. Hay un paquete de
-algo que tiene la función browse que nos permite ver el resultado en el
-html. es alineamiento de proteínas.
-
 # Alineamiento de pares de secuencia
 
 En los enlaces siguientes encontrarás las secuencias descritas a
@@ -195,6 +191,8 @@ head -5 (nombre archivo secuencia)
     Resultado del alineamiento: aln2.txt
 
 6.  Alinea también los dos fragmentos cromosómicos.
+
+    Resultado del alineamiento: aln4.txt
 :::
 
 Alineamiento chimpancé con needle:
@@ -257,6 +255,11 @@ programa](https://www.animalgenome.org/bioinfo/resources/manuals/exonerate/index
 En el bloque siguiente repetimos el mismo alineamiento que antes, con
 `exonerate`.
 
+Este programa es más inteligente y se le puede especificar qué estamos
+alineando, en este caso un mRNA sin intrones a un cromosoma. Al hacer
+esta aclaración (est2genome)el programa busca el alineamiento por
+fragmentos. (man exonerate: ver todos los tipos de algoritmos).
+
 ```{bash}
 #| eval: true
 #| output: true
@@ -269,36 +272,21 @@ if [ ! -e HumanChr17.fa ]; then
    wget -O HumanChr17.fa \
       https://rest.ensembl.org/sequence/region/human/17:63832000..63843000:1?content-type=text/x-fasta
 fi
-exonerate --model est2genome HumanSMARCD2.fa HumanChr17.fa
+exonerate --model est2genome HumanSMARCD2.fa HumanChr17.fa > aln5.txt
 ```
 
 En este caso, el alineamiento resultante no se ha enviado a un archivo,
 sino al *standard output*, que Quarto recoge y presenta en este mismo
 documento. Por eso, no hemos condicionado la ejecución.
 
-exonerate es mucho más inteligente, y en sus argumentos puedes decirle
-el modelo de argumento que estas alineando. Alineamos un mRNA sin
-intrones a un trozo de cromosoma. El alineamiento es muy pobre, le
-tenemos que decir al algoritmo que no hay intrones para que compare por
-trozos.
-
-est2genome es lo que le dice al algoritmo que ya no hay intrones para
-que pueda alinear las secuencias por fragmentos (man exonerate para ver
-todos los tipos de algoritmos).
-
-(aln3.txt alineamiento de humano con exonerate)
-
 ::: {.callout-note icon="false"}
 ## Desafío
 
 ¿Cómo puedes enviar el resultado de `exonerate` a un archivo?
-:::
 
-El resultado aparece en el terminal, y se salta las secuencias de
-intrones. Para que el alineamiento salga en pantalla, no le decimos a
-exonerate que guarde el archivo y así sale en el programa. Para guardar
-el alineamiento en un archivo escribimos \> (nombre del archivo) detrás
-del comando de alineación y así redirigimos el resultado.
+Dirigimos el output a un nuevo documento añadiendo "\> aln5.txt" detrás
+del comando.
+:::
 
 # Apéndice. Alineamientos múltiples
 
@@ -317,13 +305,6 @@ if [ ! -e PF00009.afa ]; then
    muscle -align PF00009.fa -output PF00009.afa
 fi
 ```
-
-Si tuviesemos muchas más secuencias se usa muscle. Hay un paquete de
-algo que tiene la función browse que nos permite ver el resultado en el
-html. es alineamiento de proteínas. (lo he exportado como .txt porque no
-podía verlo)
-
-(PF00009.afa y .txt alineamiento de secuencias múltiples por muscle)
 
 Para visualizar el alineamiento, podemos usar la función `BrowseSeqs()`,
 del paquete `DECIPHER` en el entorno de R. Esta función nos permite
