@@ -6,7 +6,7 @@ execute:
   output: true
   error: true
 engine: knitr
-bibliography: ../../references.bib
+bibliography: ../../doc/references.bib
 language:
    title-block-published: "Última actualización:"
    section-title-references: "Bibliografía"
@@ -27,7 +27,7 @@ Usaremos los programas siguientes:
     ejecución: `chmod u+x fastp`. Y además tendrás que invocarlo como
     `./fastp` para que Bash lo encuentre. Alternativamente, puedes
     copiarlo a una carpeta en tu `PATH`. Puedes consultar el `PATH`
-    mediante `echo $PATH`. (está en /opt/homebrew/bin)
+    mediante `echo $PATH`. (/opt/homebrew/bin)
 
 -   [bwa](https://github.com/lh3/bwa) [@Li2009]. Puedes descargar el
     código fuente con y compilarlo siguiendo estos pasos:
@@ -69,13 +69,11 @@ se secuenciaron 16 cepas más de *Bradyrhizobium*.
 
 ```{bash}
 if [ ! -e DRR025089_1.fastq.gz ]; then
-   # Con la opción "-o /dev/null" nos deshacemos de los mensajes. (-e significa existe) (si le das a set as working directory se puede ejecutar desde aquí)
-   wget -o /dev/null \
-        ftp://ftp.sra.ebi.ac.uk/vol1/fastq/DRR025/DRR025089/DRR025089_1.fastq.gz
+   # Con la opción "-o /dev/null" nos deshacemos de los mensajes. (podemos ejecutarlo desde RStudio al configurarlo como working directory)
+   wget -o /dev/null ftp://ftp.sra.ebi.ac.uk/vol1/fastq/DRR025/DRR025089/DRR025089_1.fastq.gz
 fi
 if [ ! -e DRR025089_2.fastq.gz ]; then
-   wget -o /dev/null \
-        ftp://ftp.sra.ebi.ac.uk/vol1/fastq/DRR025/DRR025089/DRR025089_2.fastq.gz
+   wget -o /dev/null ftp://ftp.sra.ebi.ac.uk/vol1/fastq/DRR025/DRR025089/DRR025089_2.fastq.gz
 fi
 ```
 
@@ -87,17 +85,12 @@ línea de órdenes. Puedes hacerlo con `zless`, una versión de `less`
 capaz de mostrar archivos comprimidos, o bien descomprimiendo los
 archvios con `gunzip`. Para no ocupar espacio de disco innecesariamente,
 puedes usar `gunzip -c DRR025089_1.fastq.gz | less -S`, que envía el
-contenido del archivo a la salida estándar (no a un archivo nuevo), de
-donde `less -S` lo lee, sin modificar nada en la carpeta. ¿Sabrías
-contar el número de líneas de cada archivo?
+contenido del archivo a la salida estándar (-c indica que no debe crear
+un archivo nuevo descomprimido), de donde `less -S` lo lee, sin
+modificar nada en la carpeta. ¿Sabrías contar el número de líneas de
+cada archivo?
 
-wc (=word count)
-
-En este caso los archivos están comprimidos. Como están comprimidos con
-gz se descomprime con gunzip, y se añade -c para que no cree un nuevo
-archivo descomprimido. Además añadimos \| wc
-
-gunzip -c DRR025089_1.fastq.gz \| wc -l (no sé para qué es el menos l)
+`gunzip -c DRR025089_1.fastq.gz | wc -l`
 :::
 
 Necesitaremos también el genoma de referencia de
@@ -118,7 +111,25 @@ fi
 
 -   ¿Crees que deberíamos guardar los archivos descargados en
     `../../data`?
+
+    Sí, porque simplemente son las secuencias que vamos a usar de base
+    para el mapeo que haremos después. Lo que nos interesa es el
+    resultado, no la secuencia de la que partimos.
+
 -   ¿Cómo podrías guardar los mensajes de `wget` en un archivo?
+
+    El parámetro "-o" de wget permite recuperar los mensajes del
+    archivo, pero al añadir la opción "/dev/null" le estamos
+    especificando que queremos que los elimine. Por otra parte, el
+    parámetro "-O" indica el nombre del archivo en el que vamos a
+    descargar el contenido del enlace que añadimos a continuación.
+
+    Por tanto, para redirigir los mensajes a un nuevo archivo y
+    guardarlos podemos usar
+    `wget -o archivo-mensajes -O referencia.fa enlace` para obtener
+    tanto el genoma de referencia como un archivo que contenga sus
+    mensajes.
+
 -   ¿De cuántas secuencias diferentes se compone este genoma de
     referencia?
 :::
@@ -127,8 +138,7 @@ fi
 
 ```{bash}
 if [ ! -e fastp.html ]; then
-   # Si "fastp" está en la carpeta actual y no en el PATH, escribe "./fastp" (si tenemos fastp en un sitio diferente a donde estamos indicamos el camino hasta él. Además, si el input está en una carpeta diferente, lo mismo)
-   # en lugar de "fastp".
+   # Si "fastp" está en la carpeta actual y no en el PATH, escribe "./fastp" en lugar de "fastp". (si tenemos fastp en un sitio diferente a donde estamos indicamos el camino hasta él. Lo mismo si el input está en una carpeta diferente)
    fastp -i DRR025089_1.fastq.gz \
          -o DRR025089_1_clean.fastq \
          -I DRR025089_2.fastq.gz \
@@ -143,9 +153,17 @@ fi
 
 1.  Revisa la ayuda del programa ejecutando `fastp -h`, y asegúrate de
     entender al menos las opciones que hemos usado.
+
+    -i y -I indican los 2 archivos de input, y -o y -O son sus
+    correspondientes outputs filtrados después del control de calidad.
+    La función –-merge fusiona las lecturas solapantes en una sola, y
+    este resultado se exporta en un archivo especificado con
+    --merge_out.
+
 2.  Revisa el informe generado por `fastp` en el archivo `fastp.html` y
     redacta un pequeño resumen de las principales conclusiones que
     sacas.
+
 3.  Descarga un segundo conjunto de archivos FASTQ de la misma especie y
     repite el análisis de calidad con ellos. Puedes ver algunas opciones
     en [este
