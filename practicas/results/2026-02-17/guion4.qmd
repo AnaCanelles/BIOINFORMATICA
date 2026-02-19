@@ -15,8 +15,6 @@ format:
       embed-resources: true
 ---
 
-(poner refernce.bib en la carpeta doc de practicas para usarlo como bibliografía
-
 # Preparación
 
 En esta práctica trabajaremos en el entorno de R, con los paquetes siguientes: `dplyr`, `kableExtra` y `jsonlite`. Para descargar algunos datos de ejemplo, usaremos los programas `datasets` y `dataformat` [@OLeary2024], que pueden descargarse en [este enlace](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/command-line-tools/download-and-install/).
