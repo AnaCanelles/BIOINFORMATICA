@@ -122,6 +122,8 @@ genera alineamientos locales.
 #| eval: false
 # Sólo queremos ejecutar el código si los resultados no
 # están ya disponibles, es decir, si el archivo de salida no existe.
+# La primera condición indica que el resto de pasos solo se realizarán
+# si no (!) existe (-e) un archivo con el nombre indicado.
 if [ ! -e aln1.txt ]; then
    # Sólo descargaremos las secuencias, si no están ya descargadas.
    if [ ! -e HumanSMARCD2.fa ]; then
@@ -143,13 +145,11 @@ if [ ! -e aln1.txt ]; then
 fi
 ```
 
-No he podido descargar la secuencia HumanChr17.fa con wget, así que he
-creado un archivo nano con el mismo nombre para copiarla.
+> Nota: No he podido descargar la secuencia HumanChr17.fa con wget, así
+> que he creado un archivo nano con el mismo nombre y la he copiado.
 
 Esta serie de órdenes sirve para la ejecución condicional, y permite
-encajar condiciones. Por ejemplo: si no existe el archivo
-HumanSMARCD2.fa, entonces se descarga con wget y ese enlace (! significa
-no, -e significa existe).
+encajar condiciones.
 
 Una vez nos aseguramos que tenemos los dos archivos los alineamos con
 needle, que implementa un algoritmo de alineación de las dos secuencias
@@ -195,7 +195,7 @@ head -5 (nombre archivo secuencia)
     Resultado del alineamiento: aln4.txt
 :::
 
-Alineamiento chimpancé con needle:
+#### Alineamiento chimpancé con needle:
 
 ```{bash}
 if [ ! -e aln2.txt ]; then
@@ -214,10 +214,10 @@ if [ ! -e aln2.txt ]; then
 fi
 ```
 
-He tenido el mismo problema al descargar la secuencia de ChimpChr17 y lo
-he resuelto de la misma forma.
+> Nota: He tenido el mismo problema al descargar la secuencia de
+> ChimpChr17 y lo he resuelto de la misma forma.
 
-Alineamiento humano con water:
+#### Alineamiento humano con water:
 
 En este caso sabemos que ya tenemos las secuencias descargadas
 correctamente, así que no es necesario volver a hacerlo.
@@ -233,7 +233,7 @@ if [ ! -e aln3.txt ]; then
 fi
 ```
 
-Alineamiento de los fragmentos cromosómicos:
+#### Alineamiento de los fragmentos cromosómicos:
 
 ```{bash}
 if [ ! -e aln4.txt ]; then
@@ -269,8 +269,7 @@ if [ ! -e HumanSMARCD2.fa ]; then
    wget -O HumanSMARCD2.fa https://www.ebi.ac.uk/ena/browser/api/fasta/AAI36323.1
 fi
 if [ ! -e HumanChr17.fa ]; then
-   wget -O HumanChr17.fa \
-      https://rest.ensembl.org/sequence/region/human/17:63832000..63843000:1?content-type=text/x-fasta
+   wget -O HumanChr17.fa https://rest.ensembl.org/sequence/region/human/17:63832000..63843000:1?content-type=text/x-fasta
 fi
 exonerate --model est2genome HumanSMARCD2.fa HumanChr17.fa > aln5.txt
 ```
