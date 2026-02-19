@@ -6,7 +6,7 @@ execute:
   eval: true
   error: true
 engine: knitr
-bibliography: ../../references.bib
+bibliography: ../../doc/references.bib
 language:
    title-block-published: "Última actualización:"
    section-title-references: "Bibliografía"
@@ -27,8 +27,6 @@ En WSL2, podéis instalar Git desde el terminal con la orden
 opciones](https://git-scm.com/install/mac), pero la más sencilla parece
 ser instalar las *command line tools*, también desde un terminal,
 mediante la orden `xcode-select --install`.
-
-(para guardar las cosas de terminal: history \> archivo.txt )
 
 # Objetivos
 
@@ -90,7 +88,7 @@ comprobar el estado de tus archivos.
 
 Utiliza `git add ...` para añadir archivos al área de preparación o
 "escenario" [^1]. Consulta `git status` y cuando los hayas añadido
-todos, ejecuta \`git commit -m "...", donde debes sustituir los "..."
+todos, ejecuta `git commit -m "..."`, donde debes sustituir los "..."
 por un mensaje entrecomillado que describa los cambios introducidos en
 la carpeta. Por ejemplo:
 
@@ -103,7 +101,7 @@ git commit -m "Iniciada la primera práctica, aunque el alineamiento no está he
 
 Consulta `git status` y también `git log` (muestra el registro de
 mensajes). Asegúrate de que la rama lleva el nombre que habías elegido
-(le he puesto de nombre tronco).
+(tronco).
 
 # Ignorar cosas
 
@@ -116,9 +114,9 @@ puede haber archivos de los que no queremos que Git observe: si son de
 más de 10 Mb, o si son archivos temporales sin importancia, por ejemplo.
 
 Para ignorar ciertos archivos, podemos crear el archivo `.gitignore`
-(nano .gitignore), directamente en la carpeta de trabajo. Es un archivo
-de texto, y su contenido es una lista de archivos a ignorar. Por
-ejemplo:
+(`nano .gitignore` para poder editarlo), directamente en la carpeta de
+trabajo. Es un archivo de texto, y su contenido es una lista de archivos
+a ignorar. Por ejemplo:
 
 ```         
 .gitignore
@@ -180,7 +178,7 @@ contraseña o *passphrase* que quieras y no la olvides. En tu directorio
 de usuario habrá aparecido una carpeta `.ssh/` con dos archivos:
 `ed25519` y `ed25519.pub`. Éste último es la llave pública. Puedes
 visualizarla en el terminal, por ejemplo con la orden
-`cat ~/.ssh/ed25519.pub`. Copia en el portapapele la llave (desde
+`cat ~/.ssh/ed25519.pub`. Copia en el portapapeles la llave (desde
 "ssh-..." hasta "...\@alumni.uv.es"). A continuación, accede a tu perfil
 de Github. Pincha sobre el icono en la esquina superior derecha y entra
 en el apartado "Settings" del menú. Busca la sección "SSH and GPG keys",
