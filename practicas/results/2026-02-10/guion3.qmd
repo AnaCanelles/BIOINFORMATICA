@@ -132,6 +132,12 @@ fi
 
 -   ¿De cuántas secuencias diferentes se compone este genoma de
     referencia?
+
+    Al principio de cada secuencia hay un indicador con su nombre que
+    empieza con \>. Si contamos el número de líneas que empiezan con \>
+    sabremos el número de secuencias diferentes que hay en el archivo.
+    Para eso hacemos `grep "^>" referencia.fa` . Esto nos muestra que
+    además del genoma completo tiene 2 plásmidos.
 :::
 
 # Control de calidad
@@ -188,20 +194,26 @@ final ya está presente en la carpeta de trabajo.
 if [ ! -e DRR025089.bam ]; then
    if [ ! -e DRR025089_unsorted.bam ]; then
       if [ ! -e DRR025089.sam ]; then
-         if [ ! -e referencia.fa.bwt ]; then
+          if [ ! -e referencia.fa ]; then
+             wget -o /dev/null -O referencia.fa \
+        https://www.ebi.ac.uk/ena/browser/api/fasta/GCA_042137995.2
+           fi
+           if [ ! -e referencia.fa.bwt ]; then
             bwa index referencia.fa
-         fi
+           fi
          bwa mem -M -R '@RG\tID:DRR025089\tSM:SAMD00022947' \
                  -o DRR025089.sam \
                  referencia.fa \
-                 DRR025089_1_clean.fastq \
-                 DRR025089_2_clean.fastq \
+                 ../../data/2026-02-10/DRR025089_1_clean.fastq \
+                 ../../data/2026-02-10/DRR025089_2_clean.fastq \
          1> bwa.log 2> bwa.err
       fi
       samtools view -b -o DRR025089_unsorted.bam DRR025089.sam
     fi
     samtools sort -o DRR025089.bam DRR025089_unsorted.bam
     samtools index DRR025089.bam
+    if [ -e DRR025089.bam ]; then
+    rm referencia.fa
 fi
 ```
 
@@ -211,13 +223,52 @@ fi
 1.  Entre las órdenes anteriores, añade la descarga del genoma de
     referencia en el lugar adecuado y bajo la condición adecuada para
     que pueda borrarse una vez se haya generado el alineamiento.
+
+    La descarga del genoma de referencia debería añadirse antes del
+    condicional que lo usa. Al final de la secuencia de órdenes añadimos
+    el comando para eliminar el archivo de referencia añadiendo la
+    condición de que exista el archivo final resultante del mapeo
+    (DRR025089.bam).
+
 2.  En un bloque de órdenes nuevo, alinea también los pares de lecturas
     cortas que `fastp` había combinado (`DR025089_m_clean.fastq`).
+
+    ```{bash}
+    if [ ! -e DRR025089_merged.bam ]; then
+       if [ ! -e DRR025089_unsorted_merged.bam ]; then
+          if [ ! -e DRR025089_merged.sam ]; then
+              if [ ! -e referencia.fa ]; then
+                 wget -o /dev/null -O referencia.fa \
+            https://www.ebi.ac.uk/ena/browser/api/fasta/GCA_042137995.2
+               fi
+               if [ ! -e referencia.fa.bwt ]; then
+                bwa index referencia.fa
+               fi
+             bwa mem -M -R '@RG\tID:DRR025089\tSM:SAMD00022947' \
+                     -o DRR025089_merged.sam \
+                     referencia.fa \
+                     ../../data/2026-02-10/DRR025089_m_clean.fastq \
+             1> bwa_m.log 2> bwa_m.err
+          fi
+          samtools view -b -o DRR025089_unsorted_merged.bam DRR025089_merged.sam
+        fi
+        samtools sort -o DRR025089_merged.bam DRR025089_unsorted_merged.bam
+        samtools index DRR025089_merged.bam
+    fi
+    ```
+
 3.  Lee la lista de funciones que te ofrece `samtools` al ejecutarlo sin
     ningún argumento. ¿Qué función usarías para combinar dos archvivos
     BAM en uno?
+
+    cat, sirve para concatenar archivos BAM.
+
 4.  ¿Cuánto espacio de disco ocupan los archivos FASTQ, el genoma de
     referencia y su índice y el archivo SAM?
+
+    Los archivos fastq en total ocupan 410 MB. El genoma de referencia y
+    su índice ocupan 27,7 MB. El archivo SAM ocupa 191 MB.
+
 5.  Podíamos haber ahorrado algún paso aprovechando las *tuberías* de
     BASH:
 
@@ -230,6 +281,8 @@ samtools sort - > DRR025089.bam
 
 Este estilo tiene también la ventaja de ser más rápido. ¿Crees que hay
 algún inconveniente al usar las tuberías?
+
+Es más difícil seguir el avance del proceso.
 :::
 
 Antes de proseguir, es importante comprobar el resultado del paso
@@ -261,9 +314,26 @@ plot(COV$cobertura, COV$bases, type = 'l')
 1.  La distribución de cobertura tiene una cola larga. ¿Puedes centrar
     la representación gráfica entre 0 y 20? Pista: usa la opción `xlim`
     de `plot()`.
+
+    ```{r}
+    plot(COV$cobertura, COV$bases, type = 'l', xlim = c(0,20))
+    ```
+
 2.  ¿Qué otras estadísticas crees que vale la pena revisar?
+
 3.  El genoma de referencia incluye dos plásmidos. ¿La cepa secuenciada
     los tiene?
+
+    En este caso, cada secuencia está indicada con "\@SQ". Podemos
+    contar el número de líneas del archivo que empiezan de esta manera
+    para saber cuantas secuencias tiene.
+
+    `samtools view -H DRR025089.bam | grep -c "@SQ"`
+
+    Esta función nos indica que hay 3 secuencias en el archivo, y como
+    una de ellas se corresponde con el genoma podemos concluir que la
+    cepa también contiene 2 plásmidos.
+
 4.  Visualiza los alineamientos en el terminal con la orden siguiente:
 
 ```         
