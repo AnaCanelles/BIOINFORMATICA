@@ -161,8 +161,8 @@ curl_download(
   destfile = 'z1.txt')
 ```
 
-URLencode corrige la URL traduciendo los caracteres como los espacios y
-las comillas para que curl sea capaz de descargarla.
+`URLencode` corrige la URL traduciendo los caracteres como los espacios
+y las comillas para que `curl` sea capaz de descargarla.
 
 El navegador es capaz de buscar la URL aunque no tenga estos caracteres
 corregidos.
@@ -224,14 +224,14 @@ Primero, tenemos que leer los datos del archivo con
 
 3.  ¿De cuántas especies diferentes son estas secuencias?
 
-    Con `unique(adh$base_count)` podemos ver todos los nombres
+    Con `unique(adh$scientific_name)` podemos ver todos los nombres
     científicos distintos de los organismos de los que provienen las
     muestras, que son 308.
 
 4.  ¿Cuándo se publicaron las más recientes?
 
-    Con `tail(sort(adh$first_public))` vemos las últimas fechas
-    ordenadas, por lo que vemos que la más reciente es 2022-04-03.
+    Con `max(adh$first_public)` vemos el valor máximo de las fechas, que
+    debido a su formato coincide con la más reciente, 2022-04-03.
 :::
 
 # Trabajar con los resultados
@@ -287,6 +287,18 @@ mtext('Base count', side = 2, line = 5)
 ¿De qué manera necesitarías transformar la tabla `platelmintos` para
 poder representar gráficamente la longitud acumulada de todas las
 secuencias disponibles a medida que se han ido publicando?
+
+Primero creamos una nueva tabla con los datos de platelmintos y la
+ordenamos fecha de publicación, que como está en formato año-mes-día
+coincide con el orden alfabético, y después creamos una nueva columa con
+la suma acumulada de la longitud de secuencia a medida que se publican.
+Por último definimos los parámetros para la representación gráfica.
+
+```{r}
+platelmintos2 <- platelmintos[order(platelmintos$last_updated),]
+platelmintos2$longitud_acumulada <- cumsum(platelmintos2$base_count)
+plot(platelmintos2$last_updated, platelmintos2$longitud_acumulada, type = 'l')
+```
 :::
 
 # La API del navegador (*browser*) de ENA
@@ -311,6 +323,14 @@ curl_download(URL, destfile = 'Adh.fasta')
 ## Ejercicio 4
 
 Intenta descargar esas mismas secuencias en formato EMBL.
+
+```{r}
+portal    <- 'https://www.ebi.ac.uk/ena/browser/api/'
+formato   <- 'embl/'
+accession <- 'AAC39011,AAY25307,ABU44510,ABG56046,AAO06902'
+URL <- paste0(portal, formato, accession)
+curl_download(URL, destfile = 'Adh.embl')
+```
 :::
 
 # Apéndice
