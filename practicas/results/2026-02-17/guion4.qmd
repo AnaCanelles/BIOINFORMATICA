@@ -19,6 +19,13 @@ format:
 
 En esta práctica trabajaremos en el entorno de R, con los paquetes siguientes: `dplyr`, `kableExtra` y `jsonlite`. Para descargar algunos datos de ejemplo, usaremos los programas `datasets` y `dataformat` [@OLeary2024], que pueden descargarse en [este enlace](https://www.ncbi.nlm.nih.gov/datasets/docs/v2/command-line-tools/download-and-install/).
 
+```{r}
+#| include: false
+library(dplyr)
+library(kableExtra)
+library(jsonlite)
+```
+
 # Objetivos
 
 1.  Conocer el uso de `datasets` y `dataformat`.
@@ -296,6 +303,9 @@ kable(resumen1,
 Crea una tabla con el número total de genes en cada cromosoma. ¿Puedes contar cuántos hay codificados en cada sentido ("strand") y en cada cromosoma?
 
 ```{r}
+library(kableExtra)
+library(tidyr)
+library(dplyr)
 desafio <- gene %>%
   #Agrupamos los datos de seqid y strand de la tabla gene, que es la que ya tenía solo los genes.
   group_by(seqid, strand) %>%
