@@ -45,16 +45,18 @@ apt install emboss exonerate wget muscle
 |------------------------------------|:-----------------------------------|
 | pwd | Conocer la dirección absoluta del directorio actual. ¿Dónde estoy? |
 | cd .. | Cambiar al directorio superior (volver al directorio anterior) |
-| cd a | Entrar en el directorio "a" |
+| cd a | Entrar en el directorio "a". Si "a" es \~, vuelve a la carpeta de usuario |
 | cp a b | Crear una copia "b" del archivo "a" |
-| mv a b | Renombrar el archivo "a" como "b" |
+| mv a b | Renombrar el archivo "a" como "b". Si "b" es una ruta, sirve para mover el archivo |
 | mkdir a | Crear el directorio "a" |
 | rm a | Eliminar el *archivo* "a" |
 | rm -r a | Eliminar el *directorio* "a" y su contenido |
 | touch a | Crear el archivo vacío "a" o actualizar su fecha de consulta si ya existía |
+| ls | Enumera los archivos y carpetas que contiene la carpeta actual |
 | ls -lh | Consultar información de la carpeta |
 | ls -1 | Mostrar el contenido de la carpeta |
-| cd \~ | Volver a casa |
+| wc a | Cuenta el número de palabras, líneas y caracteres del archivo "a" |
+| head -"número" a | Muestra las primeras líneas del archivo "a" (el número que se haya indicado" |
 
 ::: {.callout-note icon="false"}
 ## Ejercicio 1
@@ -146,7 +148,8 @@ fi
 ```
 
 > Nota: No he podido descargar la secuencia HumanChr17.fa con wget, así
-> que he creado un archivo nano con el mismo nombre y la he copiado.
+> que he creado un archivo nano con el mismo nombre y la he copiado
+> desde el enlace.
 
 Esta serie de órdenes sirve para la ejecución condicional, y permite
 encajar condiciones.
@@ -180,19 +183,27 @@ head -5 (nombre archivo secuencia)
 2.  Lee la ayuda del programa `needle` e intenta ajustar los parámetros
     para obtener un alineamiento más convincente.
 
+    Al reducir las penalizaciones por tener huecos (gapopen,
+    `aln13.txt`) o por alargarlos (gapextend, `aln12.txt`) las
+    puntuaciones obtenidas son más altas pero su fiabilidad también es
+    menor.
+
 3.  Prueba el programa `water`, para que el alineamiento sea local.
 
-    Resultado del alineamiento local de humano en aln3.txt
+    Resultado del alineamiento local de humano en `aln3.txt`
 
 4.  Intenta guardar el alineamiento en formato FASTA.
 
+    En el último argumento de needle (outfile) poner de nombre de
+    archivo .fa
+
 5.  Alinea también el transcrito de SMARCD2 de chimpancé a su cromosoma.
 
-    Resultado del alineamiento: aln2.txt
+    Resultado del alineamiento: `aln2.txt`
 
 6.  Alinea también los dos fragmentos cromosómicos.
 
-    Resultado del alineamiento: aln4.txt
+    Resultado del alineamiento: `aln4.txt`
 :::
 
 #### Alineamiento chimpancé con needle:
@@ -257,13 +268,13 @@ En el bloque siguiente repetimos el mismo alineamiento que antes, con
 
 Este programa es más inteligente y se le puede especificar qué estamos
 alineando, en este caso un mRNA sin intrones a un cromosoma. Al hacer
-esta aclaración (est2genome)el programa busca el alineamiento por
-fragmentos. (man exonerate: ver todos los tipos de algoritmos).
+esta aclaración (est2genome) el programa busca el alineamiento por
+fragmentos..
 
 ```{bash}
 #| eval: true
-#| output: true
 #| error: true
+#| output: true
 
 if [ ! -e HumanSMARCD2.fa ]; then
    wget -O HumanSMARCD2.fa https://www.ebi.ac.uk/ena/browser/api/fasta/AAI36323.1
@@ -272,6 +283,7 @@ if [ ! -e HumanChr17.fa ]; then
    wget -O HumanChr17.fa https://rest.ensembl.org/sequence/region/human/17:63832000..63843000:1?content-type=text/x-fasta
 fi
 exonerate --model est2genome HumanSMARCD2.fa HumanChr17.fa > aln5.txt
+# Al añadir "> aln5.txt" se redirige el resultado a un nuevo archivo en lugar de mostrarlo en la terminal.
 ```
 
 En este caso, el alineamiento resultante no se ha enviado a un archivo,
@@ -283,7 +295,7 @@ documento. Por eso, no hemos condicionado la ejecución.
 
 ¿Cómo puedes enviar el resultado de `exonerate` a un archivo?
 
-Dirigimos el output a un nuevo documento añadiendo "\> aln5.txt" detrás
+Dirigimos el output a un nuevo documento añadiendo `> aln5.txt` detrás
 del comando.
 :::
 
