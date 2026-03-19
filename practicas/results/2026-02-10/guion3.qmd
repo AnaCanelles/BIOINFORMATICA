@@ -91,6 +91,10 @@ modificar nada en la carpeta. ¿Sabrías contar el número de líneas de
 cada archivo?
 
 `gunzip -c DRR025089_1.fastq.gz | wc -l`
+
+Esta orden sigue la misma lógica que lo explicado. Cuenta las líneas del
+archivo comprimido y muestra el número en el terminal sin necesidad de
+crear un nuevo archivo descomprimido.
 :::
 
 Necesitaremos también el genoma de referencia de
@@ -169,6 +173,32 @@ fi
 2.  Revisa el informe generado por `fastp` en el archivo `fastp.html` y
     redacta un pequeño resumen de las principales conclusiones que
     sacas.
+
+    La longitud media de las lecturas antes del filtrado era de 217-218
+    pb. Había un total de 823.364000 K lecturas y 179.695834 M bases, y
+    después del filtrado quedan 233.67700 K lecturas y 50.026050 M
+    bases.
+
+    El contenido de GC antes del filtrado es del 63.673652 %, y después
+    es del 62.757142 %. Ambos datos son bastante cercanos al contenido
+    de GC esperado para esta especie, que es alrededor del 64 %, por lo
+    que podemos suponer que no ha habido contaminación y las muestras
+    son correctas.
+
+    Comparando los datos de Q20, Q30 y Q40 de antes y después del
+    filtrado comprobamos que la calidad de las lecturas ha aumentado:
+
+    |     | Antes       | Después     |
+    |-----|-------------|-------------|
+    | Q20 | 80.063669 % | 89.680239 % |
+    | Q30 | 70.590064 % | 83.592194 % |
+    | Q40 | 0.000076 %  | 0.000110 %  |
+
+    El 91.330930 % de las lecturas pasaron el filtro de calidad
+    (751.986000 K), y se corrigieron el 25.448769 % (209.536000 K) de
+    lecturas y el 0.384317 % de bases (690.601000 K). El 8.541058 % de
+    las lecturas (70.324000 K) eran de baja calidad, y el 0.128011 %
+    (1.054000 K) tenían demasiadas N.
 
 3.  Descarga un segundo conjunto de archivos FASTQ de la misma especie y
     repite el análisis de calidad con ellos. Puedes ver algunas opciones
@@ -261,7 +291,7 @@ fi
     ningún argumento. ¿Qué función usarías para combinar dos archvivos
     BAM en uno?
 
-    cat, sirve para concatenar archivos BAM.
+    `cat`, sirve para concatenar archivos BAM.
 
 4.  ¿Cuánto espacio de disco ocupan los archivos FASTQ, el genoma de
     referencia y su índice y el archivo SAM?
@@ -321,18 +351,24 @@ plot(COV$cobertura, COV$bases, type = 'l')
 
 2.  ¿Qué otras estadísticas crees que vale la pena revisar?
 
+    También podríamos revisar el número de lecturas (samtools stats),
+    las lecturas mapeadas (samtools flagstat) o la cobertura promedio
+    (samtools depth)
+
 3.  El genoma de referencia incluye dos plásmidos. ¿La cepa secuenciada
     los tiene?
 
-    En este caso, cada secuencia está indicada con "\@SQ". Podemos
-    contar el número de líneas del archivo que empiezan de esta manera
-    para saber cuantas secuencias tiene.
+    Al tratarse de un archivo fastq cada línea empieza con \@ y el
+    identificador de la secuencia. En este caso las secuencias están
+    marcadas como "\@SQ". Podemos ver las líneas que empiezan con ese
+    identificador y ese será el número de secuencias contenidas en el
+    archivo.
 
     `samtools view -H DRR025089.bam | grep -c "@SQ"`
 
     Esta función nos indica que hay 3 secuencias en el archivo, y como
-    una de ellas se corresponde con el genoma podemos concluir que la
-    cepa también contiene 2 plásmidos.
+    sabemos que una de ellas se corresponde con el genoma podemos
+    concluir que esta cepa también contiene 2 plásmidos.
 
 4.  Visualiza los alineamientos en el terminal con la orden siguiente:
 

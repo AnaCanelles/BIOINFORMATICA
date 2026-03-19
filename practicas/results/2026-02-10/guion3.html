@@ -2238,7 +2238,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Última actualización:</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">22 de febrero de 2026</p>
+      <p class="date">19 de marzo de 2026</p>
     </div>
   </div>
   
@@ -2296,6 +2296,7 @@ make</code></pre>
 <div class="callout-body-container callout-body">
 <p>Una vez descargados los archivos FASTQ, échales un vistazo desde la línea de órdenes. Puedes hacerlo con <code>zless</code>, una versión de <code>less</code> capaz de mostrar archivos comprimidos, o bien descomprimiendo los archvios con <code>gunzip</code>. Para no ocupar espacio de disco innecesariamente, puedes usar <code>gunzip -c DRR025089_1.fastq.gz | less -S</code>, que envía el contenido del archivo a la salida estándar (-c indica que no debe crear un archivo nuevo descomprimido), de donde <code>less -S</code> lo lee, sin modificar nada en la carpeta. ¿Sabrías contar el número de líneas de cada archivo?</p>
 <p><code>gunzip -c DRR025089_1.fastq.gz | wc -l</code></p>
+<p>Esta orden sigue la misma lógica que lo explicado. Cuenta las líneas del archivo comprimido y muestra el número en el terminal sin necesidad de crear un nuevo archivo descomprimido.</p>
 </div>
 </div>
 <p>Necesitaremos también el genoma de referencia de <code>Bradyrhizobium japonicum</code>. Usaremos el de la cepa ACCC 15027 (hay otros).</p>
@@ -2355,7 +2356,37 @@ make</code></pre>
 <ol type="1">
 <li><p>Revisa la ayuda del programa ejecutando <code>fastp -h</code>, y asegúrate de entender al menos las opciones que hemos usado.</p>
 <p>-i y -I indican los 2 archivos de input, y -o y -O son sus correspondientes outputs filtrados después del control de calidad. La función –-merge fusiona las lecturas solapantes en una sola, y este resultado se exporta en un archivo especificado con –merge_out.</p></li>
-<li><p>Revisa el informe generado por <code>fastp</code> en el archivo <code>fastp.html</code> y redacta un pequeño resumen de las principales conclusiones que sacas.</p></li>
+<li><p>Revisa el informe generado por <code>fastp</code> en el archivo <code>fastp.html</code> y redacta un pequeño resumen de las principales conclusiones que sacas.</p>
+<p>La longitud media de las lecturas antes del filtrado era de 217-218 pb. Había un total de 823.364000 K lecturas y 179.695834 M bases, y después del filtrado quedan 233.67700 K lecturas y 50.026050 M bases.</p>
+<p>El contenido de GC antes del filtrado es del 63.673652 %, y después es del 62.757142 %. Ambos datos son bastante cercanos al contenido de GC esperado para esta especie, que es alrededor del 64 %, por lo que podemos suponer que no ha habido contaminación y las muestras son correctas.</p>
+<p>Comparando los datos de Q20, Q30 y Q40 de antes y después del filtrado comprobamos que la calidad de las lecturas ha aumentado:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th>Antes</th>
+<th>Después</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Q20</td>
+<td>80.063669 %</td>
+<td>89.680239 %</td>
+</tr>
+<tr class="even">
+<td>Q30</td>
+<td>70.590064 %</td>
+<td>83.592194 %</td>
+</tr>
+<tr class="odd">
+<td>Q40</td>
+<td>0.000076 %</td>
+<td>0.000110 %</td>
+</tr>
+</tbody>
+</table>
+<p>El 91.330930 % de las lecturas pasaron el filtro de calidad (751.986000 K), y se corrigieron el 25.448769 % (209.536000 K) de lecturas y el 0.384317 % de bases (690.601000 K). El 8.541058 % de las lecturas (70.324000 K) eran de baja calidad, y el 0.128011 % (1.054000 K) tenían demasiadas N.</p></li>
 <li><p>Descarga un segundo conjunto de archivos FASTQ de la misma especie y repite el análisis de calidad con ellos. Puedes ver algunas opciones en <a href="https://www.ebi.ac.uk/ena/browser/advanced-search?result=read_run&amp;query=study_accession%3D%22PRJDB3261%22&amp;fields=run_accession%2Cexperiment_title%2Cstudy_accession%2Cfastq_bytes%2Cfastq_ftp%2Cscientific_name%2Cfirst_public&amp;excludeAccessionType=run&amp;excludeAccessions=DRR025089">este enlace</a>. Es mejor no descargar archivos demasiado grandes.</p></li>
 </ol>
 </div>
@@ -2431,7 +2462,7 @@ make</code></pre>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div></li>
 <li><p>Lee la lista de funciones que te ofrece <code>samtools</code> al ejecutarlo sin ningún argumento. ¿Qué función usarías para combinar dos archvivos BAM en uno?</p>
-<p>cat, sirve para concatenar archivos BAM.</p></li>
+<p><code>cat</code>, sirve para concatenar archivos BAM.</p></li>
 <li><p>¿Cuánto espacio de disco ocupan los archivos FASTQ, el genoma de referencia y su índice y el archivo SAM?</p>
 <p>Los archivos fastq en total ocupan 410 MB. El genoma de referencia y su índice ocupan 27,7 MB. El archivo SAM ocupa 191 MB.</p></li>
 <li><p>Podíamos haber ahorrado algún paso aprovechando las <em>tuberías</em> de BASH:</p></li>
@@ -2490,11 +2521,12 @@ samtools sort - &gt; DRR025089.bam</code></pre>
 </div>
 </div>
 </div></li>
-<li><p>¿Qué otras estadísticas crees que vale la pena revisar?</p></li>
+<li><p>¿Qué otras estadísticas crees que vale la pena revisar?</p>
+<p>También podríamos revisar el número de lecturas (samtools stats), las lecturas mapeadas (samtools flagstat) o la cobertura promedio (samtools depth)</p></li>
 <li><p>El genoma de referencia incluye dos plásmidos. ¿La cepa secuenciada los tiene?</p>
-<p>En este caso, cada secuencia está indicada con “@SQ”. Podemos contar el número de líneas del archivo que empiezan de esta manera para saber cuantas secuencias tiene.</p>
+<p>Al tratarse de un archivo fastq cada línea empieza con @ y el identificador de la secuencia. En este caso las secuencias están marcadas como “@SQ”. Podemos ver las líneas que empiezan con ese identificador y ese será el número de secuencias contenidas en el archivo.</p>
 <p><code>samtools view -H DRR025089.bam | grep -c &quot;@SQ&quot;</code></p>
-<p>Esta función nos indica que hay 3 secuencias en el archivo, y como una de ellas se corresponde con el genoma podemos concluir que la cepa también contiene 2 plásmidos.</p></li>
+<p>Esta función nos indica que hay 3 secuencias en el archivo, y como sabemos que una de ellas se corresponde con el genoma podemos concluir que esta cepa también contiene 2 plásmidos.</p></li>
 <li><p>Visualiza los alineamientos en el terminal con la orden siguiente:</p></li>
 </ol>
 <pre><code>samtools tview DRR025089.bam referencia.fa</code></pre>
