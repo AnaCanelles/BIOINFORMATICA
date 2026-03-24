@@ -5,7 +5,11 @@ format: html
 
 ## Ejercicio 1
 
-Para encontrar genes ortólogos (descienden de un ancestro común, son copias producidas por la divergencia de especies, pero a veces se hacen por duplicación, y esas copias entre ellas sin parálogas). Para estudiar la filogenia de especies se usan proteinas ortólofas de cada especie. Esto es para identificar ortólogos.
+Los genes ortólogos son copias de un gen producidas por la divergencia de especies que descienden de un ancestro común. Cuando las nuevas copias están en un mismo y se producen por duplicación son parálogas entre ellas. Para estudiar la filogenia de especies se usan proteínas ortólogas de cada especie.
+
+Primero descargamis las secuencias
+
+Esto es para identificar ortólogos.
 
 Al buscar las proteínas de una especie en el proteoma de la otra pueden haber más de un hit. En las tablas de buc2blo y blo2buc se compara cada proteina de una especie con la de mejor coincidencia de la otra. Al hacer match se comparan las dos para ver si la coincidencia es la misma y se puede considerar que esas dos proteínas sean ortólogas.
 
@@ -68,7 +72,8 @@ blastp -query ../../data/2026-03-24/blochmannia.fa \
        -max_target_seqs 1
 ```
 
-Nota
+::: {.callout-note icon="false"}
+## Nota
 
 Revisa los argumentos utilizados, prueba otros si quieres y asegúrate de que son adecuados. Puedes consultar la ayuda con `blastp -help` en el terminal.
 
@@ -84,9 +89,10 @@ blo2buc <- read.table(
                  'length', 'evalue', 'bitscore')
 )
 ```
+:::
 
-**\
-Nota**
+::: {.callout-note icon="false"}
+## Nota
 
 Echa un vistazo a estas tablas de resultados. ¿Sabrías identificar las parejas de proteínas que son recíprocamente la que más se parece una a la otra?
 
@@ -102,11 +108,13 @@ coincidencias <- buc2blo[
    c('query', 'subject')
 ]
 ```
+:::
 
-**\
-Nota**
+::: {.callout-note icon="false"}
+## Nota
 
 ¿Qué datos te gustaría representar gráficamente para ganar confianza en que los resultados son correctos y tienen sentido?
+:::
 
 ## Ejercicio 2. PSI-BLAST
 
@@ -126,13 +134,15 @@ psiblast -db ../../data/2026-03-24/swissprot \
          -matrix BLOSUM62
 ```
 
-Nota
+::: {.callout-note icon="false"}
+## Nota
 
 Consulta la ayuda de `psiblast` y asegúrate de entender para qué sirven los argumentos que hemos usado. Por ejemplo, ¿cuál es la diferencia entre `-evalue` y `-inclusion_ethresh`? ¿Cómo harías que la búsqueda fuera más sensible todavía?
 
 `-evalue controla` el umbral de significancia para filtrar qué alineamientos se muestran en el reporte final. El valor que hemos usado es de 0,1, que es más estricto.
 
 `-inclusion_ethresh` controla las secuencias que se usan para construir la matriz. Define la evolución del perfil entre iteraciones. El valor que hemos usado, 7, es muy poco estricto.
+:::
 
 ## Ejercicio 3
 
@@ -158,14 +168,15 @@ fi
 
 ```{bash}
 # Extraemos los identificadores taxonómicos (columna 9) de "resultado.txt":
-cut -f 9 resultado.txt | sort | uniq | paste -sd ',' > taxids.txt
+cut -f 9 resultado.txt | sort | uniq | paste -s -d ',' > taxids.txt
 
 # Generamos una tabla con información taxonómica de esos identificadores:
 datasets summary taxonomy taxon $(cat taxids.txt) --as-json-lines | \
 dataformat tsv taxonomy --template tax-summary > taxreport.txt
 ```
 
-**\
-Nota**
+::: {.callout-note icon="false"}
+## Nota
 
 Puedes importar tanto los resultados del BLAST como el informe taxonómico a una sesión de R y determinar que fracción de las lecturas seleccionadas parecen proceder de un hemímptero y qué fracción proceden de otros organismos. ¿Tienen sentido los resultados? ¿Encuentras alguna secuencia de origen vegetal?
+:::
