@@ -3,15 +3,15 @@ title: "guion8"
 format: html
 ---
 
-## Ejercicio 1
+## Ejercicio 1: **Identificación aproximada de ortólogos**
 
-Los genes ortólogos son copias de un gen producidas por la divergencia de especies que descienden de un ancestro común. Cuando las nuevas copias están en un mismo y se producen por duplicación son parálogas entre ellas. Para estudiar la filogenia de especies se usan proteínas ortólogas de cada especie.
+Los genes ortólogos son copias de un gen producidas por la divergencia de especies que descienden de un ancestro común. Si estas dos copias surgen por duplicación en una misma especies son parálogas entre ellas. Para estudiar la filogenia de especies se usan proteínas ortólogas, que permiten estudiar el tiempo que ha pasado desde la divergencia.
 
-Primero descargamis las secuencias
+Para identificar si dos genes son ortólogos podemos combrobar si son su mejor resultado de BLAST mutuamente. En este ejercicio vamos a comparar los proteomas de *Buchnera aphidicola* (107806) y *Blochmannia ocreatus* (251538) y buscar proteínas ortólogas.
 
-Esto es para identificar ortólogos.
+En primer lugar descargamos las secuencias de ambas especies desde [uniprot](https://www.uniprot.org/proteomes/).
 
-Al buscar las proteínas de una especie en el proteoma de la otra pueden haber más de un hit. En las tablas de buc2blo y blo2buc se compara cada proteina de una especie con la de mejor coincidencia de la otra. Al hacer match se comparan las dos para ver si la coincidencia es la misma y se puede considerar que esas dos proteínas sean ortólogas.
+### Enmascarar e indexar los proteomas
 
 ```{bash}
 if [ ! -e ../../data/2026-03-24/buchnera.paa ]; then
@@ -32,7 +32,6 @@ if [ ! -e ../../data/2026-03-24/buchnera.paa ]; then
                 -out ../../data/2026-03-24/buchnera \
                 -title "Proteoma de Buchnera"
 fi
-# Hay que repetir todo esto para Blochmannia.
 ```
 
 ```{bash}
@@ -54,6 +53,12 @@ if [ ! -e ../../data/2026-03-24/blochmannia.paa ]; then
 fi
 ```
 
+### Búsqueda de BLASTP
+
+Para saber cuál es la proteína ortóloga de estas dos especies buscamos la proteína de *Blochmannia ocreatus* que más se parezca a las de *Buchnera aphidicola* y viceversa. De esta manera obtenemos una lista de proteínas que son recíprocamente las más similares de una especie a la otra, y estas son las más probables de ser ortólogas.
+
+#### De ***Buchnera aphidicola*** **hacia *Blochmannia ocreatus***
+
 ```{bash}
 blastp -query ../../data/2026-03-24/buchnera.fa \
        -db ../../data/2026-03-24/blochmannia \
@@ -62,6 +67,8 @@ blastp -query ../../data/2026-03-24/buchnera.fa \
        -evalue 0.001 \
        -max_target_seqs 1
 ```
+
+#### **De *Blochmannia ocreatus* hacia *Buchnera aphidicola***
 
 ```{bash}
 blastp -query ../../data/2026-03-24/blochmannia.fa \
@@ -72,10 +79,29 @@ blastp -query ../../data/2026-03-24/blochmannia.fa \
        -max_target_seqs 1
 ```
 
-::: {.callout-note icon="false"}
-## Nota
+De esta manera obtenemos para el proteoma de cada especie una tabla en la que se relaciona cada proteína con la más similar de la otra especie. Algunas proteínas pueden tener más de un hit en la otra especie, así que tenemos que buscar las que tienen mayor coincidencia mutuamente, que serán las ortólogas.
 
-Revisa los argumentos utilizados, prueba otros si quieres y asegúrate de que son adecuados. Puedes consultar la ayuda con `blastp -help` en el terminal.
+::: {.callout-note appearance="simple"}
+#### Nota
+
+Revisa los argumentos utilizados, prueba otros si quieres y asegúrate de que son adecuados. Puedes consultar la ayuda con `blastp -help` en el terminal.
+
+`-query` identifica el archivo de entrada
+
+`-db` indica la base de datos con la que se compara el archivo de entrada
+
+`-out` da nombre al archivo de salida
+
+`-outfmt` indica el formato que tendrá la tabla de salida y que información contiene cada columna
+
+`-evalue` designa un valor límite a partir del cuál se guardan las coincidencias (0.001 en este caso)
+
+`-max_target_seqs` define el número máximo de secuencias alineadas que queremos guardar (1 en este caso)
+:::
+
+### Comparación de resultados
+
+A continuación creamos una tabla en R a partir de los archivos que acabamos de obtener con las comparaciones de proteomas. En las tablas de buc2blo y blo2buc se compara cada proteina de una especie con la de mejor coincidencia de la otra.
 
 ```{r}
 buc2blo <- read.table(
@@ -89,14 +115,13 @@ blo2buc <- read.table(
                  'length', 'evalue', 'bitscore')
 )
 ```
-:::
 
 ::: {.callout-note icon="false"}
-## Nota
+#### Nota
 
 Echa un vistazo a estas tablas de resultados. ¿Sabrías identificar las parejas de proteínas que son recíprocamente la que más se parece una a la otra?
 
-(posible solucion)
+Añadimos a `buc2blo` una nueva columna llamada `reverse` con el nombre de la mejor coincidencia de la tabla `blo2buc` con la función `match`. De esta manera, comparamos si la mejor coincidencia de *Buchnera* a *Blochannia* es la misma que de *Blochmannia* a *Buchnera*. Después comparamos si la mejor coincidencia de *Buchnera* a *Blochmannia* es la misma que de *Blochmannia* a *Buchnera* y extraemos todas estas coincidencias a una nueva tabla, que contiene las posibles proteínas ortólogas.
 
 ```{r}
 buc2blo$reverse <- blo2buc[
@@ -108,12 +133,6 @@ coincidencias <- buc2blo[
    c('query', 'subject')
 ]
 ```
-:::
-
-::: {.callout-note icon="false"}
-## Nota
-
-¿Qué datos te gustaría representar gráficamente para ganar confianza en que los resultados son correctos y tienen sentido?
 :::
 
 ## Ejercicio 2. PSI-BLAST
@@ -135,7 +154,7 @@ psiblast -db ../../data/2026-03-24/swissprot \
 ```
 
 ::: {.callout-note icon="false"}
-## Nota
+#### Nota
 
 Consulta la ayuda de `psiblast` y asegúrate de entender para qué sirven los argumentos que hemos usado. Por ejemplo, ¿cuál es la diferencia entre `-evalue` y `-inclusion_ethresh`? ¿Cómo harías que la búsqueda fuera más sensible todavía?
 
@@ -176,7 +195,7 @@ dataformat tsv taxonomy --template tax-summary > taxreport.txt
 ```
 
 ::: {.callout-note icon="false"}
-## Nota
+#### Nota
 
 Puedes importar tanto los resultados del BLAST como el informe taxonómico a una sesión de R y determinar que fracción de las lecturas seleccionadas parecen proceder de un hemímptero y qué fracción proceden de otros organismos. ¿Tienen sentido los resultados? ¿Encuentras alguna secuencia de origen vegetal?
 :::
