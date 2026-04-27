@@ -1,9 +1,9 @@
 ---
-title: "guion8"
+title: "Práctica 8: BLAST"
 format: html
 ---
 
-## Ejercicio 1: **Identificación aproximada de ortólogos**
+## Ejercicio 1. Identificación aproximada de ortólogos
 
 Los genes ortólogos son copias de un gen producidas por la divergencia de especies que descienden de un ancestro común. Si estas dos copias surgen por duplicación en una misma especies son parálogas entre ellas. Para estudiar la filogenia de especies se usan proteínas ortólogas, que permiten estudiar el tiempo que ha pasado desde la divergencia.
 
@@ -137,6 +137,10 @@ coincidencias <- buc2blo[
 
 ## Ejercicio 2. PSI-BLAST
 
+En este ejercicio vamos a usar PSI-BLAST para identificar proteínas de una superfamilia pero que están alejadas. En este caso sus semejanzas son tan sutiles que no se encuentran con BLASTP, por eso necesitamos PSI-BLASTP.
+
+### P39615
+
 ```{bash}
 # Como Swissprot debería estar ya descargada en `../../data`, podemos sacar
 # de ahí la secuencia de la proteína escogida:
@@ -153,17 +157,40 @@ psiblast -db ../../data/2026-03-24/swissprot \
          -matrix BLOSUM62
 ```
 
+### A1AFY9
+
+```{bash}
+blastdbcmd -db ../../data/2026-03-24/swissprot -entry A1AFY9 -out A1AFY9.fa
+
+psiblast -db ../../data/2026-03-24/swissprot \
+         -query A1AFY9.fa \
+         -out A1AFY9.blastout.txt \
+         -evalue 0.1 \
+         -outfmt 7 \
+         -inclusion_ethresh 0.001 \
+         -num_iterations 7 \
+         -matrix BLOSUM62
+```
+
 ::: {.callout-note icon="false"}
 #### Nota
 
-Consulta la ayuda de `psiblast` y asegúrate de entender para qué sirven los argumentos que hemos usado. Por ejemplo, ¿cuál es la diferencia entre `-evalue` y `-inclusion_ethresh`? ¿Cómo harías que la búsqueda fuera más sensible todavía?
+Consulta la ayuda de `psiblast` y asegúrate de entender para qué sirven los argumentos que hemos usado. Por ejemplo, ¿cuál es la diferencia entre `-evalue` y `-inclusion_ethresh`? ¿Cómo harías que la búsqueda fuera más sensible todavía?
 
-`-evalue controla` el umbral de significancia para filtrar qué alineamientos se muestran en el reporte final. El valor que hemos usado es de 0,1, que es más estricto.
+`-evalue`controla el umbral de significancia para filtrar qué alineamientos se muestran en el reporte final, es decir, de los resultados encontrados solo se muestran aquellos que tienen un E-valor igual o menor que el indicado. El valor que hemos usado es de 0,1, que es más estricto.
 
-`-inclusion_ethresh` controla las secuencias que se usan para construir la matriz. Define la evolución del perfil entre iteraciones. El valor que hemos usado, 7, es muy poco estricto.
+`-inclusion_ethresh` controla las secuencias que se usan para construir la matriz, por lo que establece un límite sobre las secuencias que van a utilizarse. Define la evolución del perfil entre iteraciones. El valor que hemos usado, 7, es muy poco estricto.
+
+Para aumentar la sensibilidad de la búsqueda podemos reducir el valor de `-inclusion_ethresh`, o incluso cambiar la matriz utilizada (en este caso BLOSUM62).
 :::
 
-## Ejercicio 3
+## Ejercicio 3. Origen en un archivo FASTQ
+
+El objetivo de este ejercicio es determinar si las lecturas no mapeadas de *Aphis aurantii* proceden del su genoma pero no se han podido mapear porque la referencia está incompleta o si son contaminantes y tienen un origen taxonómico distinto.
+
+### Selección aleatoria de 20 queries
+
+Escogemos 20 queries al azar de entre las 33174 lecturas del archivo para no sobrecargar el servidor remoto.
 
 ```{r}
 library('Biostrings')
@@ -172,6 +199,10 @@ n <- length(unmapped)
 muestra <- unmapped[sample(1:n, 20)]
 writeXStringSet(muestra, 'muestra.fa')
 ```
+
+### BLASTN remoto
+
+Buscamos la secuencia más parecida:
 
 ```{bash}
 if [ ! -e resultado.txt ]; then
@@ -185,17 +216,17 @@ if [ ! -e resultado.txt ]; then
 fi
 ```
 
+### Identificación taxonómica
+
+Una vez tenemos el identificador taxonómico, con los programas `datasets` y `dataformat` podemos ver a qué especie pertenecen los identificadores.
+
 ```{bash}
 # Extraemos los identificadores taxonómicos (columna 9) de "resultado.txt":
-cut -f 9 resultado.txt | sort | uniq | paste -s -d ',' > taxids.txt
+cut -f 9 resultado.txt | sort | uniq > taxids.txt
 
 # Generamos una tabla con información taxonómica de esos identificadores:
 datasets summary taxonomy taxon $(cat taxids.txt) --as-json-lines | \
 dataformat tsv taxonomy --template tax-summary > taxreport.txt
 ```
 
-::: {.callout-note icon="false"}
-#### Nota
-
-Puedes importar tanto los resultados del BLAST como el informe taxonómico a una sesión de R y determinar que fracción de las lecturas seleccionadas parecen proceder de un hemímptero y qué fracción proceden de otros organismos. ¿Tienen sentido los resultados? ¿Encuentras alguna secuencia de origen vegetal?
-:::
+Al observar el documento generado vemos que una de las lecturas no mapeadas no es de la misma especie que el genoma de referencia.
