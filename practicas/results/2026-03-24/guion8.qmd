@@ -1,6 +1,8 @@
 ---
 title: "Práctica 8: BLAST"
-format: html
+format: 
+    html:
+      embed-resources: true
 ---
 
 ## Ejercicio 1. Identificación aproximada de ortólogos
