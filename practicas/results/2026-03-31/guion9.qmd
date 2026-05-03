@@ -1,5 +1,5 @@
 ---
-title: "guion9"
+title: "Práctica 9: Reconstrucción filogenética"
 format:
     html:
      embed-resources: true
@@ -7,12 +7,16 @@ format:
 
 ## DATOS
 
+Cargamos los datos del alineamiento de los cromosomas mitocondriales de gorila, chimpancé, bonobo, *Homo heidelbergensis*, humanos denisovanos, humanos neandertales y humanos modernos:
+
 ```{r}
 library(phangorn)
 mtdna <- read.phyDat('../../data/2026-03-31/mtDNA.fasta', format = 'fasta')
 ```
 
 ```{r}
+#| message: false
+#| warning: false
 library(Biostrings)
 as.StringSet(mtdna)
 ```
@@ -27,6 +31,8 @@ La lista tiene una longitud de 42, es decir, contiene 42 secuencias. El alineami
 
 ## ÁRBOLES BASADOS EN DISTANCIAS
 
+Para obtener árboles filogenéticos como NJ o UPGMA, que están basados en distancias, necesitamos calcular previamente las distancias entre las secuencias:
+
 ```{r}
 distancias <- dist.ml(mtdna, model = 'F81')
 mt_nj    <- NJ(distancias)
@@ -36,38 +42,47 @@ mt_upgma <- upgma(distancias)
 ::: callout-note
 ## Ejercicio
 
--   ¿De qué clase son los objetos `mt_nj` y `mt_upgma`?
+-   ¿De qué clase son los objetos `mt_nj` y `mt_upgma`?
 
     Son listas de 4 elementos.
 
 -   Consulta la estructura de estos objetos (`str(mt_nj)`).
 
--   Represéntalos gráficamente (`plot(mt_nj)`) y consulta la ayuda de la función `plot.phylo()` para saber qué opciones de representación gráfica tienes.
+    ```{r}
+    str(mt_nj)
+    str(mt_upgma)
+    ```
+
+-   Represéntalos gráficamente (`plot(mt_nj)`) y consulta la ayuda de la función `plot.phylo()` para saber qué opciones de representación gráfica tienes.
 
     ```{r}
-    #| fig-width: 4
-    #| fig-height: 20
-    plot(mt_nj, align.tip.label = TRUE)
+    #| fig-width: 10
+    #| fig-height: 12
+    plot(mt_nj, align.tip.label = TRUE, no.margin = TRUE)
     add.scale.bar()
     nodelabels()
     ```
 
--   Para qué sirven las funciones `add.scale.bar()` y `axisPhylo()`?
+-   Para qué sirven las funciones `add.scale.bar()` y `axisPhylo()`?
 
-    La primera indica la cantidad de cambio evolutivo (distania genética), es decir, nos ayuda a entender cuanto difieren las secuencias
+    La función `add.scale.bar()` indica la cantidad de cambio evolutivo (distancia genética), es decir, nos ayuda a entender cuanto difieren las secuencias.
 
-    la segunda añade un eje con escala numérica al arbol mostranso valores acumulados de distancia desde la raíz.
+    La función `axisPhylo()` añade un eje con escala numérica al árbol mostrando los calores acumulados de distancia desde la raíz.
 :::
 
 ## ENRAIZAR
 
 ### Escogiendo el nodo
 
+Para enraizar el árbol con la función `root()` debemos especificar, en este caso, el nodo interno en el que situar la raíz. El nodo 75 parece ser el ancestro entre gorilas y chimpancés, y por tanto, también de humanos, por lo que lo designamos como raíz.
+
 ```{r}
 mt_nj_rooted <- root(mt_nj, node = 75)
 ```
 
 ### Con un outgrup
+
+También se puede enraizar el árbol especificando el *outgroup*, ya que al hacerlo el número de los nodos puede cambiar, por lo que es más seguro hacerlo utilizando el nombre.
 
 ```{r}
 # Debería dar el mismo resultado:
@@ -76,9 +91,11 @@ mt_nj_rooted <- root(mt_nj, outgroup = 'G.gorilla_D38114')
 
 ### En el punto medio
 
+Con la función `midpoint()` se puede obtener un árbol más equilibrado y con las puntas alineadas.
+
 ```{r}
-#| fig-width: 12
-#| fig-height: 15
+#| fig-width: 10
+#| fig-height: 12
 # Esto sobreescribe el objeto anterior:
 mt_nj_rooted <- midpoint(mt_nj)
 plot(mt_nj_rooted, align.tip.label = TRUE, main = 'NJ, enraizado en punto medio')
@@ -87,6 +104,8 @@ add.scale.bar()
 ```
 
 ### Con datación de hojas
+
+El problema con `midpoint()` es que asume que todas las ramas son contemporáneas, que no es nuestro caso. Conociendo las edades estimadas de las secuencias podemos aplicar el método de enraizado *root-to-tip* con la función `rtt()`. Para ello necesitamos crear un vector con las edades de las ramas y asignarlas con `mt_nj$tip.label`.
 
 ```{r}
 fechas <- c(0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -102,7 +121,7 @@ fechas
 ```
 
 ```{r}
-#| fig-width: 12
+#| fig-width: 10
 #| fig-height: 12
 mt_nj_rtt <- rtt(mt_nj, tip.dates = fechas, objective = 'rms')
 plot(mt_nj_rtt, align.tip.label = TRUE)
@@ -113,18 +132,20 @@ plot(mt_nj_rtt, align.tip.label = TRUE)
 
 -   ¿Se corresponden bien las distancias evolutivas estimadas con las dataciones?
 
-    No. hay ramas qeu han acumulado cambios que deberían haber quedado más atrás.
+    No. Hay ramas que han acumulado cambios que deberían haber quedado más atrás.
 
 -   ¿Qué secuencias crees que se ajustan menos a su supuesta edad?
 
-    Los denisocanos deverían haber dejaso de acumular amutaciones hace mucha más tiemo
+    Los denisovanos deberían haber dejado de acumular amutaciones hace mucha más tiempo.
 
 -   ¿Qué razones puede haber para que la edad de una secuencia no se corresponda con la cantidad de cambios que ha acumulado?
 
-    podemos asumir que las dataciones moleculares no son fiables, que las muestras arquelogigcas tengan errore. puede qe el metodo estadistico usado para corregir los errores de la datacion no haya sido buen o en algunas muestras, y genera que las ramas se alarguen más de lo que es realista.
+    Podemos asumir que las dataciones moleculares no son fiables o que las muestras arqueológicas tengan errores. También es posible que el método estadistico usado para corregir los errores de la datación no haya sido bueno en algunas muestras, lo que genera que las ramas se alarguen más de lo que es realista.
 :::
 
 ## DISTANCIAS
+
+Con el objeto `distancias` que habíamos creado antes se puede estimar la cantidad de cambios entre los cromosomas de un grupo y otro, y con esto podemos calcular la distancia entre, por ejemplo, humanos y neandertales.
 
 ```{r}
 distMat <- as.matrix(distancias)
@@ -179,6 +200,8 @@ mean(distMat[modernos, neandertales])
     ```
 :::
 
+En los árboles las distancias se representan mediante la suma de las longitudes que separan las hojas, y se puede obtener con la función `cophenetic()`.
+
 ```{r}
 distCofen <- cophenetic(mt_nj_rooted)
 ```
@@ -197,6 +220,8 @@ plot(distMat, distCofen)
 
 ## LIMPIEZA O FILTRADO DEL ALINEAMIENTO
 
+Las distancias crudas informan de la presencia de pares de secuencias idénticas, pero pueden dar problemas con algunos métodos.
+
 ```{r}
 crudas <- dist.dna(as.DNAbin(mtdna), model = 'raw')
 crudas <- as.matrix(crudas)
@@ -210,6 +235,8 @@ repetidas <- unique(c(identicas[, 'row'], identicas[, 'col']))
 heatmap(crudas[repetidas, repetidas], cexRow = 0.7, cexCol = 0.7)
 ```
 
+Las secuencias de Neandertales KX198085, KX198086 y MG025540 son idénticas entre ellas, y las FM865407, KX198082, KX198088 y KX198083 también, por lo que vamos a dejar solo una de cada grupo: MG025540 y FM865407.
+
 ```{r}
 # La exclamación ("!") invierte el valor lógico de lo que la sigue.
 # La función "grepl()" produce un vector lógico con "TRUE" donde los nombres
@@ -222,7 +249,7 @@ mtdna37
 ::: callout-note
 ## Ejercicio
 
-¿Serías capaz de crear otro conjunto de datos, `mtdna28`, que sólo contenga secuencias del género *Homo*?
+¿Serías capaz de crear otro conjunto de datos, `mtdna28`, que sólo contenga secuencias del género *Homo*?
 
 Partimos de mtdna 37 porque así no hay datos duplicados de neandertal
 
@@ -231,3 +258,9 @@ mtdna28 <- mtdna37[grepl('^H.',
                          names(mtdna37)), ]
 ```
 :::
+
+También podemos eliminar la secuencia de gorila, que es muy divergente y puede haber evolucionado a un ritmo diferente:
+
+```{r}
+mtdna36 <- mtdna37[! startsWith(names(mtdna37), 'G.gorilla'),]
+```
