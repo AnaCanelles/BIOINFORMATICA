@@ -1,11 +1,13 @@
 ---
-title: "guion10"
+title: "Práctica 10: Ensamblaje de genomas"
 format: 
     html:
       embed-resources: true
 ---
 
-### Revisión de los datos
+## Revisión de los datos
+
+Los datos de los que disponemos están en formato FASTA y contienen datos de alta calidad, pero `hifiasm` no necesita esta información de las lecturas. Antes de empezar a trabajar con ellos deberíamos tener una idea de la cantidad de datos que tenemos.
 
 ::: callout-note
 ### Ejercicio 1
@@ -35,16 +37,30 @@ format:
 
 ## Ensamblaje
 
+Como `hifiasm` produce varios archivos de salida en el ensamblaje, creamos la carpeta `asm1` para almacenarlos de una forma más ordenada dentro de la carpeta de resultados:
+
 ```{bash}
 if [ ! -d asm1 ]; then mkdir asm1; fi
 
 if [ ! -e asm1/At4.bp.p_ctg.gfa ]; then hifiasm -o asm1/At4 -t 2 -f 0 ../../data/At4.10.fa 2> asm1/hifiasm.log fi
 ```
 
+Los parámetros utilizados indican lo siguiente:
+
+-   `-o asm1/At4` indica el prefijo de todos los archivos de salida, por lo que se guardarán en la carpeta `asm1` y empiezan todos por `At4`.
+
+-   `-t 2` para usar dos procesadores en lugar de uno.
+
+-   `-f 0` inhabilita el uso de un filtro que ocuparía demasiado espacio.
+
+-   `../../data/At4.10.fa` indica el archivo con los datos de partida.
+
+-   `2> asm1/hifiasm-log` guarda los mensajes que surgen durante el proceso.
+
 ::: callout-note
 ### Ejercicio 2
 
-Consulta la ayuda de `hifiasm` (`hifiasm -h`) y contesta las preguntas siguientes:
+Consulta la ayuda de `hifiasm` (`hifiasm -h`) y contesta las preguntas siguientes:
 
 1.  ¿Los parámetros corresponden al ensamblaje de un genoma haploide o diploide?
 
@@ -64,17 +80,17 @@ Consulta la ayuda de `hifiasm` (`hifiasm -h`) y contesta las preguntas siguien
 ::: callout-note
 ### Ejercicio 3
 
-Consulta la descripción de los archivos de salida que encontrarás en [este enlace](https://hifiasm.readthedocs.io/en/latest/interpreting-output.html) y contesta las preguntas siguientes:
+Consulta la descripción de los archivos de salida que encontrarás en [este enlace](#0) y contesta las preguntas siguientes:
 
 1.  ¿Dónde están las secuencias que componen el ensamblaje?
 
     El archivo `At4.bp.p_ctg.gfa` de la carpeta `asm1` contiene el ensamblaje de los contigs.
 
-2.  En los archivos `.gfa`, ¿qué son las líneas que empiezan por ‘A’?
+2.  En los archivos `.gfa`, ¿qué son las líneas que empiezan por ‘A’?
 
     Las líneas que empiezan por 'A' proporcionan información sobre las lecturas utilizadas para construir un contig alineado con la lectura original.
 
-3.  ¿Qué información tiene los archivos `.bed`?
+3.  ¿Qué información tiene los archivos `.bed`?
 
     Contienen las coordenadas de las regiones de poca calidad.
 
@@ -87,11 +103,13 @@ Consulta la descripción de los archivos de salida que encontrarás en [este en
     Como el genoma era haploide no podemos estimar la cobertura de las regiones heterocigotas. En el archivo `hifiasm.log` se representan las curvas de frecuencia de k-meros, en las que se observa un solo pico, lo que confirma que no hay regiones heterocigotas.
 :::
 
+Podemos extraer los ensamblajes en formato fasta de la siguiente manera:
+
 ```{bash}
 awk '(/^S/){print ">" $2 "\n" $3}' asm1/At4.bp.p_ctg.gfa > asm1/At4.fa
 ```
 
-## Calidad del ensamblaje
+### Calidad del ensamblaje
 
 ```{bash}
 if [ ! -e asm1_eval/summary.txt ]; then
@@ -103,5 +121,17 @@ fi
 ::: callout-note
 ### Ejercicio 4
 
-Consulta la ayuda de `compleasm.py` y averigua qué significan los argumentos utilizados.
+Consulta la ayuda de `compleasm.py` y averigua qué significan los argumentos utilizados.
+:::
+
+### Visualización del grafo
+
+::: callout-note
+## Ejercicio 5
+
+Instala `bandage`, carga el grafo del ensamblaje realizado y genera una figura. Puedes añadir la figura al informe HTML mediante la [sitaxis siguiente](https://quarto.org/docs/authoring/figures.html):
+
+```         
+![](figura.png)
+```
 :::
