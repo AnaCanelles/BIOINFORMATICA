@@ -1,0 +1,198 @@
+---
+title: "Práctica 12: Análisis de expresión diferencial"
+format: 
+    html:
+      embed-resources: true
+---
+
+## Exploración de los datos
+
+```{r}
+muestras <- read.table('../../data/2026-05-05/dme_elev_samples.tsv', header = TRUE)
+genex <- read.table('../../data/2026-05-05/salmon.merged.gene_counts.tsv',
+                    header = TRUE)
+```
+
+::: callout-note
+## Ejercicio 1
+
+Recuerda dejar constancia en un bloque de código de cómo obtienes las respuestas.
+
+1.  Usa la función `paste()` para añadir una columna a `muestras` que contenga la población y la temperatura unidas por `_`.
+
+    ```{r}
+    muestras$pop_temp <- paste(muestras$population, muestras$temp, sep = "_")
+    ```
+
+2.  ¿Cuál es el número total de lecturas por muestra?
+
+    ```{r}
+    colSums(genex[, -c(1,2)])
+    ```
+
+3.  ¿Los recuentos tienen distribuciones parecidas entre muestras?
+
+    ```{r}
+    library(tidyr)
+    library(ggplot2)
+    genex_long <- pivot_longer(genex, 3:14, names_to = 'muestra', values_to = 'expresion')
+    ggplot(data = genex_long, mapping = aes(x = muestra, y = expresion)) + geom_violin() + scale_y_continuous(trans = 'log')
+    ```
+
+    ```{r}
+    distribucion <- genex[, 3:ncol(genex)]
+    boxplot(log10(distribucion + 1))
+    ```
+
+4.  ¿Cuántos genes no se expresan en absoluto en ninguna de las muestras?
+
+    ```{r}
+    sum(rowSums(genex[, 3:ncol(genex)]) == 0)
+    f <- rowSums(genex[, 3:ncol(genex)]) > 0
+    genex_f <- genex[f, ]
+    ```
+:::
+
+## Crear el objeto de clase `DESeqDataSet`
+
+```{r}
+suppressMessages(library('DESeq2'))
+all(names(genex)[3:14] == muestras$sample)
+```
+
+```{r}
+# Pasamos la columna "sample" a nombres de fila:
+row.names(muestras) <- muestras$sample
+# Eliminamos la columna "sample":
+muestras$sample <- NULL
+# Y convertimos "population" y "temp" en factores:
+muestras$population <- factor(muestras$population, levels = c('maine', 'panama'))
+muestras$temp <- factor(muestras$temp, levels = c('low', 'high'))
+muestras
+```
+
+```{r}
+row.names(genex) <- genex$gene_name
+genex$gene_name <- NULL
+genex$gene_id   <- NULL
+genex <- round(as.matrix(genex))
+```
+
+```{r}
+dds1 <- DESeqDataSetFromMatrix(
+   countData = genex,
+   colData = muestras,
+   design = ~ population + temp
+)
+dds1
+```
+
+::: callout-important
+## Nota
+
+Los objetos `DESeqDataSet` pueden contener información sobre las coordenadas cromosómicas de los genes o tránscritos, si se construyen a partir de otro tipo de datos.
+:::
+
+## Pre-filtrado
+
+```{r}
+keep <- rowSums(counts(dds1)) > 0
+dds1 <- dds1[keep, ]
+```
+
+## Expresión diferencial
+
+```{r}
+dds1 <- DESeq(dds1)
+# aplica size factors, estima la dispersión y aplica los tests estadísticos
+```
+
+```{r}
+res <- results(dds1)
+res
+```
+
+::: callout-note
+## Ejercicio 3
+
+1.  Mira la ayuda de `results()` y genera también la tabla de resultados para el contraste entre las dos regiones de procedencia de las moscas.
+
+    ```{r}
+    res2 <- results(dds1, contrast = c('population', 'panama', 'maine'))
+    res2
+    ```
+
+2.  Usa `summary()` sobre los resultados para ver el número de genes diferencialmente expresados entre cada par de condiciones.
+
+    ```{r}
+    summary(res)
+    summary(res2)
+    ```
+
+    La temperatura afecta más a la expresión que la localización
+
+3.  ¿Cuál es la tasa de falsos positivos (FDR)?
+
+    ```{r}
+
+    ```
+:::
+
+## Gráficas
+
+```{r}
+plotMA(res)
+```
+
+```{r}
+resShrink <- lfcShrink(dds1, coef = 'temp_high_vs_low',
+                       type = 'normal')
+plotMA(resShrink)
+```
+
+::: callout-note
+## Ejercicio 4
+
+¿Sabrías hacer una gráfica volcán?
+:::
+
+## Extraer datos transformados
+
+```{r}
+dds2 <- vst(dds1)
+NormCounts <- assay(dds2)
+```
+
+```{r}
+res <- res[! is.na(res$pvalue), ]
+res <- res[order(res$log2FoldChange),]
+heatmap(NormCounts[c(head(row.names(res), 100),
+                     tail(row.names(res), 100)), ],
+        Rowv = NA, Colv = NA)
+```
+
+::: callout-note
+## Ejercicio 5
+
+¿Podrías explicar qué hace el bloque de código anterior?
+:::
+
+::: callout-note
+## Ejercicio 6
+
+En [este enlace](#0) analizan exactamente los mismos datos con otro paquete de R: `limma`. Una de sus conclusiones es se sobreexpresan más genes en temperatura baja que en temperatura alta. ¿Confirma tu análisis esta conclusión?
+
+Estos son los 10 genes más diferencialmente expresados según aquel análisis entre las condiciones de baja y alta temperatura:
+
+```         
+                   logFC  AveExpr         t      P.Value    adj.P.Val        B
+Cpr92F          2.473527 6.201774  24.28881 1.306910e-13 1.739105e-09 21.29258
+Vajk3           1.675184 4.029281  21.90298 6.069753e-13 3.524528e-09 19.66813
+lncRNA:CR46017 -3.974938 1.044005 -21.50807 7.945880e-13 3.524528e-09 16.80878
+CG7214          2.198970 7.945664  20.75054 1.349821e-12 4.490516e-09 19.14847
+CG3739         -2.869172 6.514652 -20.49734 4.414988e-12 1.175005e-08 18.01975
+Acp1            2.231834 7.638125  17.79441 2.089853e-11 3.997808e-08 16.54909
+```
+
+¿Cómo se comparan estos resultados con los tuyos?
+:::
