@@ -3,6 +3,7 @@ title: "Práctica 10: Ensamblaje de genomas"
 format: 
     html:
       embed-resources: true
+knitr: true
 ---
 
 ## Revisión de los datos
