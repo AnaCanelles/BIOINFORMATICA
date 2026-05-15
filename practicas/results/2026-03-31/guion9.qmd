@@ -1,13 +1,28 @@
 ---
 title: "Práctica 9: Reconstrucción filogenética"
+lang: es
+date: today
+execute: 
+  output: true
+  error: true
+engine: knitr
+bibliography: ../../doc/references.bib
+language:
+   title-block-published: "Última actualización:"
+   section-title-references: "Bibliografía"
 format:
-    html:
-     embed-resources: true
+   html:
+      embed-resources: true
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 ## DATOS
 
-Cargamos los datos del alineamiento de los cromosomas mitocondriales de gorila, chimpancé, bonobo, *Homo heidelbergensis*, humanos denisovanos, humanos neandertales y humanos modernos:
+Cargamos los datos del alineamiento de los cromosomas mitocondriales de
+gorila, chimpancé, bonobo, *Homo heidelbergensis*, humanos denisovanos,
+humanos neandertales y humanos modernos:
 
 ```{r}
 library(phangorn)
@@ -21,17 +36,24 @@ library(Biostrings)
 as.StringSet(mtdna)
 ```
 
-::: callout-note
+::: {.callout-important icon="false"}
 ## Ejercicio
 
-¿Puedes confirmar el número de secuencias? ¿Qué longitud tiene el alineamiento? ¿Qué función usarías para extraer los nombres de las secuencias?
+¿Puedes confirmar el número de secuencias? ¿Qué longitud tiene el
+alineamiento? ¿Qué función usarías para extraer los nombres de las
+secuencias?
 
-La lista tiene una longitud de 42, es decir, contiene 42 secuencias. El alineamiento tiene una longitud de 16603 pb. Con `names(mtdna)` podemos extraer los nombres de las secuencias y la especie de la que se han obtenido.
+La lista tiene una longitud de 42, es decir, contiene 42 secuencias. El
+alineamiento tiene una longitud de 16603 pb. Con `names(mtdna)` podemos
+extraer los nombres de las secuencias y la especie de la que se han
+obtenido.
 :::
 
 ## ÁRBOLES BASADOS EN DISTANCIAS
 
-Para obtener árboles filogenéticos como NJ o UPGMA, que están basados en distancias, necesitamos calcular previamente las distancias entre las secuencias:
+Para obtener árboles filogenéticos como NJ o UPGMA, que están basados en
+distancias, necesitamos calcular previamente las distancias entre las
+secuencias:
 
 ```{r}
 distancias <- dist.ml(mtdna, model = 'F81')
@@ -39,42 +61,50 @@ mt_nj    <- NJ(distancias)
 mt_upgma <- upgma(distancias)
 ```
 
-::: callout-note
+::: {.callout-note icon="false"}
 ## Ejercicio
 
--   ¿De qué clase son los objetos `mt_nj` y `mt_upgma`?
+- ¿De qué clase son los objetos `mt_nj` y `mt_upgma`?
 
-    Son listas de 4 elementos.
+  Son listas de 4 elementos.
 
--   Consulta la estructura de estos objetos (`str(mt_nj)`).
+- Consulta la estructura de estos objetos (`str(mt_nj)`).
 
-    ```{r}
-    str(mt_nj)
-    str(mt_upgma)
-    ```
+  ```{r}
+  str(mt_nj)
+  str(mt_upgma)
+  ```
 
--   Represéntalos gráficamente (`plot(mt_nj)`) y consulta la ayuda de la función `plot.phylo()` para saber qué opciones de representación gráfica tienes.
+- Represéntalos gráficamente (`plot(mt_nj)`) y consulta la ayuda de la
+  función `plot.phylo()` para saber qué opciones de representación
+  gráfica tienes.
 
-    ```{r}
-    #| fig-width: 10
-    #| fig-height: 12
-    plot(mt_nj, align.tip.label = TRUE, no.margin = TRUE)
-    add.scale.bar()
-    nodelabels()
-    ```
+  ```{r}
+  #| fig-width: 10
+  #| fig-height: 12
+  plot(mt_nj, align.tip.label = TRUE, no.margin = TRUE)
+  add.scale.bar()
+  nodelabels()
+  ```
 
--   Para qué sirven las funciones `add.scale.bar()` y `axisPhylo()`?
+- Para qué sirven las funciones `add.scale.bar()` y `axisPhylo()`?
 
-    La función `add.scale.bar()` indica la cantidad de cambio evolutivo (distancia genética), es decir, nos ayuda a entender cuanto difieren las secuencias.
+  La función `add.scale.bar()` indica la cantidad de cambio evolutivo
+  (distancia genética), es decir, nos ayuda a entender cuanto difieren
+  las secuencias.
 
-    La función `axisPhylo()` añade un eje con escala numérica al árbol mostrando los calores acumulados de distancia desde la raíz.
+  La función `axisPhylo()` añade un eje con escala numérica al árbol
+  mostrando los calores acumulados de distancia desde la raíz.
 :::
 
 ## ENRAIZAR
 
 ### Escogiendo el nodo
 
-Para enraizar el árbol con la función `root()` debemos especificar, en este caso, el nodo interno en el que situar la raíz. El nodo 75 parece ser el ancestro entre gorilas y chimpancés, y por tanto, también de humanos, por lo que lo designamos como raíz.
+Para enraizar el árbol con la función `root()` debemos especificar, en
+este caso, el nodo interno en el que situar la raíz. El nodo 75 parece
+ser el ancestro entre gorilas y chimpancés, y por tanto, también de
+humanos, por lo que lo designamos como raíz.
 
 ```{r}
 mt_nj_rooted <- root(mt_nj, node = 75)
@@ -82,7 +112,9 @@ mt_nj_rooted <- root(mt_nj, node = 75)
 
 ### Con un outgrup
 
-También se puede enraizar el árbol especificando el *outgroup*, ya que al hacerlo el número de los nodos puede cambiar, por lo que es más seguro hacerlo utilizando el nombre.
+También se puede enraizar el árbol especificando el *outgroup*, ya que
+al hacerlo el número de los nodos puede cambiar, por lo que es más
+seguro hacerlo utilizando el nombre.
 
 ```{r}
 # Debería dar el mismo resultado:
@@ -91,7 +123,8 @@ mt_nj_rooted <- root(mt_nj, outgroup = 'G.gorilla_D38114')
 
 ### En el punto medio
 
-Con la función `midpoint()` se puede obtener un árbol más equilibrado y con las puntas alineadas.
+Con la función `midpoint()` se puede obtener un árbol más equilibrado y
+con las puntas alineadas.
 
 ```{r}
 #| fig-width: 10
@@ -105,7 +138,11 @@ add.scale.bar()
 
 ### Con datación de hojas
 
-El problema con `midpoint()` es que asume que todas las ramas son contemporáneas, que no es nuestro caso. Conociendo las edades estimadas de las secuencias podemos aplicar el método de enraizado *root-to-tip* con la función `rtt()`. Para ello necesitamos crear un vector con las edades de las ramas y asignarlas con `mt_nj$tip.label`.
+El problema con `midpoint()` es que asume que todas las ramas son
+contemporáneas, que no es nuestro caso. Conociendo las edades estimadas
+de las secuencias podemos aplicar el método de enraizado *root-to-tip*
+con la función `rtt()`. Para ello necesitamos crear un vector con las
+edades de las ramas y asignarlas con `mt_nj$tip.label`.
 
 ```{r}
 fechas <- c(0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -127,25 +164,36 @@ mt_nj_rtt <- rtt(mt_nj, tip.dates = fechas, objective = 'rms')
 plot(mt_nj_rtt, align.tip.label = TRUE)
 ```
 
-::: callout-note
+::: {.callout-note icon="false"}
 ## Ejercicio
 
--   ¿Se corresponden bien las distancias evolutivas estimadas con las dataciones?
+- ¿Se corresponden bien las distancias evolutivas estimadas con las
+  dataciones?
 
-    No. Hay ramas que han acumulado cambios que deberían haber quedado más atrás.
+  No. Hay ramas que han acumulado cambios que deberían haber quedado más
+  atrás.
 
--   ¿Qué secuencias crees que se ajustan menos a su supuesta edad?
+- ¿Qué secuencias crees que se ajustan menos a su supuesta edad?
 
-    Los denisovanos deberían haber dejado de acumular amutaciones hace mucha más tiempo.
+  Los denisovanos deberían haber dejado de acumular amutaciones hace
+  mucha más tiempo.
 
--   ¿Qué razones puede haber para que la edad de una secuencia no se corresponda con la cantidad de cambios que ha acumulado?
+- ¿Qué razones puede haber para que la edad de una secuencia no se
+  corresponda con la cantidad de cambios que ha acumulado?
 
-    Podemos asumir que las dataciones moleculares no son fiables o que las muestras arqueológicas tengan errores. También es posible que el método estadistico usado para corregir los errores de la datación no haya sido bueno en algunas muestras, lo que genera que las ramas se alarguen más de lo que es realista.
+  Podemos asumir que las dataciones moleculares no son fiables o que las
+  muestras arqueológicas tengan errores. También es posible que el
+  método estadistico usado para corregir los errores de la datación no
+  haya sido bueno en algunas muestras, lo que genera que las ramas se
+  alarguen más de lo que es realista.
 :::
 
 ## DISTANCIAS
 
-Con el objeto `distancias` que habíamos creado antes se puede estimar la cantidad de cambios entre los cromosomas de un grupo y otro, y con esto podemos calcular la distancia entre, por ejemplo, humanos y neandertales.
+Con el objeto `distancias` que habíamos creado antes se puede estimar la
+cantidad de cambios entre los cromosomas de un grupo y otro, y con esto
+podemos calcular la distancia entre, por ejemplo, humanos y
+neandertales.
 
 ```{r}
 distMat <- as.matrix(distancias)
@@ -159,59 +207,67 @@ bonobos      <- startsWith(colnames(distMat), 'P.paniscus')
 mean(distMat[modernos, neandertales])
 ```
 
-::: callout-note
+::: {.callout-note icon="false"}
 ## Ejercicio
 
--   Calcula las distancias medias entre todos los grupos.
+- Calcula las distancias medias entre todos los grupos.
 
-    ```{r}
-    mean(distMat[modernos, neandertales])
-    mean(distMat[modernos, denisovanos])
-    mean(distMat[modernos, chimpances])
-    mean(distMat[modernos, bonobos])
-    mean(distMat[neandertales, denisovanos])
-    mean(distMat[neandertales, chimpances])
-    mean(distMat[neandertales, bonobos])
-    mean(distMat[denisovanos, chimpances])
-    mean(distMat[denisovanos, bonobos])
-    mean(distMat[chimpances, bonobos])
-    ```
+  ```{r}
+  mean(distMat[modernos, neandertales])
+  mean(distMat[modernos, denisovanos])
+  mean(distMat[modernos, chimpances])
+  mean(distMat[modernos, bonobos])
+  mean(distMat[neandertales, denisovanos])
+  mean(distMat[neandertales, chimpances])
+  mean(distMat[neandertales, bonobos])
+  mean(distMat[denisovanos, chimpances])
+  mean(distMat[denisovanos, bonobos])
+  mean(distMat[chimpances, bonobos])
+  ```
 
--   ¿Cuántas veces mayor es la distancia entre humanos y chimpancés que entre humanos y neandertales?
+- ¿Cuántas veces mayor es la distancia entre humanos y chimpancés que
+  entre humanos y neandertales?
 
-    ```{r}
-    mean(distMat[modernos, chimpances]) / mean(distMat[modernos, neandertales])
-    ```
+  ```{r}
+  mean(distMat[modernos, chimpances]) / mean(distMat[modernos, neandertales])
+  ```
 
-    La distancia entre humanos y chimpancés es 7,49 veces mayor que la distancia entre humanos y neandertales.
+  La distancia entre humanos y chimpancés es 7,49 veces mayor que la
+  distancia entre humanos y neandertales.
 
--   ¿Cómo calcularías la distancia media entre dos secuencias de humanos modernos?
+- ¿Cómo calcularías la distancia media entre dos secuencias de humanos
+  modernos?
 
-    ```{r}
-    # La submatriz siguiente contiene ceros en la diagonal. Si queremos excluir
-    # del cálculo de la media las distancias entre cada secuencia consigo misma,
-    # habrá que tenerlo en cuenta:
-    distMat[modernos, modernos]
+  ```{r}
+  # La submatriz siguiente contiene ceros en la diagonal. Si queremos excluir
+  # del cálculo de la media las distancias entre cada secuencia consigo misma,
+  # habrá que tenerlo en cuenta:
+  distMat[modernos, modernos]
 
-    # Por ejemplo:
-    z <- distMat[modernos, modernos]
-    z[z == 0] <- NA
-    mean(z, na.rm = TRUE)
-    ```
+  # Por ejemplo:
+  z <- distMat[modernos, modernos]
+  z[z == 0] <- NA
+  mean(z, na.rm = TRUE)
+  ```
 :::
 
-En los árboles las distancias se representan mediante la suma de las longitudes que separan las hojas, y se puede obtener con la función `cophenetic()`.
+En los árboles las distancias se representan mediante la suma de las
+longitudes que separan las hojas, y se puede obtener con la función
+`cophenetic()`.
 
 ```{r}
 distCofen <- cophenetic(mt_nj_rooted)
 ```
 
-::: callout-note
+::: {.callout-note icon="false"}
 ## Ejercicio
 
-¿Cuánto se parecen las distancias estimadas a las distancias cofenéticas?
+¿Cuánto se parecen las distancias estimadas a las distancias
+cofenéticas?
 
-Al ver una relación lineal entre los puntos y que están en la recta x = y podemos concluir que los valores de ambas matrices son prácticamente idénticos.
+Al ver una relación lineal entre los puntos y que están en la recta x =
+y podemos concluir que los valores de ambas matrices son prácticamente
+idénticos.
 
 ```{r}
 plot(distMat, distCofen)
@@ -220,7 +276,8 @@ plot(distMat, distCofen)
 
 ## LIMPIEZA O FILTRADO DEL ALINEAMIENTO
 
-Las distancias crudas informan de la presencia de pares de secuencias idénticas, pero pueden dar problemas con algunos métodos.
+Las distancias crudas informan de la presencia de pares de secuencias
+idénticas, pero pueden dar problemas con algunos métodos.
 
 ```{r}
 crudas <- dist.dna(as.DNAbin(mtdna), model = 'raw')
@@ -235,7 +292,10 @@ repetidas <- unique(c(identicas[, 'row'], identicas[, 'col']))
 heatmap(crudas[repetidas, repetidas], cexRow = 0.7, cexCol = 0.7)
 ```
 
-Las secuencias de Neandertales KX198085, KX198086 y MG025540 son idénticas entre ellas, y las FM865407, KX198082, KX198088 y KX198083 también, por lo que vamos a dejar solo una de cada grupo: MG025540 y FM865407.
+Las secuencias de Neandertales KX198085, KX198086 y MG025540 son
+idénticas entre ellas, y las FM865407, KX198082, KX198088 y KX198083
+también, por lo que vamos a dejar solo una de cada grupo: MG025540 y
+FM865407.
 
 ```{r}
 # La exclamación ("!") invierte el valor lógico de lo que la sigue.
@@ -246,10 +306,11 @@ mtdna37 <- mtdna[! grepl('(KX198085|KX198086|KX198082|KX198088|KX198083)',
 mtdna37
 ```
 
-::: callout-note
+::: {.callout-note icon="false"}
 ## Ejercicio
 
-¿Serías capaz de crear otro conjunto de datos, `mtdna28`, que sólo contenga secuencias del género *Homo*?
+¿Serías capaz de crear otro conjunto de datos, `mtdna28`, que sólo
+contenga secuencias del género *Homo*?
 
 Partimos de mtdna 37 porque así no hay datos duplicados de neandertal
 
@@ -259,7 +320,8 @@ mtdna28 <- mtdna37[grepl('^H.',
 ```
 :::
 
-También podemos eliminar la secuencia de gorila, que es muy divergente y puede haber evolucionado a un ritmo diferente:
+También podemos eliminar la secuencia de gorila, que es muy divergente y
+puede haber evolucionado a un ritmo diferente:
 
 ```{r}
 mtdna36 <- mtdna37[! startsWith(names(mtdna37), 'G.gorilla'),]

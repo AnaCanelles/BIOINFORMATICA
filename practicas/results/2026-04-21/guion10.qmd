@@ -1,16 +1,31 @@
 ---
 title: "Práctica 10: Ensamblaje de genomas"
-format: 
-    html:
+lang: es
+date: today
+execute: 
+  output: true
+  error: true
+engine: knitr
+bibliography: ../../doc/references.bib
+language:
+   title-block-published: "Última actualización:"
+   section-title-references: "Bibliografía"
+format:
+   html:
       embed-resources: true
-knitr: true
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 ## Revisión de los datos
 
-Los datos de los que disponemos están en formato FASTA y contienen datos de alta calidad, pero `hifiasm` no necesita esta información de las lecturas. Antes de empezar a trabajar con ellos deberíamos tener una idea de la cantidad de datos que tenemos.
+Los datos de los que disponemos están en formato FASTA y contienen datos
+de alta calidad, pero `hifiasm` no necesita esta información de las
+lecturas. Antes de empezar a trabajar con ellos deberíamos tener una
+idea de la cantidad de datos que tenemos.
 
-::: callout-note
+::: {.callout-note icon="false"}
 ### Ejercicio 1
 
 - ¿Cuántas secuencias contiene el archivo?
@@ -29,7 +44,8 @@ Los datos de los que disponemos están en formato FASTA y contienen datos de alt
 
   Hay un total de 250599484 bases
 
-- Si se estimara que el genoma a ensamblar fuera de sólo 19 millones de bases, ¿cuál sería la cobertura esperada?
+- Si se estimara que el genoma a ensamblar fuera de sólo 19 millones de
+  bases, ¿cuál sería la cobertura esperada?
 
   `cat At4.10.fa | awk '/^>/ {next} {sum += length($0)} END {print "Cobertura esperada: " sum/19000000 "X"}'`
 
@@ -38,7 +54,9 @@ Los datos de los que disponemos están en formato FASTA y contienen datos de alt
 
 ## Ensamblaje
 
-Como `hifiasm` produce varios archivos de salida en el ensamblaje, creamos la carpeta `asm1` para almacenarlos de una forma más ordenada dentro de la carpeta de resultados:
+Como `hifiasm` produce varios archivos de salida en el ensamblaje,
+creamos la carpeta `asm1` para almacenarlos de una forma más ordenada
+dentro de la carpeta de resultados:
 
 ```{bash}
 if [ ! -d asm1 ]; then
@@ -51,7 +69,8 @@ fi
 
 Los parámetros utilizados indican lo siguiente:
 
-- `-o asm1/At4` indica el prefijo de todos los archivos de salida, por lo que se guardarán en la carpeta `asm1` y empiezan todos por `At4`.
+- `-o asm1/At4` indica el prefijo de todos los archivos de salida, por
+  lo que se guardarán en la carpeta `asm1` y empiezan todos por `At4`.
 
 - `-t 2` para usar dos procesadores en lugar de uno.
 
@@ -59,40 +78,57 @@ Los parámetros utilizados indican lo siguiente:
 
 - `../../data/At4.10.fa` indica el archivo con los datos de partida.
 
-- `2> asm1/hifiasm-log` guarda los mensajes que surgen durante el proceso.
+- `2> asm1/hifiasm-log` guarda los mensajes que surgen durante el
+  proceso.
 
-::: callout-note
+::: {.callout-note icon="false"}
 ### Ejercicio 2
 
-Consulta la ayuda de `hifiasm` (`hifiasm -h`) y contesta las preguntas siguientes:
+Consulta la ayuda de `hifiasm` (`hifiasm -h`) y contesta las preguntas
+siguientes:
 
-1.  ¿Los parámetros corresponden al ensamblaje de un genoma haploide o diploide?
+1.  ¿Los parámetros corresponden al ensamblaje de un genoma haploide o
+    diploide?
 
-    Se corresponde a un genoma haploide. El parámetro `-f` indica la cobertura esperada en una región homocigota, pero al haber indicado que es 0 se asume que no hay regiones homocigotas porque es un genoma haploide.
+    Se corresponde a un genoma haploide. El parámetro `-f` indica la
+    cobertura esperada en una región homocigota, pero al haber indicado
+    que es 0 se asume que no hay regiones homocigotas porque es un
+    genoma haploide.
 
-2.  ¿Qué nivel de eliminación de duplicaciones hemos aplicado? (El paso de eliminar duplicaciones sirve para que las zonas de alta heterocigosidad no sean ensambladas como contigs diferentes).
+2.  ¿Qué nivel de eliminación de duplicaciones hemos aplicado? (El paso
+    de eliminar duplicaciones sirve para que las zonas de alta
+    heterocigosidad no sean ensambladas como contigs diferentes).
 
-    Esto se indica con el parámetro `-r`, pero como elimina repeticiones en zonas de alta heterocigosidad y tenemos un genoma haploide, no hay zonas heterocigotas, por lo que no es necesario.
+    Esto se indica con el parámetro `-r`, pero como elimina repeticiones
+    en zonas de alta heterocigosidad y tenemos un genoma haploide, no
+    hay zonas heterocigotas, por lo que no es necesario.
 
-3.  Si tuvieramos lecturas ultra-largas, ¿con qué opción o argumento añadiríamos esa información?
+3.  Si tuvieramos lecturas ultra-largas, ¿con qué opción o argumento
+    añadiríamos esa información?
 
-    Los parámetros `--ul FILEs`, `--ul-rate`, `--ul-tip`, `--path-max`, `--path-min` y `--ul-cut` sirven para añadir información sobre lecturas ultra-largas.
+    Los parámetros `--ul FILEs`, `--ul-rate`, `--ul-tip`, `--path-max`,
+    `--path-min` y `--ul-cut` sirven para añadir información sobre
+    lecturas ultra-largas.
 :::
 
 ## Evaluación del resultado
 
-::: callout-note
+::: {.callout-note icon="false"}
 ### Ejercicio 3
 
-Consulta la descripción de los archivos de salida que encontrarás en [este enlace](#0) y contesta las preguntas siguientes:
+Consulta la descripción de los archivos de salida que encontrarás en
+[este enlace](#0) y contesta las preguntas siguientes:
 
 1.  ¿Dónde están las secuencias que componen el ensamblaje?
 
-    El archivo `At4.bp.p_ctg.gfa` de la carpeta `asm1` contiene el ensamblaje de los contigs.
+    El archivo `At4.bp.p_ctg.gfa` de la carpeta `asm1` contiene el
+    ensamblaje de los contigs.
 
 2.  En los archivos `.gfa`, ¿qué son las líneas que empiezan por ‘A’?
 
-    Las líneas que empiezan por 'A' proporcionan información sobre las lecturas utilizadas para construir un contig alineado con la lectura original.
+    Las líneas que empiezan por 'A' proporcionan información sobre las
+    lecturas utilizadas para construir un contig alineado con la lectura
+    original.
 
 3.  ¿Qué información tiene los archivos `.bed`?
 
@@ -100,11 +136,15 @@ Consulta la descripción de los archivos de salida que encontrarás en [este enl
 
 4.  ¿Cuál es la cobertura media estimada de las secuencias homocigotas?
 
-    En el archivo `hifiasm.log` se especifica que la cobertura media estimada para las secuencias homocigotas es 12.
+    En el archivo `hifiasm.log` se especifica que la cobertura media
+    estimada para las secuencias homocigotas es 12.
 
 5.  ¿Y la de las heterocigotas?
 
-    Como el genoma era haploide no podemos estimar la cobertura de las regiones heterocigotas. En el archivo `hifiasm.log` se representan las curvas de frecuencia de k-meros, en las que se observa un solo pico, lo que confirma que no hay regiones heterocigotas.
+    Como el genoma era haploide no podemos estimar la cobertura de las
+    regiones heterocigotas. En el archivo `hifiasm.log` se representan
+    las curvas de frecuencia de k-meros, en las que se observa un solo
+    pico, lo que confirma que no hay regiones heterocigotas.
 :::
 
 Podemos extraer los ensamblajes en formato fasta de la siguiente manera:
@@ -128,14 +168,18 @@ if [ ! -e asm1_eval/summary.txt ]; then
 fi
 ```
 
-::: callout-note
+::: {.callout-note icon="false"}
 ### Ejercicio 4
 
-Consulta la ayuda de `compleasm.py` y averigua qué significan los argumentos utilizados.
+Consulta la ayuda de `compleasm.py` y averigua qué significan los
+argumentos utilizados.
 
-- `-t 2`: Indica el número de procesadores que debe utilizar el programa para acelerar el análisis.
+- `-t 2`: Indica el número de procesadores que debe utilizar el programa
+  para acelerar el análisis.
 
-- `-l brassicales`: Es el orden al que pertenece Arabidopsis thaliana. Indica al programa en qué grupo debe buscar los genes para evaluar la calidad del ensamblaje.
+- `-l brassicales`: Es el orden al que pertenece Arabidopsis thaliana.
+  Indica al programa en qué grupo debe buscar los genes para evaluar la
+  calidad del ensamblaje.
 
 - `-a asm1/At4.fa`: Archivo de entrada.
 
@@ -144,12 +188,15 @@ Consulta la ayuda de `compleasm.py` y averigua qué significan los argumentos ut
 
 ### Visualización del grafo
 
-Para visualizar ensamblajes como grafos de fragmentos a partir de archivos `.gfa` podemos usar el visualizador `bandage`.
+Para visualizar ensamblajes como grafos de fragmentos a partir de
+archivos `.gfa` podemos usar el visualizador `bandage`.
 
-::: callout-note
+::: {.callout-note icon="false"}
 ## Ejercicio 5
 
-Instala `bandage`, carga el grafo del ensamblaje realizado y genera una figura. Puedes añadir la figura al informe HTML mediante la [sitaxis siguiente](#0):
+Instala `bandage`, carga el grafo del ensamblaje realizado y genera una
+figura. Puedes añadir la figura al informe HTML mediante la [sitaxis
+siguiente](#0):
 
 ![Grafo del ensamplaje](graph.png)
 :::

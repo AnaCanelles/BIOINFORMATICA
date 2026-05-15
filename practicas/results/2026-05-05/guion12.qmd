@@ -1,14 +1,30 @@
 ---
 title: "Práctica 12: Análisis de expresión diferencial"
-format: 
-    html:
+lang: es
+date: today
+execute: 
+  output: true
+  error: true
+engine: knitr
+bibliography: ../../doc/references.bib
+language:
+   title-block-published: "Última actualización:"
+   section-title-references: "Bibliografía"
+format:
+   html:
       embed-resources: true
-knitr: true
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 ## Exploración de los datos
 
-Primero importamos los datos de RNA-seq de lecturas emparejadas de muestras de *Drosophila melanogaster*, de dos orígenes distintos (Panamá y Maine) y con dos tratamientos de temperatura (*low* y *high*). También necesitamos el archivo que indica el origen y tratamiento de cada muestra.
+Primero importamos los datos de RNA-seq de lecturas emparejadas de
+muestras de *Drosophila melanogaster*, de dos orígenes distintos (Panamá
+y Maine) y con dos tratamientos de temperatura (*low* y *high*). También
+necesitamos el archivo que indica el origen y tratamiento de cada
+muestra.
 
 ```{r}
 muestras <- read.table('../../data/2026-05-05/dme_elev_samples.tsv', header = TRUE)
@@ -16,12 +32,14 @@ genex <- read.table('../../data/2026-05-05/salmon.merged.gene_counts.tsv',
                     header = TRUE)
 ```
 
-::: callout-note
+::: {.callout-note icon="false"}
 ## Ejercicio 1
 
-Recuerda dejar constancia en un bloque de código de cómo obtienes las respuestas.
+Recuerda dejar constancia en un bloque de código de cómo obtienes las
+respuestas.
 
-1.  Usa la función `paste()` para añadir una columna a `muestras` que contenga la población y la temperatura unidas por `_`.
+1.  Usa la función `paste()` para añadir una columna a `muestras` que
+    contenga la población y la temperatura unidas por `_`.
 
     ```{r}
     muestras$pop_temp <- paste(muestras$population, muestras$temp, sep = "_")
@@ -47,9 +65,11 @@ Recuerda dejar constancia en un bloque de código de cómo obtienes las respuest
     boxplot(log10(distribucion + 1))
     ```
 
-    Los recuentos tienen distribuciones muy similares, ya que la media y varianza de cada muestra se parecen bastante.
+    Los recuentos tienen distribuciones muy similares, ya que la media y
+    varianza de cada muestra se parecen bastante.
 
-4.  ¿Cuántos genes no se expresan en absoluto en ninguna de las muestras?
+4.  ¿Cuántos genes no se expresan en absoluto en ninguna de las
+    muestras?
 
     ```{r}
     sum(rowSums(genex[, 3:ncol(genex)]) == 0)
@@ -62,7 +82,10 @@ Recuerda dejar constancia en un bloque de código de cómo obtienes las respuest
 
 ## Crear el objeto de clase `DESeqDataSet`
 
-Para crear un objeto de `DESeqDataSet` necesitamos que las filas de `muestras` estén en el mismo orden que las columnas de `genex`. Además, la función `DESeqDataSetFromMatrix()` necesita que los recuentos sean una matriz, no un marco de datos, y que `muestras` haya factores.
+Para crear un objeto de `DESeqDataSet` necesitamos que las filas de
+`muestras` estén en el mismo orden que las columnas de `genex`. Además,
+la función `DESeqDataSetFromMatrix()` necesita que los recuentos sean
+una matriz, no un marco de datos, y que `muestras` haya factores.
 
 ```{r}
 #| message: false
@@ -97,15 +120,18 @@ dds1 <- DESeqDataSetFromMatrix(
 dds1
 ```
 
-::: callout-important
+::: callout-note
 ## Nota
 
-Los objetos `DESeqDataSet` pueden contener información sobre las coordenadas cromosómicas de los genes o tránscritos, si se construyen a partir de otro tipo de datos.
+Los objetos `DESeqDataSet` pueden contener información sobre las
+coordenadas cromosómicas de los genes o tránscritos, si se construyen a
+partir de otro tipo de datos.
 :::
 
 ## Pre-filtrado
 
-Como hemos visto que una parte importante de los genes no se expresa en ninguna de las muestras podemos eliminarlos:
+Como hemos visto que una parte importante de los genes no se expresa en
+ninguna de las muestras podemos eliminarlos:
 
 ```{r}
 keep <- rowSums(counts(dds1)) > 0
@@ -114,7 +140,8 @@ dds1 <- dds1[keep, ]
 
 ## Expresión diferencial
 
-La función `DESeq()` produce un objeto de clase `DESeqDataSet` pero con resultados añadidos.
+La función `DESeq()` produce un objeto de clase `DESeqDataSet` pero con
+resultados añadidos.
 
 ```{r}
 dds1 <- DESeq(dds1)
@@ -126,30 +153,43 @@ res <- results(dds1)
 res
 ```
 
-Si no le indicamos lo contrario, la función `results()` compara los resultados del último nivel y el de referencia del último factor en la tabla que describe las muestras. En este caso, está comparando los datos de `temp`, y los datos representan la relación entre los niveles de expresión de `high` con respecto a los de `low`.
+Si no le indicamos lo contrario, la función `results()` compara los
+resultados del último nivel y el de referencia del último factor en la
+tabla que describe las muestras. En este caso, está comparando los datos
+de `temp`, y los datos representan la relación entre los niveles de
+expresión de `high` con respecto a los de `low`.
 
-::: callout-note
+::: {.callout-note icon="false"}
 ## Ejercicio 3
 
-1.  Mira la ayuda de `results()` y genera también la tabla de resultados para el contraste entre las dos regiones de procedencia de las moscas.
+1.  Mira la ayuda de `results()` y genera también la tabla de resultados
+    para el contraste entre las dos regiones de procedencia de las
+    moscas.
 
     ```{r}
     res2 <- results(dds1, contrast = c('population', 'panama', 'maine'))
     res2
     ```
 
-2.  Usa `summary()` sobre los resultados para ver el número de genes diferencialmente expresados entre cada par de condiciones.
+2.  Usa `summary()` sobre los resultados para ver el número de genes
+    diferencialmente expresados entre cada par de condiciones.
 
     ```{r}
     summary(res)
     summary(res2)
     ```
 
-    En total, hay 4754 genes expresados diferencialmente en las muestras de temperatura y 1257 genes en las de localización. Por tanto, podemos concluir que la temperatura afecta más que la localización a la expresión génica en estas muestras.
+    En total, hay 4754 genes expresados diferencialmente en las muestras
+    de temperatura y 1257 genes en las de localización. Por tanto,
+    podemos concluir que la temperatura afecta más que la localización a
+    la expresión génica en estas muestras.
 
 3.  ¿Cuál es la tasa de falsos positivos (FDR)?
 
-    Para calcular la tasa de falsos positivos dividimos el total de genes diferencialmente expresados según cada tratamiento (localización o temperatura) y los multiplicamos entre el umbral de p-valor seleccionado. :
+    Para calcular la tasa de falsos positivos dividimos el total de
+    genes diferencialmente expresados según cada tratamiento
+    (localización o temperatura) y los multiplicamos entre el umbral de
+    p-valor seleccionado. :
 
     ```{r}
     # Para el caso de temperatura:
@@ -167,7 +207,10 @@ Si no le indicamos lo contrario, la función `results()` compara los resultados 
 plotMA(res)
 ```
 
-Los genes con menor expresión (mayor varianza) producen resultados más ruidosos, pero con la función `lfcShrink` se pueden contraer las estimaciones de los efectos para reducir el ruido y hacer el resultado más realista:
+Los genes con menor expresión (mayor varianza) producen resultados más
+ruidosos, pero con la función `lfcShrink` se pueden contraer las
+estimaciones de los efectos para reducir el ruido y hacer el resultado
+más realista:
 
 ```{r}
 #| message: false
@@ -176,7 +219,7 @@ resShrink <- lfcShrink(dds1, coef = 'temp_high_vs_low',
 plotMA(resShrink)
 ```
 
-::: callout-note
+::: {.callout-note icon="false"}
 ## Ejercicio 4
 
 ¿Sabrías hacer una gráfica volcán?
@@ -197,7 +240,9 @@ ggplot(data = res_volcan, mapping = aes(x = log2FoldChange, y = - log10(padj), c
 
 ## Extraer datos transformados
 
-No es necesario tener los datos normalizados para utilizar la función `DESeq()`, pero sí es recomendable hacerlo para representarlos gráficamente:
+No es necesario tener los datos normalizados para utilizar la función
+`DESeq()`, pero sí es recomendable hacerlo para representarlos
+gráficamente:
 
 ```{r}
 dds2 <- vst(dds1)
@@ -212,27 +257,35 @@ heatmap(NormCounts[c(head(row.names(res), 100),
         Rowv = NA, Colv = NA)
 ```
 
-::: callout-note
+::: {.callout-note icon="false"}
 ## Ejercicio 5
 
 ¿Podrías explicar qué hace el bloque de código anterior?
 
-En primer lugar se han eliminado los genes que no tienen ningún dato de p-valor (NA), y después se han ordenado en función del `log2FoldChange`, es decir, según su cambio de expresión. Después se ha creado el heatmap con los 100 primeros y los 100 últimos.
+En primer lugar se han eliminado los genes que no tienen ningún dato de
+p-valor (NA), y después se han ordenado en función del `log2FoldChange`,
+es decir, según su cambio de expresión. Después se ha creado el heatmap
+con los 100 primeros y los 100 últimos.
 :::
 
-::: callout-note
+::: {.callout-note icon="false"}
 ## Ejercicio 6
 
-En [este enlace](#0) analizan exactamente los mismos datos con otro paquete de R: `limma`. Una de sus conclusiones es que se sobreexpresan más genes en temperatura baja que en temperatura alta. ¿Confirma tu análisis esta conclusión?
+En [este enlace](#0) analizan exactamente los mismos datos con otro
+paquete de R: `limma`. Una de sus conclusiones es que se sobreexpresan
+más genes en temperatura baja que en temperatura alta. ¿Confirma tu
+análisis esta conclusión?
 
 ```{r}
 head(res$log2FoldChange)
 tail(res$log2FoldChange)
 ```
 
-Viendo los valores de `log2FoldChange` de nuestros datos podemos confirmar que hay más sobreexpresión a temperaturas bajas que altas.
+Viendo los valores de `log2FoldChange` de nuestros datos podemos
+confirmar que hay más sobreexpresión a temperaturas bajas que altas.
 
-Estos son los 10 genes más diferencialmente expresados según aquel análisis entre las condiciones de baja y alta temperatura:
+Estos son los 10 genes más diferencialmente expresados según aquel
+análisis entre las condiciones de baja y alta temperatura:
 
 ```         
                    logFC  AveExpr         t      P.Value    adj.P.Val        B
@@ -251,5 +304,6 @@ rownames(head(res, 10))
 rownames(tail(res, 10))
 ```
 
-Los genes que más se sobreexpresan en nuestros datos no coinciden con los obtenidos con `limma`.
+Los genes que más se sobreexpresan en nuestros datos no coinciden con
+los obtenidos con `limma`.
 :::

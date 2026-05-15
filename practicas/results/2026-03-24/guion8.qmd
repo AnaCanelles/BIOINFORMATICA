@@ -1,17 +1,38 @@
 ---
 title: "Práctica 8: BLAST"
-format: 
-    html:
+lang: es
+date: today
+execute: 
+  output: true
+  error: true
+engine: knitr
+bibliography: ../../doc/references.bib
+language:
+   title-block-published: "Última actualización:"
+   section-title-references: "Bibliografía"
+format:
+   html:
       embed-resources: true
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 ## Ejercicio 1. Identificación aproximada de ortólogos
 
-Los genes ortólogos son copias de un gen producidas por la divergencia de especies que descienden de un ancestro común. Si estas dos copias surgen por duplicación en una misma especies son parálogas entre ellas. Para estudiar la filogenia de especies se usan proteínas ortólogas, que permiten estudiar el tiempo que ha pasado desde la divergencia.
+Los genes ortólogos son copias de un gen producidas por la divergencia
+de especies que descienden de un ancestro común. Si estas dos copias
+surgen por duplicación en una misma especies son parálogas entre ellas.
+Para estudiar la filogenia de especies se usan proteínas ortólogas, que
+permiten estudiar el tiempo que ha pasado desde la divergencia.
 
-Para identificar si dos genes son ortólogos podemos combrobar si son su mejor resultado de BLAST mutuamente. En este ejercicio vamos a comparar los proteomas de *Buchnera aphidicola* (107806) y *Blochmannia ocreatus* (251538) y buscar proteínas ortólogas.
+Para identificar si dos genes son ortólogos podemos combrobar si son su
+mejor resultado de BLAST mutuamente. En este ejercicio vamos a comparar
+los proteomas de *Buchnera aphidicola* (107806) y *Blochmannia ocreatus*
+(251538) y buscar proteínas ortólogas.
 
-En primer lugar descargamos las secuencias de ambas especies desde [uniprot](https://www.uniprot.org/proteomes/).
+En primer lugar descargamos las secuencias de ambas especies desde
+[uniprot](https://www.uniprot.org/proteomes/).
 
 ### Enmascarar e indexar los proteomas
 
@@ -57,7 +78,11 @@ fi
 
 ### Búsqueda de BLASTP
 
-Para saber cuál es la proteína ortóloga de estas dos especies buscamos la proteína de *Blochmannia ocreatus* que más se parezca a las de *Buchnera aphidicola* y viceversa. De esta manera obtenemos una lista de proteínas que son recíprocamente las más similares de una especie a la otra, y estas son las más probables de ser ortólogas.
+Para saber cuál es la proteína ortóloga de estas dos especies buscamos
+la proteína de *Blochmannia ocreatus* que más se parezca a las de
+*Buchnera aphidicola* y viceversa. De esta manera obtenemos una lista de
+proteínas que son recíprocamente las más similares de una especie a la
+otra, y estas son las más probables de ser ortólogas.
 
 #### De ***Buchnera aphidicola*** **hacia *Blochmannia ocreatus***
 
@@ -81,29 +106,42 @@ blastp -query ../../data/2026-03-24/blochmannia.fa \
        -max_target_seqs 1
 ```
 
-De esta manera obtenemos para el proteoma de cada especie una tabla en la que se relaciona cada proteína con la más similar de la otra especie. Algunas proteínas pueden tener más de un hit en la otra especie, así que tenemos que buscar las que tienen mayor coincidencia mutuamente, que serán las ortólogas.
+De esta manera obtenemos para el proteoma de cada especie una tabla en
+la que se relaciona cada proteína con la más similar de la otra especie.
+Algunas proteínas pueden tener más de un hit en la otra especie, así que
+tenemos que buscar las que tienen mayor coincidencia mutuamente, que
+serán las ortólogas.
 
 ::: {.callout-note appearance="simple"}
 #### Nota
 
-Revisa los argumentos utilizados, prueba otros si quieres y asegúrate de que son adecuados. Puedes consultar la ayuda con `blastp -help` en el terminal.
+Revisa los argumentos utilizados, prueba otros si quieres y asegúrate de
+que son adecuados. Puedes consultar la ayuda con `blastp -help` en el
+terminal.
 
 `-query` identifica el archivo de entrada
 
-`-db` indica la base de datos con la que se compara el archivo de entrada
+`-db` indica la base de datos con la que se compara el archivo de
+entrada
 
 `-out` da nombre al archivo de salida
 
-`-outfmt` indica el formato que tendrá la tabla de salida y que información contiene cada columna
+`-outfmt` indica el formato que tendrá la tabla de salida y que
+información contiene cada columna
 
-`-evalue` designa un valor límite a partir del cuál se guardan las coincidencias (0.001 en este caso)
+`-evalue` designa un valor límite a partir del cuál se guardan las
+coincidencias (0.001 en este caso)
 
-`-max_target_seqs` define el número máximo de secuencias alineadas que queremos guardar (1 en este caso)
+`-max_target_seqs` define el número máximo de secuencias alineadas que
+queremos guardar (1 en este caso)
 :::
 
 ### Comparación de resultados
 
-A continuación creamos una tabla en R a partir de los archivos que acabamos de obtener con las comparaciones de proteomas. En las tablas de buc2blo y blo2buc se compara cada proteina de una especie con la de mejor coincidencia de la otra.
+A continuación creamos una tabla en R a partir de los archivos que
+acabamos de obtener con las comparaciones de proteomas. En las tablas de
+buc2blo y blo2buc se compara cada proteina de una especie con la de
+mejor coincidencia de la otra.
 
 ```{r}
 buc2blo <- read.table(
@@ -121,9 +159,18 @@ blo2buc <- read.table(
 ::: {.callout-note icon="false"}
 #### Nota
 
-Echa un vistazo a estas tablas de resultados. ¿Sabrías identificar las parejas de proteínas que son recíprocamente la que más se parece una a la otra?
+Echa un vistazo a estas tablas de resultados. ¿Sabrías identificar las
+parejas de proteínas que son recíprocamente la que más se parece una a
+la otra?
 
-Añadimos a `buc2blo` una nueva columna llamada `reverse` con el nombre de la mejor coincidencia de la tabla `blo2buc` con la función `match`. De esta manera, comparamos si la mejor coincidencia de *Buchnera* a *Blochannia* es la misma que de *Blochmannia* a *Buchnera*. Después comparamos si la mejor coincidencia de *Buchnera* a *Blochmannia* es la misma que de *Blochmannia* a *Buchnera* y extraemos todas estas coincidencias a una nueva tabla, que contiene las posibles proteínas ortólogas.
+Añadimos a `buc2blo` una nueva columna llamada `reverse` con el nombre
+de la mejor coincidencia de la tabla `blo2buc` con la función `match`.
+De esta manera, comparamos si la mejor coincidencia de *Buchnera* a
+*Blochannia* es la misma que de *Blochmannia* a *Buchnera*. Después
+comparamos si la mejor coincidencia de *Buchnera* a *Blochmannia* es la
+misma que de *Blochmannia* a *Buchnera* y extraemos todas estas
+coincidencias a una nueva tabla, que contiene las posibles proteínas
+ortólogas.
 
 ```{r}
 buc2blo$reverse <- blo2buc[
@@ -139,7 +186,10 @@ coincidencias <- buc2blo[
 
 ## Ejercicio 2. PSI-BLAST
 
-En este ejercicio vamos a usar PSI-BLAST para identificar proteínas de una superfamilia pero que están alejadas. En este caso sus semejanzas son tan sutiles que no se encuentran con BLASTP, por eso necesitamos PSI-BLASTP.
+En este ejercicio vamos a usar PSI-BLAST para identificar proteínas de
+una superfamilia pero que están alejadas. En este caso sus semejanzas
+son tan sutiles que no se encuentran con BLASTP, por eso necesitamos
+PSI-BLASTP.
 
 ### P39615
 
@@ -177,24 +227,41 @@ psiblast -db ../../data/2026-03-24/swissprot \
 ::: {.callout-note icon="false"}
 #### Nota
 
-Consulta la ayuda de `psiblast` y asegúrate de entender para qué sirven los argumentos que hemos usado. Por ejemplo, ¿cuál es la diferencia entre `-evalue` y `-inclusion_ethresh`? ¿Cómo harías que la búsqueda fuera más sensible todavía?
+Consulta la ayuda de `psiblast` y asegúrate de entender para qué sirven
+los argumentos que hemos usado. Por ejemplo, ¿cuál es la diferencia
+entre `-evalue` y `-inclusion_ethresh`? ¿Cómo harías que la búsqueda
+fuera más sensible todavía?
 
-`-evalue`controla el umbral de significancia para filtrar qué alineamientos se muestran en el reporte final, es decir, de los resultados encontrados solo se muestran aquellos que tienen un E-valor igual o menor que el indicado. El valor que hemos usado es de 0,1, que es más estricto.
+`-evalue`controla el umbral de significancia para filtrar qué
+alineamientos se muestran en el reporte final, es decir, de los
+resultados encontrados solo se muestran aquellos que tienen un E-valor
+igual o menor que el indicado. El valor que hemos usado es de 0,1, que
+es más estricto.
 
-`-inclusion_ethresh` controla las secuencias que se usan para construir la matriz, por lo que establece un límite sobre las secuencias que van a utilizarse. Define la evolución del perfil entre iteraciones. El valor que hemos usado, 7, es muy poco estricto.
+`-inclusion_ethresh` controla las secuencias que se usan para construir
+la matriz, por lo que establece un límite sobre las secuencias que van a
+utilizarse. Define la evolución del perfil entre iteraciones. El valor
+que hemos usado, 7, es muy poco estricto.
 
-Para aumentar la sensibilidad de la búsqueda podemos reducir el valor de `-inclusion_ethresh`, o incluso cambiar la matriz utilizada (en este caso BLOSUM62).
+Para aumentar la sensibilidad de la búsqueda podemos reducir el valor de
+`-inclusion_ethresh`, o incluso cambiar la matriz utilizada (en este
+caso BLOSUM62).
 :::
 
 ## Ejercicio 3. Origen en un archivo FASTQ
 
-El objetivo de este ejercicio es determinar si las lecturas no mapeadas de *Aphis aurantii* proceden del su genoma pero no se han podido mapear porque la referencia está incompleta o si son contaminantes y tienen un origen taxonómico distinto.
+El objetivo de este ejercicio es determinar si las lecturas no mapeadas
+de *Aphis aurantii* proceden del su genoma pero no se han podido mapear
+porque la referencia está incompleta o si son contaminantes y tienen un
+origen taxonómico distinto.
 
 ### Selección aleatoria de 20 queries
 
-Escogemos 20 queries al azar de entre las 33174 lecturas del archivo para no sobrecargar el servidor remoto.
+Escogemos 20 queries al azar de entre las 33174 lecturas del archivo
+para no sobrecargar el servidor remoto.
 
 ```{r}
+#| message: false
 library('Biostrings')
 unmapped <- readDNAStringSet('../../data/2026-03-24/contaminacion.fa.gz')
 n <- length(unmapped)
@@ -220,7 +287,9 @@ fi
 
 ### Identificación taxonómica
 
-Una vez tenemos el identificador taxonómico, con los programas `datasets` y `dataformat` podemos ver a qué especie pertenecen los identificadores.
+Una vez tenemos el identificador taxonómico, con los programas
+`datasets` y `dataformat` podemos ver a qué especie pertenecen los
+identificadores.
 
 ```{bash}
 # Extraemos los identificadores taxonómicos (columna 9) de "resultado.txt":
@@ -231,4 +300,5 @@ datasets summary taxonomy taxon $(cat taxids.txt) --as-json-lines | \
 dataformat tsv taxonomy --template tax-summary > taxreport.txt
 ```
 
-Al observar el documento generado vemos que una de las lecturas no mapeadas no es de la misma especie que el genoma de referencia.
+Al observar el documento generado vemos que una de las lecturas no
+mapeadas no es de la misma especie que el genoma de referencia.
