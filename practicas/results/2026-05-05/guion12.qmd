@@ -3,9 +3,12 @@ title: "Práctica 12: Análisis de expresión diferencial"
 format: 
     html:
       embed-resources: true
+knitr: true
 ---
 
 ## Exploración de los datos
+
+Primero importamos los datos de RNA-seq de lecturas emparejadas de muestras de *Drosophila melanogaster*, de dos orígenes distintos (Panamá y Maine) y con dos tratamientos de temperatura (*low* y *high*). También necesitamos el archivo que indica el origen y tratamiento de cada muestra.
 
 ```{r}
 muestras <- read.table('../../data/2026-05-05/dme_elev_samples.tsv', header = TRUE)
@@ -44,6 +47,8 @@ Recuerda dejar constancia en un bloque de código de cómo obtienes las respuest
     boxplot(log10(distribucion + 1))
     ```
 
+    Los recuentos tienen distribuciones muy similares, ya que la media y varianza de cada muestra se parecen bastante.
+
 4.  ¿Cuántos genes no se expresan en absoluto en ninguna de las muestras?
 
     ```{r}
@@ -51,9 +56,13 @@ Recuerda dejar constancia en un bloque de código de cómo obtienes las respuest
     f <- rowSums(genex[, 3:ncol(genex)]) > 0
     genex_f <- genex[f, ]
     ```
+
+    Hay 4722 genes que no se expresan en ninguna muestra.
 :::
 
 ## Crear el objeto de clase `DESeqDataSet`
+
+Para crear un objeto de `DESeqDataSet` necesitamos que las filas de `muestras` estén en el mismo orden que las columnas de `genex`. Además, la función `DESeqDataSetFromMatrix()` necesita que los recuentos sean una matriz, no un marco de datos, y que `muestras` haya factores.
 
 ```{r}
 suppressMessages(library('DESeq2'))
@@ -95,6 +104,8 @@ Los objetos `DESeqDataSet` pueden contener información sobre las coordenadas cr
 
 ## Pre-filtrado
 
+Como hemos visto que una parte importante de los genes no se expresa en ninguna de las muestras podemos eliminarlos:
+
 ```{r}
 keep <- rowSums(counts(dds1)) > 0
 dds1 <- dds1[keep, ]
@@ -102,15 +113,19 @@ dds1 <- dds1[keep, ]
 
 ## Expresión diferencial
 
+La función `DESeq()` produce un objeto de clase `DESeqDataSet` pero con resultados añadidos.
+
 ```{r}
 dds1 <- DESeq(dds1)
-# aplica size factors, estima la dispersión y aplica los tests estadísticos
+# Estima los size factors y la dispersión, y aplica los tests estadísticos
 ```
 
 ```{r}
 res <- results(dds1)
 res
 ```
+
+Si no le indicamos lo contrario, la función `results()` compara los resultados del último nivel y el de referencia del último factor en la tabla que describe las muestras. En este caso, está comparando los datos de `temp`, y los datos representan la relación entre los niveles de expresión de `high` con respecto a los de `low`.
 
 ::: callout-note
 ## Ejercicio 3
@@ -129,12 +144,19 @@ res
     summary(res2)
     ```
 
-    La temperatura afecta más a la expresión que la localización
+    En total, hay 4754 genes expresados diferencialmente en las muestras de temperatura y 1257 genes en las de localización. Por tanto, podemos concluir que la temperatura afecta más que la localización a la expresión génica en estas muestras.
 
 3.  ¿Cuál es la tasa de falsos positivos (FDR)?
 
-    ```{r}
+    Para calcular la tasa de falsos positivos dividimos el total de genes diferencialmente expresados según cada tratamiento (localización o temperatura) y los multiplicamos entre el umbral de p-valor seleccionado. :
 
+    ```{r}
+    # Para el caso de temperatura:
+    FDR1 <- (2418 + 2336) * 0.1
+    FDR1
+    # Para el caso de localización:
+    FDR2 <- (623 + 634) * 0.1
+    FDR2
     ```
 :::
 
@@ -144,7 +166,10 @@ res
 plotMA(res)
 ```
 
+Los genes con menor expresión (mayor varianza) producen resultados más ruidosos, pero con la función `lfcShrink` se pueden contraer las estimaciones de los efectos para reducir el ruido y hacer el resultado más realista:
+
 ```{r}
+#| message: false
 resShrink <- lfcShrink(dds1, coef = 'temp_high_vs_low',
                        type = 'normal')
 plotMA(resShrink)
@@ -154,6 +179,20 @@ plotMA(resShrink)
 ## Ejercicio 4
 
 ¿Sabrías hacer una gráfica volcán?
+
+```{r}
+#| warning: false
+res_volcan <- as.data.frame(res)
+res_volcan$sign <- "Expresión normal"
+res_volcan$sign[res_volcan$padj < 0.1 & res_volcan$log2FoldChange > 1] <- "Sobreexpresado"
+res_volcan$sign[res_volcan$padj < 0.1 & res_volcan$log2FoldChange < -1] <- "Infraexpresado"
+
+ggplot(data = res_volcan, mapping = aes(x = log2FoldChange, y = - log10(padj), color = sign)) +
+  geom_point() +
+  geom_abline(intercept = - log10(0.1), slope = 0, linetype = 2, color = "grey") +
+  geom_vline(xintercept = c(-1, 1), linetype = 2, color = "grey") +
+  scale_color_manual(values = c("Expresión normal" = "grey", "Sobreexpresado" = "red", "Infraexpresado" = "blue"))
+```
 :::
 
 ## Extraer datos transformados
