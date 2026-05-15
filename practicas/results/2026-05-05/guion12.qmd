@@ -65,7 +65,8 @@ Recuerda dejar constancia en un bloque de código de cómo obtienes las respuest
 Para crear un objeto de `DESeqDataSet` necesitamos que las filas de `muestras` estén en el mismo orden que las columnas de `genex`. Además, la función `DESeqDataSetFromMatrix()` necesita que los recuentos sean una matriz, no un marco de datos, y que `muestras` haya factores.
 
 ```{r}
-suppressMessages(library('DESeq2'))
+#| message: false
+library(DESeq2)
 all(names(genex)[3:14] == muestras$sample)
 ```
 
@@ -184,18 +185,19 @@ plotMA(resShrink)
 #| warning: false
 res_volcan <- as.data.frame(res)
 res_volcan$sign <- "Expresión normal"
-res_volcan$sign[res_volcan$padj < 0.1 & res_volcan$log2FoldChange > 1] <- "Sobreexpresado"
-res_volcan$sign[res_volcan$padj < 0.1 & res_volcan$log2FoldChange < -1] <- "Infraexpresado"
+res_volcan$sign[res_volcan$padj < 0.1 & res_volcan$log2FoldChange > 0] <- "Sobreexpresado"
+res_volcan$sign[res_volcan$padj < 0.1 & res_volcan$log2FoldChange < 0] <- "Infraexpresado"
 
 ggplot(data = res_volcan, mapping = aes(x = log2FoldChange, y = - log10(padj), color = sign)) +
   geom_point() +
   geom_abline(intercept = - log10(0.1), slope = 0, linetype = 2, color = "grey") +
-  geom_vline(xintercept = c(-1, 1), linetype = 2, color = "grey") +
   scale_color_manual(values = c("Expresión normal" = "grey", "Sobreexpresado" = "red", "Infraexpresado" = "blue"))
 ```
 :::
 
 ## Extraer datos transformados
+
+No es necesario tener los datos normalizados para utilizar la función `DESeq()`, pero sí es recomendable hacerlo para representarlos gráficamente:
 
 ```{r}
 dds2 <- vst(dds1)
@@ -214,12 +216,21 @@ heatmap(NormCounts[c(head(row.names(res), 100),
 ## Ejercicio 5
 
 ¿Podrías explicar qué hace el bloque de código anterior?
+
+En primer lugar se han eliminado los genes que no tienen ningún dato de p-valor (NA), y después se han ordenado en función del `log2FoldChange`, es decir, según su cambio de expresión. Después se ha creado el heatmap con los 100 primeros y los 100 últimos.
 :::
 
 ::: callout-note
 ## Ejercicio 6
 
-En [este enlace](#0) analizan exactamente los mismos datos con otro paquete de R: `limma`. Una de sus conclusiones es se sobreexpresan más genes en temperatura baja que en temperatura alta. ¿Confirma tu análisis esta conclusión?
+En [este enlace](#0) analizan exactamente los mismos datos con otro paquete de R: `limma`. Una de sus conclusiones es que se sobreexpresan más genes en temperatura baja que en temperatura alta. ¿Confirma tu análisis esta conclusión?
+
+```{r}
+head(res$log2FoldChange)
+tail(res$log2FoldChange)
+```
+
+Viendo los valores de `log2FoldChange` de nuestros datos podemos confirmar que hay más sobreexpresión a temperaturas bajas que altas.
 
 Estos son los 10 genes más diferencialmente expresados según aquel análisis entre las condiciones de baja y alta temperatura:
 
@@ -234,4 +245,11 @@ Acp1            2.231834 7.638125  17.79441 2.089853e-11 3.997808e-08 16.54909
 ```
 
 ¿Cómo se comparan estos resultados con los tuyos?
+
+```{r}
+rownames(head(res, 10))
+rownames(tail(res, 10))
+```
+
+Los genes que más se sobreexpresan en nuestros datos no coinciden con los obtenidos con `limma`.
 :::
